@@ -34,6 +34,7 @@ public class GameplayState extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         Start.setHEIGHT(gc.getHeight());
         Start.setWIDTH(gc.getWidth());
+        
         player.update(gc, sbg, delta);
 
         tick += delta;

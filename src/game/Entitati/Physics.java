@@ -1,6 +1,7 @@
 package game.Entitati;
 
 import game.GamePlay.GameplayState;
+import game.World.WorldMap;
 
 import org.newdawn.slick.geom.Rectangle;
 
@@ -13,7 +14,7 @@ public class Physics {
     protected Rectangle poly;
 
     public boolean colid() {
-        for( int i = 0; i < GameplayState.getWorldMap().getBlocks().size(); i++ ) {
+        for( int i = 0; i < WorldMap.getBlocks().size(); i++ ) {
             if( poly.intersects(GameplayState.getWorldMap().getBlock(i)) ) {
                 return true ;
             }
