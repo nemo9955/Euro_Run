@@ -5,6 +5,7 @@ import game.Entitati.Player;
 import game.Extra.Camera;
 import game.World.WorldMap;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -44,6 +45,7 @@ public class GameplayState extends BasicGameState {
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+        g.setBackground(Color.lightGray);
         camera.translate(g, player);
         world.render(gc, sbg, g);
         player.render(gc, sbg, g);

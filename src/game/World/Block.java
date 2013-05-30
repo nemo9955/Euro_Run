@@ -7,43 +7,45 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Block {
-    
-    protected float x , y ;
-    protected boolean solid ;
-    protected boolean exists ;
-    protected Rectangle zon ;
-    
-    public Block(int x , int y){
-        this.x=x;
-        this.y=y;
+
+    protected float x, y;
+    protected boolean solid;
+    protected boolean exists;
+    protected Rectangle zon;
+
+    public Block(int x, int y) {
+        this.x = x;
+        this.y = y;
         Exist();
         Solid();
         Zon();
     }
-    
+
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
-        
-        
-        
+
+        if( zon.getX() <= WorldMap.getEndgen() ) {
+            WorldMap.getBlocks().remove(this);
+        }
+
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
-        
+
         g.setColor(Color.red);
         g.draw(zon);
-        
+
     }
 
     protected void Zon() {
-        zon=null;
+        zon = null;
     }
 
     protected void Solid() {
-        solid=false;
+        solid = false;
     }
 
     protected void Exist() {
-        exists=false;
+        exists = false;
     }
 
     public void modX(float x) {
@@ -57,7 +59,7 @@ public class Block {
     }
 
     //                getters
-    
+
     public float getX() {
         return x;
     }
@@ -80,10 +82,12 @@ public class Block {
 
     public void setX(float x) {
         this.x = x;
+        zon.setX(this.x);
     }
 
     public void setY(float y) {
         this.y = y;
+        zon.setY(this.y);
     }
 
     public void setSolid(boolean solid) {
@@ -97,9 +101,5 @@ public class Block {
     public void setZon(Rectangle zon) {
         this.zon = zon;
     }
-    
-    
-    
-    
 
 }

@@ -1,7 +1,5 @@
 package game.World;
 
-import game.Start;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,25 +10,31 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class WorldMap {
 
-    private List<Block> blocks = new ArrayList<Block>();
-    
-    private final int startGen = 1000;
-    private final int endGen = -100;
-    
-    private float move = 1f ;
+    private static List<Block> blocks = new ArrayList<Block>();
+
+    private final static int startGen = 1024;
+    private final static int endGen = -96;
+    private final static int size = 32;
+
+    private int move = 2;
+    private float poz;
 
     public WorldMap() {
-        
-        blocks.add(new BlockSolid(50,50));
-        for( int i = 0; i < Start.getWIDTH(); i += 32 )
+        poz = startGen;
+        for( int i = endGen; i <= startGen; i += size )
             blocks.add(new BlockSolid(i, 550));
     }
-    
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
-
-        for( int i = 0; i < blocks.size(); i++ )
-            blocks.get(i).modX(-move*delta);
+        poz -= move * delta;
+        for( int i = 0; i < blocks.size(); i++ ) {
+            blocks.get(i).update(gc, sbg, delta);
+            blocks.get(i).modX(-move * delta);
+        }
+        if( startGen - poz >= size ) {
+            blocks.add(new BlockSolid((int) poz, 550));
+            poz += size;
+        }
 
     }
 
@@ -41,7 +45,7 @@ public class WorldMap {
 
     }
 
-    public List<Block> getBlocks() {
+    public static List<Block> getBlocks() {
         return blocks;
     }
 
@@ -55,6 +59,22 @@ public class WorldMap {
 
     public boolean is_solid(int i) {
         return blocks.get(i).isSolid();
+    }
+
+    public float getMove() {
+        return move;
+    }
+
+    public void setMove(int move) {
+        this.move = move;
+    }
+
+    public static int getStartgen() {
+        return startGen;
+    }
+
+    public static int getEndgen() {
+        return endGen;
     }
 
 }
