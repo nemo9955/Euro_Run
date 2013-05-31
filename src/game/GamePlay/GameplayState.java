@@ -25,15 +25,13 @@ public class GameplayState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        player = new Player(100, 400);
+        player = new Player(100, 300);
         camera = new Camera(Start.getWIDTH(), Start.getHEIGHT());
         world = new WorldMap();
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        Start.setHEIGHT(gc.getHeight());
-        Start.setWIDTH(gc.getWidth());
         
         player.update(gc, sbg, delta);
 
@@ -42,6 +40,8 @@ public class GameplayState extends BasicGameState {
             tick=0;
             world.update(gc, sbg, delta);
         }
+//        Start.setHEIGHT(gc.getHeight());
+//        Start.setWIDTH(gc.getWidth());
     }
 
     @Override

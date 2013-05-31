@@ -1,6 +1,6 @@
 package game.World;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.newdawn.slick.GameContainer;
@@ -10,14 +10,14 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class WorldMap {
 
-    private static List<Block> blocks = new ArrayList<Block>();
+    private static List<Block> blocks = new LinkedList<Block>();
 
     private final static int startGen = 1024;
     private final static int endGen = -96;
     private final static int size = 32;
 
     private int move = 2;
-    private float poz;
+    private int poz;
 
     public WorldMap() {
         poz = startGen;

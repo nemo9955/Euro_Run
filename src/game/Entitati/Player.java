@@ -8,93 +8,40 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Player extends Entitate {
 
-    private float grav = 1;
-    private final float gravMod = 0.01f;
-    private final float gravMax = 7f;
-
-    private float jump;
-    private final float jumpMod = 0.01f;
-    private final float FjumpFO = 5f;
-    private final float DjumpFO = 4f;
-    private boolean jumping = false;
-    private boolean Fjump = false;
-    private boolean Djump = false;
+    private boolean isjumping = false;
+    private float accel = 1f;
+    private short jumpNo = 0;
+    private short jumpMax = 2;
 
     public Player(float x, float y) {
         super(x, y);
     }
 
-    private void Jump(GameContainer gc, int delta) {
-
-        if( gc.getInput().isKeyPressed(Input.KEY_W) ) {
-            jumping = true;
-            if( Fjump && !Djump ) {
-                jump += DjumpFO;
-                Djump = true;
-            }
-            if( !Fjump ) {
-                jump += FjumpFO;
-                Fjump = true;
-            }
-        }
-
-        if( jumping ) {
-            modY(-jump * delta);
-        }
-
-        jump -= jumpMod * delta;
-        if(jump<=0){
-            jumping=false;
-            jump=0;
-        }
-    }
-
-    private void Gravitatie(int delta) {
-
-        modY(grav * delta);
-
-        if( colid() ) {
-
-            modY(-grav * delta);
-            grav = 1;
-            jumping = false;
-
-        } else {
-            grav += gravMod * delta;
-            if( grav > gravMax )
-                grav = gravMax;
-        }
-
-    }
-
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
 
-        if( !jumping ) {
-            Fjump = false;
-            Djump = false;
-            jump = 0;
-        }
         isMoving = false;
-        Jump(gc, delta);
-        Gravitatie(delta);
 
-        /*       if( gc.getInput().isKeyDown(Input.KEY_W) ) {
-                    activ = 3;
-                    isMoving = true;
-                    modY(-speed * delta);
-                    if( colid() ) {
-                        modY(speed * delta);
-                    }
-                }
+        if( gc.getInput().isKeyPressed(Input.KEY_W) && !isjumping && jumpNo < jumpMax ) {
+            isjumping = true;
+            accel = -1.5f;
+            jumpNo++;
+        }
 
-                if( gc.getInput().isKeyDown(Input.KEY_S) ) {
-                    activ = 0;
-                    isMoving = true;
-                    modY(speed * delta);
-                    if( colid() ) {
-                        modY(-speed * delta);
-                    }
-                }*/
+        modY(accel * delta);
+        if( colid() ) {
+            modY(-accel * delta);
+            isjumping = false;
+            jumpNo = 0;
+            adapt(1);
+        }
+        
+        accel += 0.005f * delta;
+
+        if( accel >= 0 ) {
+            isjumping = false;
+        }
+        
+        if(accel>1)accel=1;
 
         if( gc.getInput().isKeyDown(Input.KEY_D) ) {
             activ = 2;
@@ -119,6 +66,13 @@ public class Player extends Entitate {
         }
 
         Animatie(delta);
+    }
+
+    private void adapt(int cantitate) {
+        while (!colid()) {
+            modY(cantitate);
+        }
+        modY(-cantitate);
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {

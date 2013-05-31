@@ -37,7 +37,7 @@ public class Start extends StateBasedGame {
         app.setDisplayMode(WIDTH, HEIGHT, false);
         app.setResizable(false);
         app.setShowFPS(true);
-                app.setTargetFrameRate(60);
+        app.setTargetFrameRate(60);
         app.start();
     }
 
