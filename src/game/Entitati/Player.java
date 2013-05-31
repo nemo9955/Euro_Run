@@ -8,7 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Player extends Entitate {
 
-    private boolean isjumping = false;
+    private boolean canjump = true;
     private float accel = 1f;
     private short jumpNo = 0;
     private short jumpMax = 2;
@@ -21,27 +21,33 @@ public class Player extends Entitate {
 
         isMoving = false;
 
-        if( gc.getInput().isKeyPressed(Input.KEY_W) && !isjumping && jumpNo < jumpMax ) {
-            isjumping = true;
-            accel = -1.5f;
+        if( gc.getInput().isKeyPressed(Input.KEY_W) && jumpNo < jumpMax && canjump ) {
             jumpNo++;
+            if(jumpNo==1){
+                accel = -1.5f;
+            }
+            if( jumpNo > 1 ) {
+                accel = -1f ;
+            }
         }
 
         modY(accel * delta);
         if( colid() ) {
             modY(-accel * delta);
-            isjumping = false;
             jumpNo = 0;
-            adapt(1);
+            if( accel >= 0 ) {
+                adapt(1);
+                canjump = true;
+            } else {
+                adapt(-1);
+                canjump = false;
+            }
         }
-        
+
         accel += 0.005f * delta;
 
-        if( accel >= 0 ) {
-            isjumping = false;
-        }
-        
-        if(accel>1)accel=1;
+        if( accel > 1 )
+            accel = 1;
 
         if( gc.getInput().isKeyDown(Input.KEY_D) ) {
             activ = 2;

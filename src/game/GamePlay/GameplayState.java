@@ -21,7 +21,7 @@ public class GameplayState extends BasicGameState {
     private static WorldMap world;
 
     private int tick = 0;
-    private int tickMax = 50;
+    private int tickMax = 100;
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {

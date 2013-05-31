@@ -1,5 +1,7 @@
 package game.World;
 
+import java.util.Random;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -12,16 +14,23 @@ public class Block {
     protected boolean solid;
     protected boolean exists;
     protected Rectangle zon;
-
+    
+    protected Color color ;
+    protected Random zar = new Random() ;
+    
     public Block(int x, int y) {
         this.x = x;
         this.y = y;
         Exist();
         Solid();
         Zon();
+        color=new Color(zar.nextInt(225),zar.nextInt(225),zar.nextInt(225));
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
+        
+        
+        modX(-WorldMap.getMove() * delta);
 
         if( zon.getX() <= WorldMap.getEndgen() ) {
             WorldMap.getBlocks().remove(this);
@@ -31,7 +40,7 @@ public class Block {
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
 
-        g.setColor(Color.red);
+        g.setColor(color);
         g.draw(zon);
 
     }

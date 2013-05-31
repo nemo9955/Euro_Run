@@ -16,23 +16,25 @@ public class WorldMap {
     private final static int endGen = -96;
     private final static int size = 32;
 
-    private int move = 2;
-    private int poz;
+    private static int move = 0;
+    private static int poz;
 
     public WorldMap() {
         poz = startGen;
-        for( int i = endGen; i <= startGen; i += size )
+        for( int i = endGen; i <= startGen; i += size + 1 )
             blocks.add(new BlockSolid(i, 550));
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
+
         poz -= move * delta;
+
         for( int i = 0; i < blocks.size(); i++ ) {
             blocks.get(i).update(gc, sbg, delta);
-            blocks.get(i).modX(-move * delta);
         }
+
         if( startGen - poz >= size ) {
-            blocks.add(new BlockSolid((int) poz, 550));
+            blocks.add(new BlockSolid(poz, 550));
             poz += size;
         }
 
@@ -61,20 +63,24 @@ public class WorldMap {
         return blocks.get(i).isSolid();
     }
 
-    public float getMove() {
-        return move;
-    }
-
-    public void setMove(int move) {
-        this.move = move;
-    }
-
     public static int getStartgen() {
         return startGen;
     }
 
     public static int getEndgen() {
         return endGen;
+    }
+
+    public static int getMove() {
+        return move;
+    }
+
+    public static void setMove(int move) {
+        WorldMap.move = move;
+    }
+
+    public static int getSize() {
+        return size;
     }
 
 }
