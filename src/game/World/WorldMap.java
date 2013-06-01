@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -16,7 +17,7 @@ public class WorldMap {
     private final static int endGen = -96;
     private final static int size = 32;
 
-    private static int move = 0;
+    private static int move = 4;
     private static int poz;
 
     public WorldMap() {
@@ -27,15 +28,19 @@ public class WorldMap {
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
 
-        poz -= move * delta;
+        poz -= move;
 
         for( int i = 0; i < blocks.size(); i++ ) {
             blocks.get(i).update(gc, sbg, delta);
         }
 
-        if( startGen - poz >= size ) {
+        while (startGen - poz >= size) {
             blocks.add(new BlockSolid(poz, 550));
             poz += size;
+        }
+
+        if( gc.getInput().isKeyPressed(Input.KEY_F2) ) {
+            System.out.println(  );
         }
 
     }

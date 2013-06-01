@@ -8,6 +8,7 @@ import game.World.WorldMap;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -19,15 +20,18 @@ public class GameplayState extends BasicGameState {
 
     private static Player player;
     private static WorldMap world;
+    
+    private Image temp ;
 
     private int tick = 0;
-    private int tickMax = 100;
+    private final int tickMax = 62;
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        player = new Player(100, 300);
+        player = new Player(0, 400);
         camera = new Camera(Start.getWIDTH(), Start.getHEIGHT());
         world = new WorldMap();
+        temp = new Image("res/Plants_00001.png");
     }
 
     @Override
@@ -37,8 +41,8 @@ public class GameplayState extends BasicGameState {
 
         tick += delta;
         if( tick > tickMax ) {
-            tick=0;
             world.update(gc, sbg, delta);
+            tick=0;
         }
 //        Start.setHEIGHT(gc.getHeight());
 //        Start.setWIDTH(gc.getWidth());
@@ -48,6 +52,7 @@ public class GameplayState extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         g.setBackground(Color.lightGray);
         camera.translate(g, player);
+        temp.draw(0,-100);
         world.render(gc, sbg, g);
         player.render(gc, sbg, g);
     }
