@@ -2,6 +2,7 @@ package game.World;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -14,11 +15,13 @@ public class WorldMap {
     private static List<Block> blocks = new LinkedList<Block>();
 
     private final static int startGen = 1024;
-    private final static int endGen = -128;
+    private final static int endGen = -256;
     private final static int size = 64;
 
-    private static int move = 4;
+    private static int move = 15;
     private static int poz;
+    
+    protected Random zar = new Random() ;
 
     public WorldMap() {
         poz = startGen;
@@ -38,9 +41,12 @@ public class WorldMap {
             blocks.add(new BlockSolid(poz, 550));
             poz += size;
         }
+        
+        if(zar.nextInt(1000) < 50)
+            blocks.add(new BlockSolid(poz, 400));
 
         if( gc.getInput().isKeyPressed(Input.KEY_F2) ) {
-            System.out.println(  );
+//            System.out.println(  );
         }
 
     }

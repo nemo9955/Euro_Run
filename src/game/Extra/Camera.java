@@ -35,7 +35,7 @@ public class Camera {
         else if( cen.x + Start.getWIDTH() / 2 > mapWidth )
             transX = -mapWidth + Start.getWIDTH();
         else*/
-            transX = (int) -cen.x + Start.getWIDTH() / 2;
+            transX = (int) -cen.x + Start.getWIDTH() / 6;
 
         // axa y
 /*        if( cen.y - Start.getHEIGHT() / 2 < 0 )
@@ -43,7 +43,7 @@ public class Camera {
         else if( cen.y + Start.getHEIGHT() / 2 > mapHeight )
             transY = -mapHeight + Start.getHEIGHT();
         else*/
-            transY = (int) -cen.y + Start.getHEIGHT() / 2;
+            transY = (int) -cen.y + Start.getHEIGHT() -Start.getHEIGHT()/3 ;
 
         g.translate(transX, transY);
     }

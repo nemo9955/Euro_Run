@@ -20,11 +20,14 @@ public class GameplayState extends BasicGameState {
 
     private static Player player;
     private static WorldMap world;
-    
-    private Image temp ;
+
+    private Image temp;
 
     private int tick = 0;
     private final int tickMax = 62;
+
+    private long score = 0;
+    private boolean mort = false;
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
@@ -36,25 +39,37 @@ public class GameplayState extends BasicGameState {
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        
+
         player.update(gc, sbg, delta);
 
         tick += delta;
         if( tick > tickMax ) {
-            world.update(gc, sbg, delta);
-            tick=0;
+            world.update(gc, sbg, tick);
+            tick = 0;
+            if( Player.getLifes() > 0 ) {
+                score += WorldMap.getMove();
+            }
         }
-//        Start.setHEIGHT(gc.getHeight());
-//        Start.setWIDTH(gc.getWidth());
+        
+        if( Player.getLifes() <= 0 &&!mort ) {
+            mort=true;
+            System.out.println("esti mort , distanta parcursa este de :" + score);
+        }
+        //        Start.setHEIGHT(gc.getHeight());
+        //        Start.setWIDTH(gc.getWidth());
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         g.setBackground(Color.lightGray);
         camera.translate(g, player);
-        temp.draw(0,-100);
+        temp.draw(0, -100);
         world.render(gc, sbg, g);
         player.render(gc, sbg, g);
+        
+        for(int i=0 ; i<Player.getLifes() ; i++){
+            
+        }
     }
 
     public GameplayState(int ID) {

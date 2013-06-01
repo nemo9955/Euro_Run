@@ -28,27 +28,26 @@ public class Player extends Physics {
 
     private boolean isMoving = false;
 
-    private int team;
-    private int viata;
-
     private boolean canjump = true;
     private float accel = 1f;
     private short jumpNo = 0;
     private short jumpMax = 2;
 
+    private static short lifes = 3;
+    private short imunitate = 0;
+
     public Player(float x, float y) {
         this.x = x;
         this.y = y;
         Imagini();
-        setViata();
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
 
-        isMoving = false;
+        isMoving = true;
         activ = 0;
 
-        if( gc.getInput().isKeyPressed(Input.KEY_W) && jumpNo < jumpMax && canjump ) {
+        if( gc.getInput().isKeyPressed(Input.KEY_W) && jumpNo < jumpMax && canjump && !colid() ) {
             jumpNo++;
             if( jumpNo == 1 ) {
                 accel = -1.5f;
@@ -65,6 +64,12 @@ public class Player extends Physics {
         modY(accel * delta);
         if( colid() ) {
             modY(-accel * delta);
+            if( colid() && imunitate == 0 ) {
+                addLifes(-1);
+                imunitate = 1000;
+
+            }
+
             jumpNo = 0;
             if( accel >= 0 ) {
                 adapt(1);
@@ -74,27 +79,29 @@ public class Player extends Physics {
                 canjump = false;
             }
         }
+        imunitate -= delta;
+        if( imunitate < 0 )
+            imunitate = 0;
 
         accel += 0.005f * delta;
-
         if( accel > 1 )
             accel = 1;
 
-        if( gc.getInput().isKeyDown(Input.KEY_D) ) {
-            isMoving = true;
-            modX(speed * delta);
-            if( colid() ) {
-                modX(-speed * delta);
-            }
-        }
+        /*        if( gc.getInput().isKeyDown(Input.KEY_D) ) {
+                    isMoving = true;
+                    modX(speed * delta);
+                    if( colid() ) {
+                        modX(-speed * delta);
+                    }
+                }
 
-        if( gc.getInput().isKeyDown(Input.KEY_A) ) {
-            isMoving = true;
-            modX(-speed * delta);
-            if( colid() ) {
-                modX(speed * delta);
-            }
-        }
+                if( gc.getInput().isKeyDown(Input.KEY_A) ) {
+                    isMoving = true;
+                    modX(-speed * delta);
+                    if( colid() ) {
+                        modX(speed * delta);
+                    }
+                }*/
 
         if( gc.getInput().isKeyPressed(Input.KEY_F1) ) {
             System.out.println(x + " " + y);
@@ -113,7 +120,7 @@ public class Player extends Physics {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
         g.setColor(Color.red);
         img[activ][frame].draw(x, y);
-        g.draw(poly);
+        //      g.draw(poly);
 
     }
 
@@ -163,14 +170,11 @@ public class Player extends Physics {
 
     }
 
-    private void setViata() {
-        viata = 100;
-    }
-
     private void setPoly(float x, float y, float w, float h) {
         poly = new Rectangle(x, y, w, h);
     }
 
+    @SuppressWarnings("unused")
     private void modX(float amont) {
         x += amont;
         poly.setX(x);
@@ -207,20 +211,18 @@ public class Player extends Physics {
         this.poly = poly;
     }
 
-    public int getTeam() {
-        return team;
+    public static short getLifes() {
+        return lifes;
     }
 
-    public void setTeam(int team) {
-        this.team = team;
+    public static void setLifes(short lifes) {
+        Player.lifes = lifes;
     }
 
-    public int getViata() {
-        return viata;
-    }
-
-    public void setViata(int viata) {
-        this.viata = viata;
+    public static void addLifes(int i) {
+        if( Player.lifes + i >= 0 )
+            Player.lifes += i;
+        System.out.println(Player.lifes);
     }
 
 }
