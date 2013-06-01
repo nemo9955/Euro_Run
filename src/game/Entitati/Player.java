@@ -11,17 +11,25 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Player extends Physics {
 
-    protected Image img[][];
-    protected short activ = 0, frame = 1;
-    protected int interval = 0;
-    protected final int intervalTo = 200;
-    // jos=0 , stanga=1 , dreapta=2 , sus=3
+    private Image img[][];
+    private final short frames[] = { 8, 6, 5, 9 };
+    /* indicele fiecaruia e          0  1  2  3
+     * 
+     * 0 - run
+     * 1 - jump
+     * 2 - roll
+     * 3 - slide
+     * 
+     */
 
-    protected boolean isMoving = false;
+    private short activ = 0, frame = 1;
+    private int interval = 0;
+    private final int intervalTo = 100;
 
-    protected int team;
-    protected int viata;
-    protected float dimH, dimW;
+    private boolean isMoving = false;
+
+    private int team;
+    private int viata;
 
     private boolean canjump = true;
     private float accel = 1f;
@@ -31,14 +39,14 @@ public class Player extends Physics {
     public Player(float x, float y) {
         this.x = x;
         this.y = y;
-        Imagini(LoadSheet());
-        setPoly(x, y, dimW, dimH);
+        Imagini();
         setViata();
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
 
         isMoving = false;
+        activ = 0;
 
         if( gc.getInput().isKeyPressed(Input.KEY_W) && jumpNo < jumpMax && canjump ) {
             jumpNo++;
@@ -48,6 +56,10 @@ public class Player extends Physics {
             if( jumpNo > 1 ) {
                 accel = -1f;
             }
+        }
+        if( jumpNo > 0 ) {
+            activ = 1;
+            isMoving = true;
         }
 
         modY(accel * delta);
@@ -69,7 +81,6 @@ public class Player extends Physics {
             accel = 1;
 
         if( gc.getInput().isKeyDown(Input.KEY_D) ) {
-            activ = 2;
             isMoving = true;
             modX(speed * delta);
             if( colid() ) {
@@ -78,7 +89,6 @@ public class Player extends Physics {
         }
 
         if( gc.getInput().isKeyDown(Input.KEY_A) ) {
-            activ = 1;
             isMoving = true;
             modX(-speed * delta);
             if( colid() ) {
@@ -101,9 +111,9 @@ public class Player extends Physics {
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
-        g.setColor(Color.white);
-        g.draw(poly);
+        g.setColor(Color.red);
         img[activ][frame].draw(x, y);
+        g.draw(poly);
 
     }
 
@@ -121,34 +131,38 @@ public class Player extends Physics {
             frame++;
         }
 
-        if( frame >= img[0].length )
+        if( frame >= frames[activ] )
             frame = 0;
 
     }
 
-    private String LoadSheet() {
-        dimW = 32;
-        dimH = 48;
-        return "res/entitati/player.png";
-    }
+    private void Imagini() {
+        String links[] = { "res/player/run.png", "res/player/jump.png", "res/player/roll.png", "res/player/slide.png" };
 
+        img = new Image[frames.length][9];
 
-    private void Imagini(String link) {
-        SpriteSheet sheet = null;
+        for( int i = 0; i < frames.length; i++ ) {
+            Image temp = null;
+            SpriteSheet sheet = null;
 
-        try {
-            sheet = new SpriteSheet(link, (int) dimW, (int) dimH);
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                temp = new Image(links[i]);
+                sheet = new SpriteSheet(links[i], temp.getWidth() / frames[i], temp.getHeight());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if( i == 0 )
+                setPoly(x, y, temp.getWidth() / frames[i], temp.getHeight());
+
+            for( int k = 0; k < sheet.getHorizontalCount(); k++ ) {
+                img[i][k] = sheet.getSprite(k, 0);
+            }
         }
 
-        img = new Image[sheet.getVerticalCount()][sheet.getHorizontalCount()];
-
-        for( int j = 0; j < sheet.getVerticalCount(); j++ )
-            for( int i = 0; i < sheet.getHorizontalCount(); i++ ) {
-                img[j][i] = sheet.getSprite(i, j);
-            }
     }
+
     private void setViata() {
         viata = 100;
     }

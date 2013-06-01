@@ -28,7 +28,7 @@ public class GameplayState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        player = new Player(0, 400);
+        player = new Player(0, 300);
         camera = new Camera(Start.getWIDTH(), Start.getHEIGHT());
         world = new WorldMap();
         temp = new Image("res/Plants_00001.png");

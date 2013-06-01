@@ -14,15 +14,15 @@ public class WorldMap {
     private static List<Block> blocks = new LinkedList<Block>();
 
     private final static int startGen = 1024;
-    private final static int endGen = -96;
-    private final static int size = 32;
+    private final static int endGen = -128;
+    private final static int size = 64;
 
     private static int move = 4;
     private static int poz;
 
     public WorldMap() {
         poz = startGen;
-        for( int i = endGen; i <= startGen; i += size + 1 )
+        for( int i = endGen; i <= startGen; i += size )
             blocks.add(new BlockSolid(i, 550));
     }
 

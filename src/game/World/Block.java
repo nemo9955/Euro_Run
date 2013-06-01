@@ -41,6 +41,7 @@ public class Block {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
 
         g.setColor(color);
+        g.setLineWidth(3);
         g.draw(zon);
 
     }

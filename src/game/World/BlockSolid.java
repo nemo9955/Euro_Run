@@ -17,6 +17,6 @@ public class BlockSolid extends Block {
     }
     
     protected void Zon() {
-        zon= new Rectangle (x, y, 32 , 32);
+        zon= new Rectangle (x, y, WorldMap.getSize() , WorldMap.getSize());
     }
 }
