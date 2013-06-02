@@ -25,7 +25,6 @@ public class Player extends Physics {
      */
 
     private short actiune = 0, frame = 0;
-    private boolean rstFrame = false;
     private short interval = 0;
     private final short intervalTo = 80;
 
@@ -55,10 +54,6 @@ public class Player extends Physics {
 
         marY = poly.getHeight();
 
-        if( isActiv )
-            actiune = 0;
-        isActiv = false;
-
         if( gc.getInput().isKeyPressed(Input.KEY_W) && jumpNo < jumpMax && canjump && !colid() && !isActiv ) {
             jumpNo++;
             if( jumpNo == 1 ) {
@@ -67,14 +62,12 @@ public class Player extends Physics {
             if( jumpNo > 1 ) {
                 accel = -1f;
             }
-            rstFrame = true;
         }
 
         jump_gravity(delta);
         //       Move_st_dr(gc, delta);
 
         if( gc.getInput().isKeyPressed(Input.KEY_S) && !isActiv ) {
-            rstFrame = true;
             buff = 4;
             next = 3;
             hasNext = true;
@@ -88,13 +81,18 @@ public class Player extends Physics {
 
         if( isActiv ) {
             if( hasNext ) {
-                actiune = buff;
+                schAct(buff);
             } else {
-                actiune = next;
+                schAct(next);
             }
         }
-        
+
         System.out.printf("%d %d %d \n", actiune, frame, frames[actiune]);
+
+        if( !gc.getInput().isKeyDown(Input.KEY_S) && jumpNo <= 0 ) {
+            isActiv = false;
+            schAct((short) 0);
+        }
 
         poly.setSize(img[actiune][frame].getWidth(), img[actiune][frame].getHeight());
 
@@ -103,6 +101,14 @@ public class Player extends Physics {
         if( gc.getInput().isKeyPressed(Input.KEY_F1) ) {
             System.out.println(x + " " + y);
         }
+
+    }
+
+    private void schAct(short act) {
+
+        if( act != actiune )
+            frame = 0;
+        actiune = act;
     }
 
     @SuppressWarnings("unused")
@@ -123,9 +129,11 @@ public class Player extends Physics {
     }
 
     private void jump_gravity(int delta) {
-        if( jumpNo > 0 ) {
+
+        if( jumpNo >= 1 ) {
             isActiv = true;
-            buff = 1;
+            next = 1;
+            hasNext = false;
         }
 
         modY(accel * delta);
@@ -133,8 +141,7 @@ public class Player extends Physics {
             modY(-accel * delta);
             if( colid() && imunitate == 0 ) {
                 addLifes(-1);
-                imunitate = 2000;
-
+                imunitate = 3000;
             }
 
             jumpNo = 0;
@@ -177,10 +184,6 @@ public class Player extends Physics {
     private void Animatie(int delta) {
 
         interval += delta;
-        if( rstFrame ) {
-            rstFrame = false;
-            frame = 0;
-        }
 
         if( interval > intervalTo ) {
             interval = 0;
@@ -189,8 +192,9 @@ public class Player extends Physics {
 
         if( frame >= frames[actiune] ) {
             frame = 0;
-            if( hasNext )
+            if( hasNext ) {
                 hasNext = false;
+            }
         }
 
     }
