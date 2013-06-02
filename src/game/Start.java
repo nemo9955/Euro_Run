@@ -15,7 +15,7 @@ public class Start extends StateBasedGame {
      */
 
     private final static String titlu = "The Slayer of Raknar";
-    private static int WIDTH = 800;
+    private static int WIDTH = 900;
     private static int HEIGHT = 600;
 
     //  aici o sa initializam stagiile ;
@@ -37,7 +37,7 @@ public class Start extends StateBasedGame {
         app.setDisplayMode(WIDTH, HEIGHT, false);
         app.setResizable(false);
         app.setShowFPS(true);
-  //      app.setVSync(true);
+        app.setVSync(true);
  //       app.setTargetFrameRate(60);
         app.start();
     }

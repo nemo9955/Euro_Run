@@ -55,8 +55,6 @@ public class GameplayState extends BasicGameState {
             mort=true;
             System.out.println("esti mort , distanta parcursa este de :" + score);
         }
-        //        Start.setHEIGHT(gc.getHeight());
-        //        Start.setWIDTH(gc.getWidth());
     }
 
     @Override

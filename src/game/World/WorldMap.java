@@ -18,7 +18,7 @@ public class WorldMap {
     private final static int endGen = -256;
     private final static int size = 64;
 
-    private static int move = 15;
+    private static int move = 20;
     private static int poz;
     
     protected Random zar = new Random() ;
@@ -42,8 +42,7 @@ public class WorldMap {
             poz += size;
         }
         
-        if(zar.nextInt(1000) < 50)
-            blocks.add(new BlockSolid(poz, 400));
+   //     if(zar.nextInt(1000) < 50)            blocks.add(new BlockSolid(poz, 400));
 
         if( gc.getInput().isKeyPressed(Input.KEY_F2) ) {
 //            System.out.println(  );

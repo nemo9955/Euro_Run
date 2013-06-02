@@ -5,24 +5,26 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.PackedSpriteSheet;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Player extends Physics {
 
     private Image img[][];
-    private final short frames[] = { 8, 6, 5, 9 };
-    /* indicele fiecaruia e          0  1  2  3
+    private final short frames[] = { 8, 6, 5, 9, 5 };
+    /* indicele fiecaruia e          0  1  2  3  4  5  6  7  8  9
      * 
      * 0 - run
-     * 1 - jump
+     * 1 - to_jump
      * 2 - roll
      * 3 - slide
+     * 4 - to_slide
      * 
      */
 
-    private short activ = 0, frame = 1;
+    private short activ = 0, frame = 0;
     private int interval = 0;
     private final int intervalTo = 100;
 
@@ -40,6 +42,7 @@ public class Player extends Physics {
         this.x = x;
         this.y = y;
         Imagini();
+        setPoly(x, y, 10, 10);
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
@@ -66,7 +69,7 @@ public class Player extends Physics {
             modY(-accel * delta);
             if( colid() && imunitate == 0 ) {
                 addLifes(-1);
-                imunitate = 1000;
+                imunitate = 2000;
 
             }
 
@@ -87,27 +90,31 @@ public class Player extends Physics {
         if( accel > 1 )
             accel = 1;
 
-        /*        if( gc.getInput().isKeyDown(Input.KEY_D) ) {
-                    isMoving = true;
-                    modX(speed * delta);
-                    if( colid() ) {
-                        modX(-speed * delta);
-                    }
-                }
+        /*
+        if( gc.getInput().isKeyDown(Input.KEY_D) ) {
+          isMoving = true;
+          modX(speed * delta);
+          if( colid() ) {
+              modX(-speed * delta);
+          }
+        }
 
-                if( gc.getInput().isKeyDown(Input.KEY_A) ) {
-                    isMoving = true;
-                    modX(-speed * delta);
-                    if( colid() ) {
-                        modX(speed * delta);
-                    }
-                }*/
+        if( gc.getInput().isKeyDown(Input.KEY_A) ) {
+          isMoving = true;
+          modX(-speed * delta);
+          if( colid() ) {
+              modX(speed * delta);
+          }
+        }
+           */
 
         if( gc.getInput().isKeyPressed(Input.KEY_F1) ) {
             System.out.println(x + " " + y);
         }
 
         Animatie(delta);
+        poly.setSize(img[activ][frame].getWidth(), img[activ][frame].getHeight());
+        
     }
 
     private void adapt(int cantitate) {
@@ -119,8 +126,13 @@ public class Player extends Physics {
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
         g.setColor(Color.red);
+        g.setLineWidth(1);
+        g.draw(poly);
+        //        System.out.println(activ+" "+frame);
+        img[activ][frame].setAlpha(1f);
+        if( imunitate > 0 )
+            img[activ][frame].setAlpha(0.3f + (float) Math.abs(Math.sin(Math.toRadians(imunitate))));
         img[activ][frame].draw(x, y);
-        //      g.draw(poly);
 
     }
 
@@ -144,30 +156,35 @@ public class Player extends Physics {
     }
 
     private void Imagini() {
-        String links[] = { "res/player/run.png", "res/player/jump.png", "res/player/roll.png", "res/player/slide.png" };
+        String links[] = { "run", "to_jump", "roll", "slide", "to_slide" };
 
         img = new Image[frames.length][9];
 
-        for( int i = 0; i < frames.length; i++ ) {
-            Image temp = null;
-            SpriteSheet sheet = null;
-
-            try {
-                temp = new Image(links[i]);
-                sheet = new SpriteSheet(links[i], temp.getWidth() / frames[i], temp.getHeight());
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            if( i == 0 )
-                setPoly(x, y, temp.getWidth() / frames[i], temp.getHeight());
-
-            for( int k = 0; k < sheet.getHorizontalCount(); k++ ) {
-                img[i][k] = sheet.getSprite(k, 0);
-            }
+        PackedSpriteSheet sheet = null;
+        try {
+            sheet = new PackedSpriteSheet("res/player/sheet_activ.def", Color.white);
+        } catch (SlickException e) {
+            e.printStackTrace();
         }
 
+        for( int i = 0; i < links.length; i++ ) {
+            boolean finish = false;
+
+            frames[i] = 0;
+
+            for( int k = 0; !finish; k++ ) {
+
+                try {
+                    img[i][k] = sheet.getSprite(String.format("%s%d.bmp", links[i], k));
+                    frames[i]++;
+                } catch (Exception e) {
+                    finish = true;
+                    System.out.println(String.format("%s%d", links[i], k));
+                }
+
+            }
+
+        }
     }
 
     private void setPoly(float x, float y, float w, float h) {
