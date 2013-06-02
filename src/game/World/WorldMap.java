@@ -42,7 +42,8 @@ public class WorldMap {
             poz += size;
         }
         
-   //     if(zar.nextInt(1000) < 50)            blocks.add(new BlockSolid(poz, 400));
+        if(zar.nextInt(1000) < 50)
+            blocks.add(new BlockSolid(poz, 500-zar.nextInt(100)));
 
         if( gc.getInput().isKeyPressed(Input.KEY_F2) ) {
 //            System.out.println(  );

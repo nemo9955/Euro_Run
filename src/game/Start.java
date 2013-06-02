@@ -26,19 +26,24 @@ public class Start extends StateBasedGame {
         super(titlu);
     }
 
+    public Start() throws SlickException {
+        super(titlu);
+    }
+
     @Override
-    public void initStatesList(GameContainer arg0) throws SlickException {
+    public void initStatesList(GameContainer gc) throws SlickException {
         // aici o sa le adaugam in joc
-        addState(new GameplayState(GAMEPLAYSTATE));
+        addState(new GameplayState());
     }
 
     public static void main(String[] args) throws SlickException {
-        AppGameContainer app = new AppGameContainer(new Start(titlu));
+//        AppGameContainer app = new AppGameContainer(new Start(titlu));
+        AppGameContainer app = new AppGameContainer(new Start());
         app.setDisplayMode(WIDTH, HEIGHT, false);
         app.setResizable(false);
         app.setShowFPS(true);
         app.setVSync(true);
- //       app.setTargetFrameRate(60);
+        //       app.setTargetFrameRate(60);
         app.start();
     }
 

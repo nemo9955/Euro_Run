@@ -8,35 +8,34 @@ import org.newdawn.slick.geom.Vector2f;
 
 public class Camera {
 
-    private int transX;
-    private int transY;
     private int mapWidth, mapHeight;
+    private int transx, transy;
     private Vector2f cen;
 
     public Camera(int mapWidth, int mapHeight) {
         this.setMapWidth(mapWidth);
         this.setMapHeight(mapHeight);
-        transX = 0;
-        transY = 0;
+        transx = 0;
+        transy = 1000;
     }
 
     public void translate(Graphics g, Player player) {
 
-        cen = new Vector2f(player.getPoly().getCenterX() , player.getPoly().getCenterY());
+        cen = new Vector2f(player.getPoly().getX(), player.getPoly().getMaxY());
+        
+        transx = (int) -cen.x + Start.getWIDTH() / 6;
 
-        transX = (int) -cen.x + Start.getWIDTH() / 6;
+        transy = (int) ((int) -cen.y + Start.getHEIGHT() / 1.8);
 
-        transY = (int) -cen.y + Start.getHEIGHT() - Start.getHEIGHT() / 2;
-
-        g.translate(transX, transY);
+        g.translate(transx, transy);
     }
 
     public int getX() {
-        return transX;
+        return transx;
     }
 
     public int getY() {
-        return transY;
+        return transy;
     }
 
     public int getMapWidth() {

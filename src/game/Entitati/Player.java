@@ -13,7 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Player extends Physics {
 
     private Image img[][];
-    private final short frames[] = { 8, 6, 5, 9, 5 };
+    private final short frames[] = { 8, 6, 9, 5, 6 };
     /* indicele fiecaruia e          0  1  2  3  4  5  6  7  8  9
      * 
      * 0 - run
@@ -24,11 +24,15 @@ public class Player extends Physics {
      * 
      */
 
-    private short activ = 0, frame = 0;
-    private int interval = 0;
-    private final int intervalTo = 100;
+    private short actiune = 0, frame = 0;
+    private boolean rstFrame = false;
+    private short interval = 0;
+    private final short intervalTo = 80;
 
-    private boolean isMoving = false;
+    private boolean hasNext = false;
+    private boolean isActiv = false;
+    private short buff;
+    private short next;
 
     private boolean canjump = true;
     private float accel = 1f;
@@ -38,19 +42,24 @@ public class Player extends Physics {
     private static short lifes = 3;
     private short imunitate = 0;
 
+    private float marY;
+
     public Player(float x, float y) {
         this.x = x;
         this.y = y;
         Imagini();
-        setPoly(x, y, 10, 10);
+        setPoly(x, y, img[0][0].getWidth(), img[0][0].getHeight());
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
 
-        isMoving = true;
-        activ = 0;
+        marY = poly.getHeight();
 
-        if( gc.getInput().isKeyPressed(Input.KEY_W) && jumpNo < jumpMax && canjump && !colid() ) {
+        if( isActiv )
+            actiune = 0;
+        isActiv = false;
+
+        if( gc.getInput().isKeyPressed(Input.KEY_W) && jumpNo < jumpMax && canjump && !colid() && !isActiv ) {
             jumpNo++;
             if( jumpNo == 1 ) {
                 accel = -1.5f;
@@ -58,10 +67,65 @@ public class Player extends Physics {
             if( jumpNo > 1 ) {
                 accel = -1f;
             }
+            rstFrame = true;
         }
+
+        jump_gravity(delta);
+        //       Move_st_dr(gc, delta);
+
+        if( gc.getInput().isKeyPressed(Input.KEY_S) && !isActiv ) {
+            rstFrame = true;
+            buff = 4;
+            next = 3;
+            hasNext = true;
+        }
+
+        if( gc.getInput().isKeyDown(Input.KEY_S) ) {
+            isActiv = true;
+        }
+
+        Animatie(delta);
+
+        if( isActiv ) {
+            if( hasNext ) {
+                actiune = buff;
+            } else {
+                actiune = next;
+            }
+        }
+        
+        System.out.printf("%d %d %d \n", actiune, frame, frames[actiune]);
+
+        poly.setSize(img[actiune][frame].getWidth(), img[actiune][frame].getHeight());
+
+        modY(marY - poly.getHeight());
+
+        if( gc.getInput().isKeyPressed(Input.KEY_F1) ) {
+            System.out.println(x + " " + y);
+        }
+    }
+
+    @SuppressWarnings("unused")
+    private void Move_st_dr(GameContainer gc, int delta) {
+        if( gc.getInput().isKeyDown(Input.KEY_D) ) {
+            modX(speed * delta);
+            if( colid() ) {
+                modX(-speed * delta);
+            }
+        }
+
+        if( gc.getInput().isKeyDown(Input.KEY_A) ) {
+            modX(-speed * delta);
+            if( colid() ) {
+                modX(speed * delta);
+            }
+        }
+    }
+
+    private void jump_gravity(int delta) {
         if( jumpNo > 0 ) {
-            activ = 1;
-            isMoving = true;
+            isActiv = true;
+            buff = 1;
         }
 
         modY(accel * delta);
@@ -89,32 +153,6 @@ public class Player extends Physics {
         accel += 0.005f * delta;
         if( accel > 1 )
             accel = 1;
-
-        /*
-        if( gc.getInput().isKeyDown(Input.KEY_D) ) {
-          isMoving = true;
-          modX(speed * delta);
-          if( colid() ) {
-              modX(-speed * delta);
-          }
-        }
-
-        if( gc.getInput().isKeyDown(Input.KEY_A) ) {
-          isMoving = true;
-          modX(-speed * delta);
-          if( colid() ) {
-              modX(speed * delta);
-          }
-        }
-           */
-
-        if( gc.getInput().isKeyPressed(Input.KEY_F1) ) {
-            System.out.println(x + " " + y);
-        }
-
-        Animatie(delta);
-        poly.setSize(img[activ][frame].getWidth(), img[activ][frame].getHeight());
-        
     }
 
     private void adapt(int cantitate) {
@@ -129,20 +167,19 @@ public class Player extends Physics {
         g.setLineWidth(1);
         g.draw(poly);
         //        System.out.println(activ+" "+frame);
-        img[activ][frame].setAlpha(1f);
+        img[actiune][frame].setAlpha(1f);
         if( imunitate > 0 )
-            img[activ][frame].setAlpha(0.3f + (float) Math.abs(Math.sin(Math.toRadians(imunitate))));
-        img[activ][frame].draw(x, y);
+            img[actiune][frame].setAlpha(0.3f + (float) Math.abs(Math.sin(Math.toRadians(imunitate))));
+        img[actiune][frame].draw(x, y);
 
     }
 
-    protected void Animatie(int delta) {
+    private void Animatie(int delta) {
 
-        if( isMoving == true )
-            interval += delta;
-        else {
+        interval += delta;
+        if( rstFrame ) {
+            rstFrame = false;
             frame = 0;
-            interval = intervalTo - 1;
         }
 
         if( interval > intervalTo ) {
@@ -150,8 +187,11 @@ public class Player extends Physics {
             frame++;
         }
 
-        if( frame >= frames[activ] )
+        if( frame >= frames[actiune] ) {
             frame = 0;
+            if( hasNext )
+                hasNext = false;
+        }
 
     }
 
@@ -179,7 +219,7 @@ public class Player extends Physics {
                     frames[i]++;
                 } catch (Exception e) {
                     finish = true;
-                    System.out.println(String.format("%s%d", links[i], k));
+                    //System.out.println(String.format("%s%d", links[i], frames[i]));
                 }
 
             }
@@ -191,7 +231,6 @@ public class Player extends Physics {
         poly = new Rectangle(x, y, w, h);
     }
 
-    @SuppressWarnings("unused")
     private void modX(float amont) {
         x += amont;
         poly.setX(x);

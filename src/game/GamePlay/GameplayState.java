@@ -31,10 +31,10 @@ public class GameplayState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        temp = new Image("res/Plants_00001.png");
         player = new Player(0, 300);
         camera = new Camera(Start.getWIDTH(), Start.getHEIGHT());
         world = new WorldMap();
-        temp = new Image("res/Plants_00001.png");
     }
 
     @Override
@@ -70,8 +70,8 @@ public class GameplayState extends BasicGameState {
         }
     }
 
-    public GameplayState(int ID) {
-        this.ID = ID;
+    public GameplayState() {
+        this.ID = Start.GAMEPLAYSTATE;
     }
 
     @Override
