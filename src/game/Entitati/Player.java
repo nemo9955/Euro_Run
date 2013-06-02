@@ -29,9 +29,9 @@ public class Player extends Physics {
     private final short intervalTo = 80;
 
     private boolean hasNext = false;
-    private boolean isActiv = false;
     private short buff;
     private short next;
+    private short isActiv = 0;
 
     private boolean canjump = true;
     private float accel = 1f;
@@ -54,7 +54,7 @@ public class Player extends Physics {
 
         marY = poly.getHeight();
 
-        if( gc.getInput().isKeyPressed(Input.KEY_W) && jumpNo < jumpMax && canjump && !colid() && !isActiv ) {
+        if( gc.getInput().isKeyPressed(Input.KEY_SPACE) && jumpNo < jumpMax && canjump && !colid() && isActiv <= 1 ) {
             jumpNo++;
             if( jumpNo == 1 ) {
                 accel = -1.5f;
@@ -67,19 +67,19 @@ public class Player extends Physics {
         jump_gravity(delta);
         //       Move_st_dr(gc, delta);
 
-        if( gc.getInput().isKeyPressed(Input.KEY_S) && !isActiv ) {
+        if( gc.getInput().isKeyPressed(Input.KEY_S) && isActiv == 0 ) {
             buff = 4;
             next = 3;
             hasNext = true;
         }
 
         if( gc.getInput().isKeyDown(Input.KEY_S) ) {
-            isActiv = true;
+            isActiv = 3;
         }
 
         Animatie(delta);
 
-        if( isActiv ) {
+        if( isActiv != 0 ) {
             if( hasNext ) {
                 schAct(buff);
             } else {
@@ -88,9 +88,10 @@ public class Player extends Physics {
         }
 
         System.out.printf("%d %d %d \n", actiune, frame, frames[actiune]);
+        System.out.println(isActiv);
 
-        if( !gc.getInput().isKeyDown(Input.KEY_S) && jumpNo <= 0 ) {
-            isActiv = false;
+        if( !gc.getInput().isKeyDown(Input.KEY_S) && accel > 0 ) {
+            isActiv = 0;
             schAct((short) 0);
         }
 
@@ -131,9 +132,11 @@ public class Player extends Physics {
     private void jump_gravity(int delta) {
 
         if( jumpNo >= 1 ) {
-            isActiv = true;
             next = 1;
             hasNext = false;
+            if( accel < 0 ) {
+                isActiv = 1;
+            }
         }
 
         modY(accel * delta);
@@ -152,6 +155,8 @@ public class Player extends Physics {
                 adapt(-1);
                 canjump = false;
             }
+
+            accel = 0;
         }
         imunitate -= delta;
         if( imunitate < 0 )
