@@ -54,16 +54,22 @@ public class Player extends Physics {
 
         marY = poly.getHeight();
 
-        if( gc.getInput().isKeyPressed(Input.KEY_SPACE) && jumpNo < jumpMax && canjump && !colid() && isActiv <= 1 ) {
-            jumpNo++;
-            if( jumpNo == 1 ) {
-                accel = -1.5f;
-            }
-            if( jumpNo > 1 ) {
-                accel = -1f;
+        if( gc.getInput().isKeyDown(Input.KEY_SPACE) ) {
+            if( jumpNo < jumpMax && canjump && !colid() && isActiv <= 1 ) {
+                if( gc.getInput().isKeyPressed(Input.KEY_SPACE) ) {
+                    jumpNo++;
+                    if( jumpNo == 1 ) {
+                        accel = -1.5f;
+                    }
+                    if( jumpNo > 1 ) {
+                        accel = -1.2f;
+                    }
+                }
+                if( jumpNo > 0 ) {
+                    accel -= 0.002f * delta;
+                }
             }
         }
-
         jump_gravity(delta);
         //       Move_st_dr(gc, delta);
 
@@ -171,7 +177,8 @@ public class Player extends Physics {
         if( imunitate < 0 )
             imunitate = 0;
 
-        accel += 0.005f * delta;
+        accel += 0.006f * delta;
+
         if( accel > 1 )
             accel = 1;
     }

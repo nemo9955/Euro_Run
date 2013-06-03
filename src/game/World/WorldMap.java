@@ -6,7 +6,6 @@ import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -42,12 +41,7 @@ public class WorldMap {
             poz += size;
         }
         
-        if(zar.nextInt(1000) < 50)
-            blocks.add(new BlockSolid(poz, 500-zar.nextInt(100)));
-
-        if( gc.getInput().isKeyPressed(Input.KEY_F2) ) {
-//            System.out.println(  );
-        }
+    //    if(zar.nextInt(1000) < 50)            blocks.add(new BlockSolid(poz, 500-zar.nextInt(100)));
 
     }
 
