@@ -18,7 +18,7 @@ public class WorldMap {
     private final static int endGen = -256;
     private final static int size = 64;
 
-    private static int move = 20;
+    private static int move = 21;
     private static int poz;
     
     protected Random zar = new Random() ;

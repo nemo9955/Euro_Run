@@ -42,7 +42,7 @@ public class Block {
 
         g.setColor(color);
         g.setLineWidth(3);
-        g.draw(zon);
+        g.fill(zon);
 
     }
 

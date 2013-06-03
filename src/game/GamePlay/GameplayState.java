@@ -64,10 +64,13 @@ public class GameplayState extends BasicGameState {
         temp.draw(0, -100);
         world.render(gc, sbg, g);
         player.render(gc, sbg, g);
-        
+        g.setColor(Color.red);
+        g.drawString("Vieti : ", 0, 650);
         for(int i=0 ; i<Player.getLifes() ; i++){
-            
+            g.fillOval(73+(i*30), 650, 20, 20);
         }
+        g.setColor(Color.black);
+        g.drawString(String.format("Distanta : %d", score), 0, 680);
     }
 
     public GameplayState() {

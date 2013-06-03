@@ -87,8 +87,8 @@ public class Player extends Physics {
             }
         }
 
-        System.out.printf("%d %d %d \n", actiune, frame, frames[actiune]);
-        System.out.println(isActiv);
+        //     System.out.printf("%d %d %d \n", actiune, frame, frames[actiune]);
+        //     System.out.println(isActiv);
 
         if( !gc.getInput().isKeyDown(Input.KEY_S) && accel > 0 ) {
             isActiv = 0;
@@ -102,6 +102,8 @@ public class Player extends Physics {
         if( gc.getInput().isKeyPressed(Input.KEY_F1) ) {
             System.out.println(x + " " + y);
         }
+        if( y > 900 )
+            setY(300);
 
     }
 
