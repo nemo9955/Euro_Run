@@ -67,6 +67,12 @@ public class Player extends Physics {
         jump_gravity(delta);
         //       Move_st_dr(gc, delta);
 
+        if( gc.getInput().isKeyDown(Input.KEY_D) && (isActiv == 0 || isActiv == 2) ) {
+            next = 2;
+            hasNext = false;
+            isActiv = 2;
+        }
+
         if( gc.getInput().isKeyDown(Input.KEY_S) && (isActiv == 0 || isActiv == 3) ) {
             if( gc.getInput().isKeyPressed(Input.KEY_S) ) {
                 buff = 4;
@@ -89,7 +95,7 @@ public class Player extends Physics {
         //System.out.printf("%d %d %d %d \n", actiune, buff, next, frame);
         //System.out.println(isActiv);
 
-        if( !gc.getInput().isKeyDown(Input.KEY_S) && accel >= 0 ) {
+        if( !gc.getInput().isKeyDown(Input.KEY_S) && !gc.getInput().isKeyDown(Input.KEY_D) && accel >= 0 ) {
             isActiv = 0;
             schAct((short) 0);
         }
@@ -101,7 +107,7 @@ public class Player extends Physics {
         if( gc.getInput().isKeyPressed(Input.KEY_F1) ) {
             System.out.println(x + " " + y);
         }
-        if( y > 900 || y < 0 ) {
+        if( y > 900 || y < -100 ) {
             System.out.println("teleport");
             setY(300);
         }
