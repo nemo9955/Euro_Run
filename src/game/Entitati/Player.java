@@ -67,13 +67,12 @@ public class Player extends Physics {
         jump_gravity(delta);
         //       Move_st_dr(gc, delta);
 
-        if( gc.getInput().isKeyPressed(Input.KEY_S) && isActiv == 0 ) {
-            buff = 4;
-            next = 3;
-            hasNext = true;
-        }
-
-        if( gc.getInput().isKeyDown(Input.KEY_S) ) {
+        if( gc.getInput().isKeyDown(Input.KEY_S) && (isActiv == 0 || isActiv == 3) ) {
+            if( gc.getInput().isKeyPressed(Input.KEY_S) ) {
+                buff = 4;
+                next = 3;
+                hasNext = true;
+            }
             isActiv = 3;
         }
 
@@ -87,10 +86,10 @@ public class Player extends Physics {
             }
         }
 
-        //     System.out.printf("%d %d %d \n", actiune, frame, frames[actiune]);
-        //     System.out.println(isActiv);
+        //System.out.printf("%d %d %d %d \n", actiune, buff, next, frame);
+        //System.out.println(isActiv);
 
-        if( !gc.getInput().isKeyDown(Input.KEY_S) && accel > 0 ) {
+        if( !gc.getInput().isKeyDown(Input.KEY_S) && accel >= 0 ) {
             isActiv = 0;
             schAct((short) 0);
         }
@@ -102,8 +101,10 @@ public class Player extends Physics {
         if( gc.getInput().isKeyPressed(Input.KEY_F1) ) {
             System.out.println(x + " " + y);
         }
-        if( y > 900 )
+        if( y > 900 || y < 0 ) {
+            System.out.println("teleport");
             setY(300);
+        }
 
     }
 
@@ -134,9 +135,9 @@ public class Player extends Physics {
     private void jump_gravity(int delta) {
 
         if( jumpNo >= 1 ) {
-            next = 1;
-            hasNext = false;
             if( accel < 0 ) {
+                next = 1;
+                hasNext = false;
                 isActiv = 1;
             }
         }
@@ -260,6 +261,7 @@ public class Player extends Physics {
 
     public void setX(float x) {
         this.x = x;
+        poly.setX(x);
     }
 
     public float getY() {
@@ -268,6 +270,7 @@ public class Player extends Physics {
 
     public void setY(float y) {
         this.y = y;
+        poly.setY(y);
     }
 
     public Rectangle getPoly() {
