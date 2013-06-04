@@ -26,7 +26,7 @@ public class WorldMap {
     private static int move = 21;
     private static int poz;
 
-    private final int interval = 2000;
+    private final int interval = 1000;
     private short curent = 0;
 
     protected Random zar = new Random();
@@ -53,12 +53,13 @@ public class WorldMap {
             poz += size;
         }
 
+        if( zar.nextInt(1000) < 50 )
+            blocks.add(new BlockSolid(poz, 500 - zar.nextInt(100)));
+
         if( (short) Math.round(GameplayState.getScore() / interval) > curent ) {
             curent = (short) Math.round(GameplayState.getScore() / interval);
-            bg.add(new Background(startGen, 500));
+            bg.add(new Background(startGen, 560));
         }
-
-        //    if(zar.nextInt(1000) < 50)            blocks.add(new BlockSolid(poz, 500-zar.nextInt(100)));
 
     }
 
