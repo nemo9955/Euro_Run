@@ -1,4 +1,4 @@
-package game.Entitati;
+package game.Player;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -24,21 +24,21 @@ public class Player extends Physics {
      * 
      */
 
-    private short actiune = 0, frame = 0;
-    private short interval = 0;
-    private final short intervalTo = 80;
+    private byte actiune = 0, frame = 0;
+    private byte interval = 0;
+    private final byte intervalTo = 80;
 
     private boolean hasNext = false;
-    private short buff;
-    private short next;
-    private short isActiv = 0;
+    private byte buff;
+    private byte next;
+    private byte isActiv = 0;
 
     private boolean canjump = true;
     private float accel = 1f;
-    private short jumpNo = 0;
-    private short jumpMax = 2;
+    private byte jumpNo = 0;
+    private byte jumpMax = 2;
 
-    private static short lifes = 3;
+    private static byte lifes = 3;
     private short imunitate = 0;
 
     private float marY;
@@ -103,7 +103,7 @@ public class Player extends Physics {
 
         if( !gc.getInput().isKeyDown(Input.KEY_S) && !gc.getInput().isKeyDown(Input.KEY_D) && accel >= 0 ) {
             isActiv = 0;
-            schAct((short) 0);
+            schAct((byte) 0);
         }
 
         poly.setSize(img[actiune][frame].getWidth(), img[actiune][frame].getHeight());
@@ -120,7 +120,7 @@ public class Player extends Physics {
 
     }
 
-    private void schAct(short act) {
+    private void schAct(byte act) {
 
         if( act != actiune )
             frame = 0;
@@ -298,7 +298,7 @@ public class Player extends Physics {
         return lifes;
     }
 
-    public static void setLifes(short lifes) {
+    public static void setLifes(byte lifes) {
         Player.lifes = lifes;
     }
 

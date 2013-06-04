@@ -1,4 +1,4 @@
-package game.Entitati;
+package game.Player;
 
 import game.GamePlay.GameplayState;
 import game.World.WorldMap;

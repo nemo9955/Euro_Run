@@ -1,7 +1,7 @@
 package game.Extra;
 
 import game.Start;
-import game.Entitati.Player;
+import game.Player.Player;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;

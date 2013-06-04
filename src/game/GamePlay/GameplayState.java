@@ -1,8 +1,8 @@
 package game.GamePlay;
 
 import game.Start;
-import game.Entitati.Player;
 import game.Extra.Camera;
+import game.Player.Player;
 import game.World.WorldMap;
 
 import org.newdawn.slick.Color;
@@ -14,16 +14,16 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class GameplayState extends BasicGameState {
 
-    private final int ID;
+    private final byte ID;
     private Camera camera;
 
     private static Player player;
     private static WorldMap world;
 
-    private int tick = 0;
-    private final int tickMax = 62;
+    private byte tick = 0;
+    private final byte tickMax = 62;
 
-    private long score = 0;
+    private static long score = 0;
     private boolean mort = false;
 
     @Override
@@ -94,4 +94,22 @@ public class GameplayState extends BasicGameState {
     public static Player getPlayer() {
         return player;
     }
+
+    public static long getScore() {
+        return score;
+    }
+
+    public void setScore(long score) {
+        GameplayState.score = score;
+    }
+
+    public boolean isMort() {
+        return mort;
+    }
+
+    public void setMort(boolean mort) {
+        this.mort = mort;
+    }
+    
+    
 }

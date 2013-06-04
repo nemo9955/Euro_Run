@@ -1,5 +1,10 @@
 package game.World;
 
+import game.GamePlay.GameplayState;
+import game.Imagini.Background;
+import game.Imagini.Imagine;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -12,6 +17,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class WorldMap {
 
     private static List<Block> blocks = new LinkedList<Block>();
+    private static List<Imagine> bg = new ArrayList<Imagine>();
 
     private final static int startGen = 1024;
     private final static int endGen = -256;
@@ -19,8 +25,11 @@ public class WorldMap {
 
     private static int move = 21;
     private static int poz;
-    
-    protected Random zar = new Random() ;
+
+    private final int interval = 2000;
+    private short curent = 0;
+
+    protected Random zar = new Random();
 
     public WorldMap() {
         poz = startGen;
@@ -35,17 +44,28 @@ public class WorldMap {
         for( int i = 0; i < blocks.size(); i++ ) {
             blocks.get(i).update(gc, sbg, delta);
         }
+        for( int i = 0; i < bg.size(); i++ ) {
+            bg.get(i).update(gc, sbg, delta);
+        }
 
         while (startGen - poz >= size) {
             blocks.add(new BlockSolid(poz, 550));
             poz += size;
         }
-        
-    //    if(zar.nextInt(1000) < 50)            blocks.add(new BlockSolid(poz, 500-zar.nextInt(100)));
+
+        if( (short) Math.round(GameplayState.getScore() / interval) > curent ) {
+            curent = (short) Math.round(GameplayState.getScore() / interval);
+            bg.add(new Background(startGen, 500));
+        }
+
+        //    if(zar.nextInt(1000) < 50)            blocks.add(new BlockSolid(poz, 500-zar.nextInt(100)));
 
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
+
+        for( int i = 0; i < bg.size(); i++ )
+            bg.get(i).render(gc, sbg, g);
 
         for( int i = 0; i < blocks.size(); i++ )
             blocks.get(i).render(gc, sbg, g);
