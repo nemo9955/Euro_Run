@@ -20,7 +20,6 @@ public class GameplayState extends BasicGameState {
     private static Player player;
     private static WorldMap world;
 
-
     private int tick = 0;
     private final int tickMax = 62;
 
@@ -47,23 +46,29 @@ public class GameplayState extends BasicGameState {
                 score += WorldMap.getMove();
             }
         }
-        
-        if( Player.getLifes() <= 0 &&!mort ) {
-            mort=true;
+
+        if( Player.getLifes() <= 0 && !mort ) {
+            mort = true;
             System.out.println("esti mort , distanta parcursa este de :" + score);
         }
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        g.setBackground(Color.lightGray);
+        g.setBackground(Color.cyan);
         camera.translate(g, player);
+
+        for( int i = 0; i <= 11; i++ ) {
+            g.setColor(new Color( 100 , 200 , 255 ,0.2f+ i*0.06f ));
+            g.fillRect(-200, -300+(i*100) , gc.getWidth()+100, 100 );
+        }
+
         world.render(gc, sbg, g);
         player.render(gc, sbg, g);
         g.setColor(Color.red);
         g.drawString("Vieti : ", 0, 650);
-        for(int i=0 ; i<Player.getLifes() ; i++){
-            g.fillOval(73+(i*30), 650, 20, 20);
+        for( int i = 0; i < Player.getLifes(); i++ ) {
+            g.fillOval(73 + (i * 30), 650, 20, 20);
         }
         g.setColor(Color.black);
         g.drawString(String.format("Distanta : %d", score), 0, 680);
