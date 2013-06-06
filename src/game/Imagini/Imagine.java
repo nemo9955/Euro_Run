@@ -16,7 +16,7 @@ public class Imagine {
     protected int x, y;
 
     protected Color color;
-    protected Random zar = new Random();
+    protected static Random zar = new Random();
 
     public Imagine(int x, int y , String link) {
         super();

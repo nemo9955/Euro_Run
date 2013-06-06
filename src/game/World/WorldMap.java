@@ -1,6 +1,5 @@
 package game.World;
 
-import game.GamePlay.GameplayState;
 import game.Imagini.Background;
 import game.Imagini.Imagine;
 
@@ -24,22 +23,28 @@ public class WorldMap {
     private final static int size = 64;
 
     private static int move = 21;
-    private static int poz;
+    private static int poz=0;
+    private static int pozBG=0;
 
-    private final int interval = 1000;
-    private short curent = 0;
 
     protected Random zar = new Random();
 
     public WorldMap() {
-        poz = startGen;
-        for( int i = endGen; i <= startGen; i += size )
-            blocks.add(new BlockSolid(i, 550));
+        poz = endGen;
+        pozBG = endGen;
+        while (startGen - poz >= size) {
+            blocks.add(new BlockSolid(poz, 550));
+            poz += size;
+        }
+        while( pozBG < startGen ) {
+            bg.add(new Background(pozBG, 700));
+        }
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
 
         poz -= move;
+        pozBG -= move;
 
         for( int i = 0; i < blocks.size(); i++ ) {
             blocks.get(i).update(gc, sbg, delta);
@@ -56,9 +61,8 @@ public class WorldMap {
         if( zar.nextInt(1000) < 50 )
             blocks.add(new BlockSolid(poz, 500 - zar.nextInt(100)));
 
-        if( (short) Math.round(GameplayState.getScore() / interval) > curent ) {
-            curent = (short) Math.round(GameplayState.getScore() / interval);
-            bg.add(new Background(startGen, 560));
+        while( pozBG < startGen ) {
+            bg.add(new Background(pozBG, 700));
         }
 
     }
@@ -104,9 +108,18 @@ public class WorldMap {
     public static void setMove(int move) {
         WorldMap.move = move;
     }
-
+    
     public static int getSize() {
         return size;
     }
+    
+    public static int getPozBG() {
+        return pozBG;
+    }
+
+    public static void modPozBG(int pozBG) {
+        WorldMap.pozBG += pozBG;
+    }
+    
 
 }
