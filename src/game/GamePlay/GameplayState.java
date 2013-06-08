@@ -2,13 +2,13 @@ package game.GamePlay;
 
 import game.Start;
 import game.Extra.Camera;
+import game.Extra.Scroll;
 import game.Player.Player;
 import game.World.WorldMap;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -16,7 +16,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GameplayState extends BasicGameState {
 
     private final byte ID;
-    private Camera camera;
+    private static Camera camera;
 
     private static Player player;
     private static WorldMap world;
@@ -28,18 +28,13 @@ public class GameplayState extends BasicGameState {
     private boolean mort = false;
 
     private static boolean taken = false;
-    private Image scroll;
+    private static Scroll scroll = null;
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         player = new Player(0, 300);
         camera = new Camera(Start.getWIDTH(), Start.getHEIGHT());
         world = new WorldMap();
-        scroll = new Image("res/item/scroll.png");
-    }
-
-    public static void genScroll() {
-
     }
 
     @Override
@@ -48,7 +43,7 @@ public class GameplayState extends BasicGameState {
         if( !taken ) {
             updateGame(gc, sbg, delta);
         } else {
-
+            scroll.update(gc, sbg, delta);
         }
     }
 
@@ -89,6 +84,10 @@ public class GameplayState extends BasicGameState {
         }
         g.setColor(Color.black);
         g.drawString(String.format("Distanta : %d", score), 0, 680);
+        
+        if(taken){
+            scroll.render(gc, sbg, g);
+        }
     }
 
     public GameplayState() {
@@ -100,7 +99,7 @@ public class GameplayState extends BasicGameState {
         return ID;
     }
 
-    public Camera getCamera() {
+    public static Camera getCamera() {
         return camera;
     }
 
@@ -136,4 +135,14 @@ public class GameplayState extends BasicGameState {
         GameplayState.taken = taken;
     }
 
+    
+    public static Scroll getScroll() {
+        return scroll;
+    }
+
+    public static void makeScroll(GameContainer gc) {
+        GameplayState.scroll = new Scroll(gc);
+    }
+    
+    
 }

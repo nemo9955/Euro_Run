@@ -32,7 +32,7 @@ public class Item extends Physics {
         if( poly.intersects(GameplayState.getPlayer().getPoly()) ) {
  //           System.out.println("colid");
             GameplayState.setTaken(true);
-            GameplayState.genScroll();
+            GameplayState.makeScroll(gc);
             WorldMap.getItem().remove(this);
         }
     }

@@ -8,13 +8,10 @@ import org.newdawn.slick.geom.Vector2f;
 
 public class Camera {
 
-    private int mapWidth, mapHeight;
     private int transx, transy;
     private Vector2f cen;
 
     public Camera(int mapWidth, int mapHeight) {
-        this.setMapWidth(mapWidth);
-        this.setMapHeight(mapHeight);
         transx = 0;
         transy = 1000;
     }
@@ -36,22 +33,6 @@ public class Camera {
 
     public int getY() {
         return transy;
-    }
-
-    public int getMapWidth() {
-        return mapWidth;
-    }
-
-    public void setMapWidth(int mapWidth) {
-        this.mapWidth = mapWidth;
-    }
-
-    public int getMapHeight() {
-        return mapHeight;
-    }
-
-    public void setMapHeight(int mapHeight) {
-        this.mapHeight = mapHeight;
     }
 
 }
