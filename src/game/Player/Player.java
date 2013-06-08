@@ -42,6 +42,7 @@ public class Player extends Physics {
     private short imunitate = 0;
 
     private float marY;
+    private float speed = 0.5f;
 
     public Player(float x, float y) {
         this.x = x;
@@ -197,7 +198,7 @@ public class Player extends Physics {
         //        System.out.println(activ+" "+frame);
         img[actiune][frame].setAlpha(1f);
         if( imunitate > 0 )
-            img[actiune][frame].setAlpha(0.3f + (float) Math.abs(Math.sin(Math.toRadians(imunitate))));
+            img[actiune][frame].setAlpha(0.1f + (float) Math.abs(Math.sin(Math.toRadians(imunitate))));
         img[actiune][frame].draw(x, y);
 
     }

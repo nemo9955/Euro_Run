@@ -17,6 +17,7 @@ public class WorldMap {
 
     private static List<Block> blocks = new LinkedList<Block>();
     private static List<Imagine> bg = new ArrayList<Imagine>();
+    private static List<Item> item = new ArrayList<Item>();
 
     private final static int startGen = 1024;
     private final static int endGen = -256;
@@ -26,8 +27,7 @@ public class WorldMap {
     private static int poz=0;
     private static int pozBG=0;
 
-
-    protected Random zar = new Random();
+    private Random zar = new Random();
 
     public WorldMap() {
         poz = endGen;
@@ -52,17 +52,25 @@ public class WorldMap {
         for( int i = 0; i < bg.size(); i++ ) {
             bg.get(i).update(gc, sbg, delta);
         }
+        for( int i = 0; i < item.size(); i++ ) {
+            item.get(i).update(gc, sbg, delta);
+        }
+
+        if( zar.nextInt(1000) < 20 ){
+            item.add(new Item(poz , 450));
+        }
+        
+        if( zar.nextInt(1000) < 50 ){
+            blocks.add(new BlockSolid(poz, 500 - zar.nextInt(100)));
+        }
+
+        while( pozBG < startGen ) {
+            bg.add(new Background(pozBG, 700));
+        }
 
         while (startGen - poz >= size) {
             blocks.add(new BlockSolid(poz, 550));
             poz += size;
-        }
-
-        if( zar.nextInt(1000) < 50 )
-            blocks.add(new BlockSolid(poz, 500 - zar.nextInt(100)));
-
-        while( pozBG < startGen ) {
-            bg.add(new Background(pozBG, 700));
         }
 
     }
@@ -71,9 +79,12 @@ public class WorldMap {
 
         for( int i = 0; i < bg.size(); i++ )
             bg.get(i).render(gc, sbg, g);
-
+        
         for( int i = 0; i < blocks.size(); i++ )
             blocks.get(i).render(gc, sbg, g);
+
+        for( int i = 0; i < item.size(); i++ )
+            item.get(i).render(gc, sbg, g);
 
     }
 
@@ -119,6 +130,18 @@ public class WorldMap {
 
     public static void modPozBG(int pozBG) {
         WorldMap.pozBG += pozBG;
+    }
+
+    public static List<Imagine> getBg() {
+        return bg;
+    }
+
+    public static List<Item> getItem() {
+        return item;
+    }
+
+    public static int getPoz() {
+        return poz;
     }
     
 

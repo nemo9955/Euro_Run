@@ -8,6 +8,7 @@ import game.World.WorldMap;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -26,16 +27,32 @@ public class GameplayState extends BasicGameState {
     private static long score = 0;
     private boolean mort = false;
 
+    private static boolean taken = false;
+    private Image scroll;
+
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         player = new Player(0, 300);
         camera = new Camera(Start.getWIDTH(), Start.getHEIGHT());
         world = new WorldMap();
+        scroll = new Image("res/item/scroll.png");
+    }
+
+    public static void genScroll() {
+
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 
+        if( !taken ) {
+            updateGame(gc, sbg, delta);
+        } else {
+
+        }
+    }
+
+    private void updateGame(GameContainer gc, StateBasedGame sbg, int delta) {
         player.update(gc, sbg, delta);
 
         tick += delta;
@@ -59,8 +76,8 @@ public class GameplayState extends BasicGameState {
         camera.translate(g, player);
 
         for( int i = 0; i <= 11; i++ ) {
-            g.setColor(new Color( 100 , 200 , 255 ,0.2f+ i*0.06f ));
-            g.fillRect(-200, -300+(i*100) , gc.getWidth()+100, 100 );
+            g.setColor(new Color(100, 200, 255, 0.2f + i * 0.06f));
+            g.fillRect(-200, -300 + (i * 100), gc.getWidth() + 100, 100);
         }
 
         world.render(gc, sbg, g);
@@ -110,6 +127,13 @@ public class GameplayState extends BasicGameState {
     public void setMort(boolean mort) {
         this.mort = mort;
     }
-    
-    
+
+    public static boolean isTaken() {
+        return taken;
+    }
+
+    public static void setTaken(boolean taken) {
+        GameplayState.taken = taken;
+    }
+
 }

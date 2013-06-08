@@ -9,7 +9,6 @@ public class Physics {
 
     protected float x;
     protected float y;
-    protected float speed = 0.5f;
 
     protected Rectangle poly;
 
