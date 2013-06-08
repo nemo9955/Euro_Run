@@ -2,26 +2,33 @@ package game.Extra;
 
 import game.GamePlay.GameplayState;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Font;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Random;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Scroll {
-    
+
     private Image img;
     private short x, y;
     private Rectangle zon;
-    private TextField txt ;
-    
-    
+
+    private Random zar = new Random();
+    private final byte noFacts = 13;
+
+    private String message;
+
     public Scroll(GameContainer gc) {
 
         try {
@@ -29,28 +36,50 @@ public class Scroll {
         } catch (SlickException e) {
             e.printStackTrace();
         }
-        x = (short) ((450 - img.getWidth()  / 2) - GameplayState.getCamera().getX());
+        x = (short) ((450 - img.getWidth() / 2) - GameplayState.getCamera().getX());
         y = (short) ((300 - img.getHeight() / 2) - GameplayState.getCamera().getY());
 
-     //   zon = new Rectangle(x, y, img.getWidth(), img.getHeight());
-        zon = new Rectangle(-50, 300, 50, 50);        
-        
+        //   zon = new Rectangle(x, y, img.getWidth(), img.getHeight());
+        zon = new Rectangle(-50, 300, 50, 50);
+
+        gatFact();
         genText(gc);
     }
 
-    private void genText(GameContainer gc) {
+    private void gatFact() {
+        //     byte rand = (byte) zar.nextInt(noFacts);
+        byte rand = 1;
+        FileInputStream fstream = null;
+        try {
+            fstream = new FileInputStream("res/item/intrebari.txt");
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        DataInputStream in = new DataInputStream(fstream);
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+        for( byte i = 0; i < rand; i++ ) {
+            try {
+                message = br.readLine();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-        Color trans = new Color(0,0,0,0.2f);
-        
-        Font font = new TrueTypeFont(new java.awt.Font(java.awt.Font.DIALOG,java.awt.Font.BOLD , 15), false);
-        txt = new TextField(gc , font , x+55 , y+40 , 290 , 210 );
-        txt.setTextColor(Color.white);
-        txt.setBackgroundColor(trans);
-        txt.setAcceptingInput(true);
-        txt.setBorderColor(Color.transparent);
-        
-        txt.setText("cevafgsdfhg sdfh h s     \n dfg argaerwtgasergsae");
-        
+        }
+        try {
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void genText(GameContainer gc) {
+        int i = 0;
+        int range = 55;
+        StringBuilder sb = new StringBuilder(message);
+        while (i + range < sb.length() && (i = sb.lastIndexOf(" ", i + range)) != -1) {
+            sb.replace(i, i + 1, "\n");
+        }
+        message = sb.toString();
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
@@ -64,6 +93,6 @@ public class Scroll {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
         img.draw(x, y);
         g.draw(zon);
-        txt.render(gc, g);
+        g.drawString(message, x + 55, y + 40);
     }
 }
