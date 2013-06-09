@@ -13,7 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Player extends Physics {
 
     private Image img[][];
-    private final short frames[] = { 8, 6, 9, 5, 6 };
+    private final byte frames[] = { 8, 6, 9, 5, 6 };
     /* indicele fiecaruia e          0  1  2  3  4  5  6  7  8  9
      * 
      * 0 - run
@@ -23,6 +23,8 @@ public class Player extends Physics {
      * 4 - to_slide
      * 
      */
+    private Image scut;
+    private short rezist = 0;
 
     private byte actiune = 0, frame = 0;
     private byte interval = 0;
@@ -42,7 +44,6 @@ public class Player extends Physics {
     private short imunitate = 0;
 
     private float marY;
-    private float speed = 0.5f;
 
     public Player(float x, float y) {
         this.x = x;
@@ -54,6 +55,11 @@ public class Player extends Physics {
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
 
         marY = poly.getHeight();
+        
+        if( rezist - delta > 0 )
+            rezist -= delta;
+        else
+            rezist = 0;
 
         if( gc.getInput().isKeyDown(Input.KEY_SPACE) ) {
             if( jumpNo < jumpMax && canjump && !colid() && isActiv <= 1 ) {
@@ -158,7 +164,7 @@ public class Player extends Physics {
         modY(accel * delta);
         if( colid() ) {
             modY(-accel * delta);
-            if( colid() && imunitate == 0 ) {
+            if( colid() && imunitate == 0 && rezist == 0 ) {
                 addLifes(-1);
                 imunitate = 3000;
             }
@@ -184,13 +190,6 @@ public class Player extends Physics {
             accel = 1;
     }
 
-    private void adapt(int cantitate) {
-        while (!colid()) {
-            modY(cantitate);
-        }
-        modY(-cantitate);
-    }
-
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
         g.setColor(Color.red);
         g.setLineWidth(1);
@@ -200,7 +199,8 @@ public class Player extends Physics {
         if( imunitate > 0 )
             img[actiune][frame].setAlpha(0.1f + (float) Math.abs(Math.sin(Math.toRadians(imunitate))));
         img[actiune][frame].draw(x, y);
-
+        if(rezist>0)
+            scut.drawCentered(poly.getCenterX(),poly.getCenterY());
     }
 
     private void Animatie(int delta) {
@@ -229,6 +229,7 @@ public class Player extends Physics {
         PackedSpriteSheet sheet = null;
         try {
             sheet = new PackedSpriteSheet("res/player/sheet_activ.def", Color.white);
+            scut = new Image("res/player/scut.png");
         } catch (SlickException e) {
             e.printStackTrace();
         }
@@ -255,16 +256,6 @@ public class Player extends Physics {
 
     private void setPoly(float x, float y, float w, float h) {
         poly = new Rectangle(x, y, w, h);
-    }
-
-    private void modX(float amont) {
-        x += amont;
-        poly.setX(x);
-    }
-
-    private void modY(float amont) {
-        y += amont;
-        poly.setY(y);
     }
 
     //                 getters
@@ -307,6 +298,14 @@ public class Player extends Physics {
         if( Player.lifes + i >= 0 )
             Player.lifes += i;
         System.out.println(Player.lifes);
+    }
+
+    public short getRezist() {
+        return rezist;
+    }
+
+    public void setRezist(short rezist) {
+        this.rezist = rezist;
     }
 
 }

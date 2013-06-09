@@ -24,7 +24,8 @@ public class GameplayState extends BasicGameState {
     private byte tick = 0;
     private final byte tickMax = 62;
 
-    private static long score = 0;
+    private static long distanta = 0;
+    private static int iteme = 0;
     private boolean mort = false;
 
     private static boolean taken = false;
@@ -55,13 +56,13 @@ public class GameplayState extends BasicGameState {
             world.update(gc, sbg, tick);
             tick = 0;
             if( Player.getLifes() > 0 ) {
-                score += WorldMap.getMove();
+                distanta += WorldMap.getMove();
             }
         }
 
         if( Player.getLifes() <= 0 && !mort ) {
             mort = true;
-            System.out.println("esti mort , distanta parcursa este de :" + score);
+            System.out.println("esti mort , distanta parcursa este de :" + distanta);
         }
     }
 
@@ -83,7 +84,7 @@ public class GameplayState extends BasicGameState {
             g.fillOval(73 + (i * 30), 650, 20, 20);
         }
         g.setColor(Color.black);
-        g.drawString(String.format("Distanta : %d", score), 0, 680);
+        g.drawString(String.format("Distanta : %d", distanta), 0, 680);
         
         if(taken){
             scroll.render(gc, sbg, g);
@@ -111,12 +112,12 @@ public class GameplayState extends BasicGameState {
         return player;
     }
 
-    public static long getScore() {
-        return score;
+    public static long getDistanta() {
+        return distanta;
     }
 
-    public void setScore(long score) {
-        GameplayState.score = score;
+    public void setDistanta(long score) {
+        GameplayState.distanta = score;
     }
 
     public boolean isMort() {
@@ -134,14 +135,21 @@ public class GameplayState extends BasicGameState {
     public static void setTaken(boolean taken) {
         GameplayState.taken = taken;
     }
-
     
     public static Scroll getScroll() {
         return scroll;
     }
 
-    public static void makeScroll(GameContainer gc) {
-        GameplayState.scroll = new Scroll(gc);
+    public static void makeScroll() {
+        GameplayState.scroll = new Scroll();
+    }
+
+    public static int getIteme() {
+        return iteme;
+    }
+
+    public static void modIteme(int iteme) {
+        GameplayState.iteme += iteme;
     }
     
     

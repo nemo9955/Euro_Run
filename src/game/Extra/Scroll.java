@@ -29,7 +29,7 @@ public class Scroll {
 
     private String message;
 
-    public Scroll(GameContainer gc) {
+    public Scroll() {
 
         try {
             img = new Image("res/item/scroll.png");
@@ -39,16 +39,17 @@ public class Scroll {
         x = (short) ((450 - img.getWidth() / 2) - GameplayState.getCamera().getX());
         y = (short) ((300 - img.getHeight() / 2) - GameplayState.getCamera().getY());
 
-        //   zon = new Rectangle(x, y, img.getWidth(), img.getHeight());
-        zon = new Rectangle(-50, 300, 50, 50);
+        zon = new Rectangle(x, y, img.getWidth(), img.getHeight());
+        //zon = new Rectangle(-50, 300, 50, 50);
 
         gatFact();
-        genText(gc);
+        genText();
     }
 
     private void gatFact() {
-        //     byte rand = (byte) zar.nextInt(noFacts);
-        byte rand = 1;
+        //byte rand = (byte) (1 + zar.nextInt(noFacts));
+        byte rand = 14;
+
         FileInputStream fstream = null;
         try {
             fstream = new FileInputStream("res/item/intrebari.txt");
@@ -72,11 +73,17 @@ public class Scroll {
         }
     }
 
-    private void genText(GameContainer gc) {
+    private void genText() {
         int i = 0;
         int range = 55;
         StringBuilder sb = new StringBuilder(message);
+        
         while (i + range < sb.length() && (i = sb.lastIndexOf(" ", i + range)) != -1) {
+            sb.replace(i, i + 1, "\n");
+            System.out.println(i);
+        }
+        
+        while ( (i = sb.lastIndexOf("*", 0) ) != -1) {
             sb.replace(i, i + 1, "\n");
         }
         message = sb.toString();
@@ -84,10 +91,10 @@ public class Scroll {
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
 
-        if( gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON) )
-            if( zon.contains(gc.getInput().getMouseX() - GameplayState.getCamera().getX(), gc.getInput().getMouseY() - GameplayState.getCamera().getY()) ) {
-                GameplayState.setTaken(false);
-            }
+        if( (gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON) && zon.contains(gc.getInput().getMouseX() - GameplayState.getCamera().getX(), gc.getInput().getMouseY() - GameplayState.getCamera().getY())) || gc.getInput().isKeyPressed(Input.KEY_SPACE) ) {
+            GameplayState.setTaken(false);
+            message = null;
+        }
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {

@@ -9,6 +9,7 @@ public class Physics {
 
     protected float x;
     protected float y;
+    protected float speed = 0.5f;
 
     protected Rectangle poly;
 
@@ -18,8 +19,25 @@ public class Physics {
                 return true ;
             }
         }
-
         return false;
+    }
+
+    protected void adapt(int cantitate) {
+        while (!colid()) {
+            modY(cantitate);
+        }
+        modY(-cantitate);
+    }
+
+
+    protected void modX(float amont) {
+        x += amont;
+        poly.setX(x);
+    }
+
+    protected void modY(float amont) {
+        y += amont;
+        poly.setY(y);
     }
 
 }

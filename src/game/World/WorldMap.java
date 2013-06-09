@@ -39,8 +39,6 @@ public class WorldMap {
         while( pozBG < startGen ) {
             bg.add(new Background(pozBG, 700));
         }
-
-        item.add(new Item(300 , 450));
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
@@ -59,7 +57,7 @@ public class WorldMap {
         }
 
         if( zar.nextInt(1000) < 20 ){
-            item.add(new Item(poz , 450));
+            item.add(new Item(poz-zar.nextInt(50) , 50+zar.nextInt(50)));
         }
         
         if( zar.nextInt(1000) < 50 ){

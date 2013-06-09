@@ -18,10 +18,15 @@ public class Item extends Physics {
         this.x = x;
         this.y = y;
         makeImage();
-        poly=new Rectangle (x,y,img.getWidth(),img.getHeight());
+        poly = new Rectangle(x, y, img.getWidth(), img.getHeight());
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
+
+        modY(6);
+        if( colid() ) {
+            modY(-6);
+        }
 
         modX(-WorldMap.getMove());
 
@@ -30,9 +35,11 @@ public class Item extends Physics {
         }
 
         if( poly.intersects(GameplayState.getPlayer().getPoly()) ) {
- //           System.out.println("colid");
+            //           System.out.println("colid");
             GameplayState.setTaken(true);
-            GameplayState.makeScroll(gc);
+            GameplayState.makeScroll();
+            GameplayState.modIteme(1);
+            GameplayState.getPlayer().setRezist((short) 1000);
             WorldMap.getItem().remove(this);
         }
     }
@@ -47,10 +54,5 @@ public class Item extends Physics {
         } catch (SlickException e) {
             e.printStackTrace();
         }
-    }
-
-    public void modX(float x) {
-        this.x += x;
-        poly.setX(this.x);
     }
 }
