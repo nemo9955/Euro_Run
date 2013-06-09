@@ -21,7 +21,7 @@ public class Item extends Physics {
         poly = new Rectangle(x, y, img.getWidth(), img.getHeight());
     }
 
-    public void update(GameContainer gc, StateBasedGame sbg, int delta) {
+    public void update(GameContainer gc, StateBasedGame sbg) {
 
         modY(6);
         if( colid() ) {

@@ -10,7 +10,7 @@ import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class WorldMap {
@@ -23,7 +23,7 @@ public class WorldMap {
     private final static int endGen = -256;
     private final static int size = 64;
 
-    private static int toGen = 0;
+    private static int terval = 0;
 
     private static int move = 21;
     private static int poz = 0;
@@ -43,26 +43,26 @@ public class WorldMap {
         }
     }
 
-    public void update(GameContainer gc, StateBasedGame sbg, int delta) {
+    public void update(GameContainer gc, StateBasedGame sbg) {
 
         poz -= move;
         pozBG -= move;
 
-        if( toGen - move > 0 ) {
-            toGen -= move;
+        if( terval - move > 0 ) {
+            terval -= move;
         } else {
-            toGen = 0;
+            terval = 0;
         }
 
         // sub-updates - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         for( int i = 0; i < blocks.size(); i++ ) {
-            blocks.get(i).update(gc, sbg, delta);
+            blocks.get(i).update(gc, sbg);
         }
         for( int i = 0; i < bg.size(); i++ ) {
-            bg.get(i).update(gc, sbg, delta);
+            bg.get(i).update(gc, sbg);
         }
         for( int i = 0; i < item.size(); i++ ) {
-            item.get(i).update(gc, sbg, delta);
+            item.get(i).update(gc, sbg);
         }
         // fundal & podea - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         while (pozBG < startGen) {
@@ -75,15 +75,21 @@ public class WorldMap {
         //adders - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
         if( zar.nextInt(1000) < 20 ) {
-            item.add(new Item(poz - zar.nextInt(50), 50 + zar.nextInt(50)));
+            item.add(new Item(poz + zar.nextInt(50), 50 + zar.nextInt(50)));
         }
-        if( toGen > 0 ) {
+
+        if( terval == 0 ) {
             int gen = zar.nextInt(1000);
-            if( gen > 700 ) {
-                if( zar.nextInt(1000) < 50 ) {
-                    blocks.add(new BlockSolid(poz, 500 - zar.nextInt(100)));
-                }
-            } else if( gen > 500 ) {
+            if( gen > 900 ) {
+                terval += 200 + (zar.nextInt(10) * 10);
+
+            } else if( gen > 700 ) {
+                blocks.add(new BlockSolid(startGen, 500 - zar.nextInt(150)));
+                terval += 220 + zar.nextInt(50);
+
+            } else if( gen > 600 ) {
+                blocks.add(new Faller(startGen + 50,  -zar.nextInt(30)*10));
+                terval += 160 + zar.nextInt(80);
 
             } else {
 
@@ -109,7 +115,7 @@ public class WorldMap {
         return blocks;
     }
 
-    public Rectangle getBlock(int i) {
+    public Shape getBlock(int i) {
         return blocks.get(i).getZon();
     }
 

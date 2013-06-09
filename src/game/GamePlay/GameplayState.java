@@ -53,7 +53,7 @@ public class GameplayState extends BasicGameState {
 
         tick += delta;
         if( tick > tickMax ) {
-            world.update(gc, sbg, tick);
+            world.update(gc, sbg);
             tick = 0;
             if( Player.getLifes() > 0 ) {
                 distanta += WorldMap.getMove();

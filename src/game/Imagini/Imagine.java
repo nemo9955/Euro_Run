@@ -30,7 +30,7 @@ public class Imagine {
         img = null;
     }
 
-    public void update(GameContainer gc, StateBasedGame sbg, int delta) {
+    public void update(GameContainer gc, StateBasedGame sbg) {
 
         modX(-WorldMap.getMove());
 

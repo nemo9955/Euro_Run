@@ -120,7 +120,7 @@ public class Player extends Physics {
         if( gc.getInput().isKeyPressed(Input.KEY_F1) ) {
             System.out.println(x + " " + y);
         }
-        if( y > 900 || y < -100 ) {
+        if( y > 700 || y < -400 ) {
             System.out.println("teleport");
             setY(300);
         }

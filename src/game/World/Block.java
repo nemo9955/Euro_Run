@@ -1,32 +1,35 @@
 package game.World;
 
+import game.GamePlay.GameplayState;
+
 import java.util.Random;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Block {
 
     protected float x, y;
     protected boolean solid;
-    protected Rectangle zon;
-    
-    protected Color color ;
-    protected Random zar = new Random() ;
-    
+    protected Shape zon;
+
+    protected Color color;
+    protected Random zar = new Random();
+
     public Block(int x, int y) {
         this.x = x;
         this.y = y;
         Solid();
         Zon();
-        color=new Color(zar.nextInt(225),zar.nextInt(225),zar.nextInt(225));
+        color = new Color(zar.nextInt(225), zar.nextInt(225), zar.nextInt(225));
     }
 
-    public void update(GameContainer gc, StateBasedGame sbg, int delta) {
-        
+    public void update(GameContainer gc, StateBasedGame sbg) {
+
         modX(-WorldMap.getMove());
 
         if( zon.getX() <= WorldMap.getEndgen() ) {
@@ -42,6 +45,18 @@ public class Block {
         g.fill(zon);
 
     }
+
+    protected boolean colid() {
+        for( int i = 0; i < WorldMap.getBlocks().size(); i++ ) {
+            if( this.getZon() != GameplayState.getWorldMap().getBlock(i) )
+                if( zon.intersects(GameplayState.getWorldMap().getBlock(i)) ) {
+                    return true;
+                }
+        }
+        return false;
+    }
+
+    //                getters & setters
 
     protected void Zon() {
         zon = null;
@@ -61,8 +76,6 @@ public class Block {
         zon.setY(this.y);
     }
 
-    //                getters
-
     public float getX() {
         return x;
     }
@@ -75,7 +88,7 @@ public class Block {
         return solid;
     }
 
-    public Rectangle getZon() {
+    public Shape getZon() {
         return zon;
     }
 
