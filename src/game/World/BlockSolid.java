@@ -11,10 +11,6 @@ public class BlockSolid extends Block {
     protected void Solid() {
         solid=true;
     }
-
-    protected void Exist() {
-        exists=true;
-    }
     
     protected void Zon() {
         zon= new Rectangle (x, y, WorldMap.getSize() , WorldMap.getSize());

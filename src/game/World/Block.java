@@ -12,7 +12,6 @@ public class Block {
 
     protected float x, y;
     protected boolean solid;
-    protected boolean exists;
     protected Rectangle zon;
     
     protected Color color ;
@@ -21,14 +20,12 @@ public class Block {
     public Block(int x, int y) {
         this.x = x;
         this.y = y;
-        Exist();
         Solid();
         Zon();
         color=new Color(zar.nextInt(225),zar.nextInt(225),zar.nextInt(225));
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
-        
         
         modX(-WorldMap.getMove());
 
@@ -52,10 +49,6 @@ public class Block {
 
     protected void Solid() {
         solid = false;
-    }
-
-    protected void Exist() {
-        exists = false;
     }
 
     public void modX(float x) {
@@ -82,10 +75,6 @@ public class Block {
         return solid;
     }
 
-    public boolean isExists() {
-        return exists;
-    }
-
     public Rectangle getZon() {
         return zon;
     }
@@ -102,10 +91,6 @@ public class Block {
 
     public void setSolid(boolean solid) {
         this.solid = solid;
-    }
-
-    public void setExists(boolean exists) {
-        this.exists = exists;
     }
 
     public void setZon(Rectangle zon) {

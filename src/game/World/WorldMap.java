@@ -23,9 +23,11 @@ public class WorldMap {
     private final static int endGen = -256;
     private final static int size = 64;
 
+    private static int toGen = 0;
+
     private static int move = 21;
-    private static int poz=0;
-    private static int pozBG=0;
+    private static int poz = 0;
+    private static int pozBG = 0;
 
     private Random zar = new Random();
 
@@ -36,7 +38,7 @@ public class WorldMap {
             blocks.add(new BlockSolid(poz, 550));
             poz += size;
         }
-        while( pozBG < startGen ) {
+        while (pozBG < startGen) {
             bg.add(new Background(pozBG, 700));
         }
     }
@@ -46,6 +48,13 @@ public class WorldMap {
         poz -= move;
         pozBG -= move;
 
+        if( toGen - move > 0 ) {
+            toGen -= move;
+        } else {
+            toGen = 0;
+        }
+
+        // sub-updates - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         for( int i = 0; i < blocks.size(); i++ ) {
             blocks.get(i).update(gc, sbg, delta);
         }
@@ -55,22 +64,30 @@ public class WorldMap {
         for( int i = 0; i < item.size(); i++ ) {
             item.get(i).update(gc, sbg, delta);
         }
-
-        if( zar.nextInt(1000) < 20 ){
-            item.add(new Item(poz-zar.nextInt(50) , 50+zar.nextInt(50)));
-        }
-        
-        if( zar.nextInt(1000) < 50 ){
-            blocks.add(new BlockSolid(poz, 500 - zar.nextInt(100)));
-        }
-
-        while( pozBG < startGen ) {
+        // fundal & podea - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        while (pozBG < startGen) {
             bg.add(new Background(pozBG, 700));
         }
-
         while (startGen - poz >= size) {
             blocks.add(new BlockSolid(poz, 550));
             poz += size;
+        }
+        //adders - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+        if( zar.nextInt(1000) < 20 ) {
+            item.add(new Item(poz - zar.nextInt(50), 50 + zar.nextInt(50)));
+        }
+        if( toGen > 0 ) {
+            int gen = zar.nextInt(1000);
+            if( gen > 700 ) {
+                if( zar.nextInt(1000) < 50 ) {
+                    blocks.add(new BlockSolid(poz, 500 - zar.nextInt(100)));
+                }
+            } else if( gen > 500 ) {
+
+            } else {
+
+            }
         }
 
     }
@@ -79,7 +96,7 @@ public class WorldMap {
 
         for( int i = 0; i < bg.size(); i++ )
             bg.get(i).render(gc, sbg, g);
-        
+
         for( int i = 0; i < blocks.size(); i++ )
             blocks.get(i).render(gc, sbg, g);
 
@@ -90,10 +107,6 @@ public class WorldMap {
 
     public static List<Block> getBlocks() {
         return blocks;
-    }
-
-    public boolean isBlock(int i) {
-        return blocks.get(i).isExists();
     }
 
     public Rectangle getBlock(int i) {
@@ -119,11 +132,11 @@ public class WorldMap {
     public static void setMove(int move) {
         WorldMap.move = move;
     }
-    
+
     public static int getSize() {
         return size;
     }
-    
+
     public static int getPozBG() {
         return pozBG;
     }
@@ -143,6 +156,5 @@ public class WorldMap {
     public static int getPoz() {
         return poz;
     }
-    
 
 }
