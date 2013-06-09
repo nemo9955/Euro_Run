@@ -47,8 +47,8 @@ public class Scroll {
     }
 
     private void gatFact() {
-        //byte rand = (byte) (1 + zar.nextInt(noFacts));
-        byte rand = 14;
+        byte rand = (byte) (1 + zar.nextInt(noFacts));
+        // byte rand = 14;
 
         FileInputStream fstream = null;
         try {
@@ -77,16 +77,35 @@ public class Scroll {
         int i = 0;
         int range = 55;
         StringBuilder sb = new StringBuilder(message);
-        
-        while (i + range < sb.length() && (i = sb.lastIndexOf(" ", i + range)) != -1) {
+
+        i = 0;
+
+        while (i + range < sb.length()) {
+
+            if( sb.indexOf("*") != -1 ) {
+                i = sb.indexOf("*");
+                sb.replace(i, i + 1, "\n");
+            }
+
+            if( i + range >= sb.length() ) {
+                break;
+            }
+
+            i = sb.lastIndexOf(" ", i + range);
+
+            if( i == -1 ) {
+                break;
+            }
+
             sb.replace(i, i + 1, "\n");
-            System.out.println(i);
+
         }
-        
-        while ( (i = sb.lastIndexOf("*", 0) ) != -1) {
+        while (sb.indexOf("*") != -1) {
+            i = sb.indexOf("*");
             sb.replace(i, i + 1, "\n");
         }
         message = sb.toString();
+
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
