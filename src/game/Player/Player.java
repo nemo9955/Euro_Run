@@ -55,7 +55,7 @@ public class Player extends Physics {
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
 
         marY = poly.getHeight();
-        
+
         if( rezist - delta > 0 )
             rezist -= delta;
         else
@@ -164,7 +164,7 @@ public class Player extends Physics {
         modY(accel * delta);
         if( colid() ) {
             modY(-accel * delta);
-            if( colid() && imunitate == 0 && rezist == 0 ) {
+            if( colid() && imunitate == 0 && rezist == 0 && !canMakeStep() ) {
                 addLifes(-1);
                 imunitate = 3000;
             }
@@ -190,6 +190,22 @@ public class Player extends Physics {
             accel = 1;
     }
 
+    private boolean canMakeStep() {
+
+        modY(-15);
+        if( !colid() ) {
+
+            modY(15);
+            while (!colid()) {
+                modY(-2);
+            }
+            return true;
+        }
+
+        modY(15);
+        return false;
+    }
+
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
         g.setColor(Color.red);
         g.setLineWidth(1);
@@ -199,8 +215,8 @@ public class Player extends Physics {
         if( imunitate > 0 )
             img[actiune][frame].setAlpha(0.1f + (float) Math.abs(Math.sin(Math.toRadians(imunitate))));
         img[actiune][frame].draw(x, y);
-        if(rezist>0)
-            scut.drawCentered(poly.getCenterX(),poly.getCenterY());
+        if( rezist > 0 )
+            scut.drawCentered(poly.getCenterX(), poly.getCenterY());
     }
 
     private void Animatie(int delta) {
@@ -303,9 +319,13 @@ public class Player extends Physics {
     public short getRezist() {
         return rezist;
     }
-
+    
     public void setRezist(short rezist) {
         this.rezist = rezist;
+    }
+
+    public void modRezist(short rezist) {
+        this.rezist += rezist;
     }
 
 }

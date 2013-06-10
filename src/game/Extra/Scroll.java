@@ -27,7 +27,7 @@ public class Scroll {
     private Random zar = new Random();
     private final byte noFacts = 13;
 
-    private String message;
+    private String message = "avbftw 3gv8 c732gc7 6t 2c5t 4524 5y 54yc2 5y45vcy25y 26uy 2547uy 2gv2356 f7u26 g7";
 
     public Scroll() {
 
@@ -42,10 +42,11 @@ public class Scroll {
         zon = new Rectangle(x, y, img.getWidth(), img.getHeight());
         //zon = new Rectangle(-50, 300, 50, 50);
 
-        gatFact();
+       // gatFact();
         genText();
     }
 
+    @SuppressWarnings("unused")
     private void gatFact() {
         byte rand = (byte) (1 + zar.nextInt(noFacts));
         // byte rand = 14;

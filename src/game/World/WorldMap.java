@@ -84,11 +84,11 @@ public class WorldMap {
                 terval += 200 + (zar.nextInt(10) * 10);
 
             } else if( gen > 700 ) {
-                blocks.add(new BlockSolid(startGen, 500 - zar.nextInt(150)));
+                blocks.add(new BlockSolid(startGen, 530- zar.nextInt(150)));
                 terval += 220 + zar.nextInt(50);
 
             } else if( gen > 600 ) {
-                blocks.add(new Faller(startGen + 50,  -zar.nextInt(30)*10));
+                blocks.add(new Faller(startGen + 50, -zar.nextInt(30) * 10));
                 terval += 160 + zar.nextInt(80);
 
             } else {

@@ -6,6 +6,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Faller extends Block {
 
+    private final byte fall =(byte) (7+ zar.nextInt(8));
+    
     public Faller(int x, int y) {
         super(x, y);
     }
@@ -17,7 +19,7 @@ public class Faller extends Block {
     public void update(GameContainer gc, StateBasedGame sbg) {
 
         if( !colid() )
-            modY(10);
+            modY(fall);
 
         modX(-WorldMap.getMove());
 
