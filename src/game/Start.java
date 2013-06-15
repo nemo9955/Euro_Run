@@ -13,14 +13,12 @@ public class Start extends StateBasedGame {
      * @param args
      * @throws SlickException
      */
-
-    private final static String titlu = "The Slayer of Raknar";
-    private static int WIDTH = 900;
-    private static int HEIGHT = 600;
-
-    //  aici o sa initializam stagiile ;
-    //	public static final int MENUSTATE = 0 ;
-    public static final int GAMEPLAYSTATE = 0;
+    private final static String titlu         = "Euro Run";
+    private static int          WIDTH         = 900;
+    private static int          HEIGHT        = 600;
+    // aici o sa initializam stagiile ;
+    // public static final int MENUSTATE = 0 ;
+    public static final int     GAMEPLAYSTATE = 0;
 
     public Start(String titlu) {
         super(titlu);
@@ -37,7 +35,7 @@ public class Start extends StateBasedGame {
     }
 
     public static void main(String[] args) throws SlickException {
-        //        AppGameContainer app = new AppGameContainer(new Start(titlu));
+        // AppGameContainer app = new AppGameContainer(new Start(titlu));
         AppGameContainer app = new AppGameContainer(new Start());
         app.setDisplayMode(WIDTH, HEIGHT, false);
         app.setResizable(false);
@@ -62,5 +60,4 @@ public class Start extends StateBasedGame {
     public static void setHEIGHT(int hEIGHT) {
         HEIGHT = hEIGHT;
     }
-
 }

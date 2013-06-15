@@ -19,23 +19,20 @@ public class Background extends Imagine {
             img = new Image(String.format("%s/%d.png", link, 1 + zar.nextInt(2)));
             img.setAlpha(0.3f);
             WorldMap.modPozBG(img.getWidth());
-        } catch (SlickException e) {
+        }
+        catch (SlickException e) {
             e.printStackTrace();
         }
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
-
         modX(-WorldMap.getMove());
-
-        if( x <= WorldMap.getEndgen() ) {
+        if (x <= WorldMap.getEndgen()) {
             WorldMap.getBlocks().remove(this);
         }
-
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
         img.draw(x, y);
     }
-
 }

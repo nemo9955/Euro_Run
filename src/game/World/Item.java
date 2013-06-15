@@ -22,20 +22,16 @@ public class Item extends Physics {
     }
 
     public void update(GameContainer gc, StateBasedGame sbg) {
-
         modY(6);
-        if( colid() ) {
+        if (colid()) {
             modY(-6);
         }
-
         modX(-WorldMap.getMove());
-
-        if( poly.getX() <= WorldMap.getEndgen() ) {
+        if (poly.getX() <= WorldMap.getEndgen()) {
             WorldMap.getItem().remove(this);
         }
-
-        if( poly.intersects(GameplayState.getPlayer().getPoly()) ) {
-            //           System.out.println("colid");
+        if (poly.intersects(GameplayState.getPlayer().getPoly())) {
+            // System.out.println("colid");
             GameplayState.setTaken(true);
             GameplayState.makeScroll();
             GameplayState.modIteme(1);
@@ -51,7 +47,8 @@ public class Item extends Physics {
     private void makeImage() {
         try {
             img = new Image("res/item/item.png");
-        } catch (SlickException e) {
+        }
+        catch (SlickException e) {
             e.printStackTrace();
         }
     }

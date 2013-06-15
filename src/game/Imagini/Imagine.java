@@ -12,13 +12,12 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Imagine {
 
-    protected Image img;
-    protected int x, y;
-
-    protected Color color;
+    protected Image         img;
+    protected int           x, y;
+    protected Color         color;
     protected static Random zar = new Random();
 
-    public Imagine(int x, int y , String link) {
+    public Imagine(int x, int y, String link) {
         super();
         makeImagine(link);
         this.x = x;
@@ -31,13 +30,10 @@ public class Imagine {
     }
 
     public void update(GameContainer gc, StateBasedGame sbg) {
-
         modX(-WorldMap.getMove());
-
-        if( x <= WorldMap.getEndgen() ) {
+        if (x <= WorldMap.getEndgen()) {
             WorldMap.getBlocks().remove(this);
         }
-
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
@@ -53,5 +49,4 @@ public class Imagine {
     protected void modY(int y) {
         this.y += y;
     }
-
 }

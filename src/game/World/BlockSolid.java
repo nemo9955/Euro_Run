@@ -7,12 +7,12 @@ public class BlockSolid extends Block {
     public BlockSolid(int x, int y) {
         super(x, y);
     }
-    
+
     protected void Solid() {
-        solid=true;
+        solid = true;
     }
-    
+
     protected void Zon() {
-        zon= new Rectangle (x, y, WorldMap.getSize() , WorldMap.getSize());
+        zon = new Rectangle(x, y, WorldMap.getSize(), WorldMap.getSize());
     }
 }

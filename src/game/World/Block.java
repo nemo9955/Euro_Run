@@ -13,12 +13,11 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Block {
 
-    protected float x, y;
+    protected float   x, y;
     protected boolean solid;
-    protected Shape zon;
-
-    protected Color color;
-    protected Random zar = new Random();
+    protected Shape   zon;
+    protected Color   color;
+    protected Random  zar = new Random();
 
     public Block(int x, int y) {
         this.x = x;
@@ -29,35 +28,29 @@ public class Block {
     }
 
     public void update(GameContainer gc, StateBasedGame sbg) {
-
         modX(-WorldMap.getMove());
-
-        if( zon.getX() <= WorldMap.getEndgen() ) {
+        if (zon.getX() <= WorldMap.getEndgen()) {
             WorldMap.getBlocks().remove(this);
         }
-
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
-
         g.setColor(color);
         g.setLineWidth(3);
         g.fill(zon);
-
     }
 
     protected boolean colid() {
-        for( int i = 0; i < WorldMap.getBlocks().size(); i++ ) {
-            if( this.getZon() != GameplayState.getWorldMap().getBlock(i) )
-                if( zon.intersects(GameplayState.getWorldMap().getBlock(i)) ) {
+        for (int i = 0; i < WorldMap.getBlocks().size(); i++) {
+            if (this.getZon() != GameplayState.getWorldMap().getBlock(i))
+                if (zon.intersects(GameplayState.getWorldMap().getBlock(i))) {
                     return true;
                 }
         }
         return false;
     }
 
-    //                getters & setters
-
+    // getters & setters
     protected void Zon() {
         zon = null;
     }
@@ -109,5 +102,4 @@ public class Block {
     public void setZon(Rectangle zon) {
         this.zon = zon;
     }
-
 }
