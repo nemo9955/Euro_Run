@@ -64,8 +64,11 @@ public class Player extends Physics {
                 }
             }
         }
+
         jump_gravity(delta);
+
         // Move_st_dr(gc, delta);
+
         if (gc.getInput().isKeyDown(Input.KEY_D) && (isActiv == 0 || isActiv == 2)) {
             next = 2;
             hasNext = false;
@@ -99,7 +102,7 @@ public class Player extends Physics {
         if (gc.getInput().isKeyPressed(Input.KEY_F1)) {
             System.out.println(x + " " + y);
         }
-        if (y > 700 || y < -400) {
+        if (y > 700 || y < -600) {
             System.out.println("teleport");
             setY(300);
         }

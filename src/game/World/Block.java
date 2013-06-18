@@ -26,6 +26,14 @@ public class Block {
         Zon();
         color = new Color(zar.nextInt(225), zar.nextInt(225), zar.nextInt(225));
     }
+    
+    public Block(Shape zon) {
+        this.zon=zon;
+        x=zon.getX();
+        y=zon.getY();
+        Solid();
+        color = new Color(zar.nextInt(225), zar.nextInt(225), zar.nextInt(225));
+    }
 
     public void update(GameContainer gc, StateBasedGame sbg) {
         modX(-WorldMap.getMove());
@@ -56,7 +64,7 @@ public class Block {
     }
 
     protected void Solid() {
-        solid = false;
+        solid = true;
     }
 
     public void modX(float x) {

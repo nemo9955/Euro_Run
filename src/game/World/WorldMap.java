@@ -48,6 +48,8 @@ public class WorldMap {
         else {
             terval = 0;
         }
+
+
         // sub-updates - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         for (int i = 0; i < blocks.size(); i++) {
             blocks.get(i).update(gc, sbg);
@@ -58,6 +60,8 @@ public class WorldMap {
         for (int i = 0; i < item.size(); i++) {
             item.get(i).update(gc, sbg);
         }
+
+
         // fundal & podea - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         while (pozBG < startGen) {
             bg.add(new Background(pozBG, 700));
@@ -66,26 +70,34 @@ public class WorldMap {
             blocks.add(new BlockSolid(poz, 550));
             poz += size;
         }
+
+
         // adders - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         if (zar.nextInt(1000) < 20) {
             item.add(new Item(poz + zar.nextInt(50), 50 + zar.nextInt(50)));
         }
+
         if (terval == 0) {
+
             int gen = zar.nextInt(1000);
             if (gen > 900) {
                 terval += 200 + (zar.nextInt(10) * 10);
             }
             else if (gen > 700) {
                 blocks.add(new BlockSolid(startGen, 530 - zar.nextInt(150)));
-                terval += 220 + zar.nextInt(50);
+                terval += 200 + zar.nextInt(100);
             }
             else if (gen > 600) {
                 blocks.add(new Faller(startGen + 50, -zar.nextInt(30) * 10));
-                terval += 160 + zar.nextInt(80);
+                terval += 150 + zar.nextInt(100);
             }
-            else {
+            else if (gen > 400) {
+                Elements.MakeWall(startGen, 500);
+                terval += 300 + zar.nextInt(100);
             }
+
         }
+
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
