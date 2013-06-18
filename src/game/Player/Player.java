@@ -69,11 +69,12 @@ public class Player extends Physics {
 
         // Move_st_dr(gc, delta);
 
-        if (gc.getInput().isKeyDown(Input.KEY_D) && (isActiv == 0 || isActiv == 2)) {
+        if (gc.getInput().isKeyDown(Input.KEY_D) && isActiv <= 2) {
             next = 2;
             hasNext = false;
             isActiv = 2;
         }
+        
         if (gc.getInput().isKeyDown(Input.KEY_S) && (isActiv == 0 || isActiv == 3)) {
             if (gc.getInput().isKeyPressed(Input.KEY_S)) {
                 buff = 4;
@@ -82,7 +83,9 @@ public class Player extends Physics {
             }
             isActiv = 3;
         }
+        
         Animatie(delta);
+        
         if (isActiv != 0) {
             if (hasNext) {
                 schAct(buff);

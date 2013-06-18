@@ -17,14 +17,14 @@ public class Elements {
         switch (zar.nextInt(3)) {
             case 0:
                 gap = 60;
-                alti = 502;
+                alti = 495;
                 break;
             case 1:
                 gap = (short) (120 + zar.nextInt(50));
                 alti = 140;
                 break;
             case 2:
-                gap = (short) (80 + zar.nextInt(50));
+                gap = (short) (130 + zar.nextInt(50));
                 alti = 80;
                 break;
         }
@@ -32,9 +32,9 @@ public class Elements {
         Shape zon;
         Shape zon1;
 
-        zon = new Rectangle(x, -400, WorldMap.getSize(), alti + 400);
+        zon = new Rectangle(x, -400,20, alti + 400);
 
-        zon1 = new Rectangle(x, zon.getY() + zon.getHeight() + gap, WorldMap.getSize(), 560 - (zon.getY() + zon.getHeight() + gap));
+        zon1 = new Rectangle(x, zon.getY() + zon.getHeight() + gap, 20 , 560 - (zon.getY() + zon.getHeight() + gap));
 
         WorldMap.getBlocks().add(new Block(zon));
         WorldMap.getBlocks().add(new Block(zon1));

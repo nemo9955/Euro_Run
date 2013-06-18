@@ -80,20 +80,21 @@ public class WorldMap {
         if (terval == 0) {
 
             int gen = zar.nextInt(1000);
+            
             if (gen > 900) {
                 terval += 200 + (zar.nextInt(10) * 10);
             }
             else if (gen > 700) {
                 blocks.add(new BlockSolid(startGen, 530 - zar.nextInt(150)));
-                terval += 200 + zar.nextInt(100);
+                terval += 300 + zar.nextInt(100);
             }
             else if (gen > 600) {
-                blocks.add(new Faller(startGen + 50, -zar.nextInt(30) * 10));
-                terval += 150 + zar.nextInt(100);
+                blocks.add(new Faller(startGen, -zar.nextInt(30) * 10));
+                terval += 20 + zar.nextInt(50);
             }
             else if (gen > 400) {
                 Elements.MakeWall(startGen, 500);
-                terval += 300 + zar.nextInt(100);
+                terval += 500 + zar.nextInt(100);
             }
 
         }
