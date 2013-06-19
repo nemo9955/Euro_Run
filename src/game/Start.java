@@ -20,9 +20,11 @@ public class Start extends StateBasedGame {
     // public static final int MENUSTATE = 0 ;
     public static final int     GAMEPLAYSTATE = 0;
 
-    public Start(String titlu) {
-        super(titlu);
-    }
+    /*
+     * public Start(String titlu) {
+     * super(titlu);
+     * }
+     */
 
     public Start() throws SlickException {
         super(titlu);

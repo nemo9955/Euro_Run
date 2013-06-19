@@ -42,6 +42,7 @@ public class WorldMap {
     public void update(GameContainer gc, StateBasedGame sbg) {
         poz -= move;
         pozBG -= move;
+        
         if (terval - move > 0) {
             terval -= move;
         }
@@ -80,7 +81,7 @@ public class WorldMap {
         if (terval == 0) {
 
             int gen = zar.nextInt(1000);
-            
+
             if (gen > 900) {
                 terval += 200 + (zar.nextInt(10) * 10);
             }
@@ -95,6 +96,9 @@ public class WorldMap {
             else if (gen > 400) {
                 Elements.MakeWall(startGen, 500);
                 terval += 500 + zar.nextInt(100);
+            }
+            else {
+
             }
 
         }
