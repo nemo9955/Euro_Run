@@ -1,6 +1,7 @@
 package game.Extra;
 
 import game.GamePlay.GameplayState;
+import game.GamePlay.GameplayState.STATES;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -110,8 +111,8 @@ public class Scroll {
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
 
-        if ((gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON) && zon.contains(gc.getInput().getMouseX() - GameplayState.getCamera().getX(), gc.getInput().getMouseY() - GameplayState.getCamera().getY())) || gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
-            GameplayState.setTaken(false);
+        if ((gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON) && zon.contains(gc.getInput().getMouseX() - GameplayState.getCamera().getX(), gc.getInput().getMouseY() - GameplayState.getCamera().getY())) || gc.getInput().isKeyPressed(Res.jump)) {
+            GameplayState.setToUpd(STATES.PLAY);
             message = null;
         }
 

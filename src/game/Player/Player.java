@@ -1,5 +1,7 @@
 package game.Player;
 
+import game.Extra.Res;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -48,9 +50,9 @@ public class Player extends Physics {
             rezist -= delta;
         else
             rezist = 0;
-        if (gc.getInput().isKeyDown(Input.KEY_SPACE)) {
+        if (gc.getInput().isKeyDown(Res.jump)) {
             if (jumpNo < jumpMax && canjump && !colid() && isActiv <= 1) {
-                if (gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
+                if (gc.getInput().isKeyPressed(Res.jump)) {
                     jumpNo++;
                     if (jumpNo == 1) {
                         accel = -1.5f;
@@ -69,14 +71,14 @@ public class Player extends Physics {
 
         // Move_st_dr(gc, delta);
 
-        if (gc.getInput().isKeyDown(Input.KEY_D) && isActiv <= 2) {
+        if (gc.getInput().isKeyDown(Res.roll) && isActiv <= 2) {
             next = 2;
             hasNext = false;
             isActiv = 2;
         }
 
-        if (gc.getInput().isKeyDown(Input.KEY_S) && (isActiv == 0 || isActiv == 3)) {
-            if (gc.getInput().isKeyPressed(Input.KEY_S)) {
+        if (gc.getInput().isKeyDown(Res.slide) && (isActiv == 0 || isActiv == 3)) {
+            if (gc.getInput().isKeyPressed(Res.slide)) {
                 buff = 4;
                 next = 3;
                 hasNext = true;
@@ -96,7 +98,7 @@ public class Player extends Physics {
         }
         // System.out.printf("%d %d %d %d \n", actiune, buff, next, frame);
         // System.out.println(isActiv);
-        if (!gc.getInput().isKeyDown(Input.KEY_S) && !gc.getInput().isKeyDown(Input.KEY_D) && accel >= 0) {
+        if (!gc.getInput().isKeyDown(Res.slide) && !gc.getInput().isKeyDown(Res.roll) && accel >= 0) {
             isActiv = 0;
             schAct((byte) 0);
         }

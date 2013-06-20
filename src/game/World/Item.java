@@ -1,6 +1,7 @@
 package game.World;
 
 import game.GamePlay.GameplayState;
+import game.GamePlay.GameplayState.STATES;
 import game.Player.Physics;
 
 import org.newdawn.slick.GameContainer;
@@ -32,7 +33,7 @@ public class Item extends Physics {
         }
         if (poly.intersects(GameplayState.getPlayer().getPoly())) {
             // System.out.println("colid");
-            GameplayState.setTaken(true);
+            GameplayState.setToUpd(STATES.SCROL);
             GameplayState.makeScroll();
             GameplayState.modIteme(1);
             GameplayState.getPlayer().modRezist((short) 1500);
