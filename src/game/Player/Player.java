@@ -74,7 +74,7 @@ public class Player extends Physics {
             hasNext = false;
             isActiv = 2;
         }
-        
+
         if (gc.getInput().isKeyDown(Input.KEY_S) && (isActiv == 0 || isActiv == 3)) {
             if (gc.getInput().isKeyPressed(Input.KEY_S)) {
                 buff = 4;
@@ -83,9 +83,9 @@ public class Player extends Physics {
             }
             isActiv = 3;
         }
-        
+
         Animatie(delta);
-        
+
         if (isActiv != 0) {
             if (hasNext) {
                 schAct(buff);
@@ -275,9 +275,11 @@ public class Player extends Physics {
     }
 
     public static void addLifes(int i) {
-        if (Player.lifes + i >= 0 && Player.lifes + i <= 5)
-            Player.lifes += i;
-        System.out.println(Player.lifes);
+        if (Player.lifes > 0)
+            if (Player.lifes + i >= 0 && Player.lifes + i <= 5) {
+                Player.lifes += i;
+                System.out.println(Player.lifes);
+            }
     }
 
     public short getRezist() {

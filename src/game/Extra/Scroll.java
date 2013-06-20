@@ -41,11 +41,11 @@ public class Scroll {
         zon = new Rectangle(x, y, img.getWidth(), img.getHeight());
         // zon = new Rectangle(-50, 300, 50, 50);
 
-        gatFact();
+        // gatFact();
         genText();
     }
 
-    // @SuppressWarnings("unused")
+    @SuppressWarnings("unused")
     private void gatFact() {
         byte rand = (byte) (1 + zar.nextInt(noFacts));
         // byte rand = 14;

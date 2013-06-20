@@ -1,5 +1,6 @@
 package game;
 
+import game.Extra.MenuState;
 import game.GamePlay.GameplayState;
 
 import org.newdawn.slick.AppGameContainer;
@@ -10,15 +11,18 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Start extends StateBasedGame {
 
     /**
-     * @param args
-     * @throws SlickException
+     * @author Nemo9955
      */
+
     private final static String titlu         = "Euro Run";
-    private static int          WIDTH         = 900;
+    private static int          WIDTH         = 800;
     private static int          HEIGHT        = 600;
+
+
     // aici o sa initializam stagiile ;
-    // public static final int MENUSTATE = 0 ;
-    public static final int     GAMEPLAYSTATE = 0;
+
+    public static final byte    MENUSTATE     = 0;
+    public static final byte    GAMEPLAYSTATE = 1;
 
     /*
      * public Start(String titlu) {
@@ -33,6 +37,7 @@ public class Start extends StateBasedGame {
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
         // aici o sa le adaugam in joc
+        addState(new MenuState());
         addState(new GameplayState());
     }
 
