@@ -24,13 +24,16 @@ public class Item extends Physics {
 
     public void update(GameContainer gc, StateBasedGame sbg) {
         modY(6);
+        
         if (colid()) {
             modY(-6);
         }
+        
         modX(-WorldMap.getMove());
         if (poly.getX() <= WorldMap.getEndgen()) {
             WorldMap.getItem().remove(this);
         }
+        
         if (poly.intersects(GameplayState.getPlayer().getPoly())) {
             // System.out.println("colid");
             GameplayState.setToUpd(STATES.SCROL);

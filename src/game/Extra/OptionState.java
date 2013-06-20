@@ -10,37 +10,32 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 
-public class MenuState extends BasicGameState {
+public class OptionState extends BasicGameState {
 
-    private final byte ID;
-    private Button     start;
-    private Button     options;
-
+    private final byte ID ;
+    private Button back ;
+    
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        start = new Button(100, 100, "start.png");
-        options = new Button(100, 200, "options.png");
+        back = new Button(100 , 500 ,"back.png");
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        if (start.clikOn(gc))
-            sbg.enterState(Start.GAMEPLAYSTATE);
-        if (options.clikOn(gc))
-            sbg.enterState(Start.OPTIONSTATE);
+        if (back.clikOn(gc))
+            sbg.enterState(Start.MENUSTATE);
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         g.setBackground(Color.black);
-        start.render(gc, sbg, g);
-        options.render(gc, sbg, g);
+        back.render(gc, sbg, g);
     }
 
-    public MenuState() {
-        ID = Start.MENUSTATE;
+    public OptionState(){
+        ID = Start.OPTIONSTATE;
     }
-
+    
     @Override
     public int getID() {
         return ID;

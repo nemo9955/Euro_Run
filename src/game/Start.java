@@ -1,6 +1,7 @@
 package game;
 
 import game.Extra.MenuState;
+import game.Extra.OptionState;
 import game.GamePlay.GameplayState;
 
 import org.newdawn.slick.AppGameContainer;
@@ -23,6 +24,7 @@ public class Start extends StateBasedGame {
 
     public static final byte    MENUSTATE     = 0;
     public static final byte    GAMEPLAYSTATE = 1;
+    public static final byte    OPTIONSTATE = 2;
 
     /*
      * public Start(String titlu) {
@@ -38,6 +40,7 @@ public class Start extends StateBasedGame {
     public void initStatesList(GameContainer gc) throws SlickException {
         // aici o sa le adaugam in joc
         addState(new MenuState());
+        addState(new OptionState());
         addState(new GameplayState());
     }
 

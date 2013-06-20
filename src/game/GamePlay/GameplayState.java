@@ -1,7 +1,9 @@
 package game.GamePlay;
 
 import game.Start;
+import game.Extra.Button;
 import game.Extra.Camera;
+import game.Extra.Res;
 import game.Extra.Scroll;
 import game.Player.Player;
 import game.World.WorldMap;
@@ -10,6 +12,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -26,6 +29,10 @@ public class GameplayState extends BasicGameState {
     private boolean         mort     = false;
     private static Scroll   scroll   = null;
 
+    private Rectangle       bkg;
+    private Button          resume;
+    private Button          options;
+
     public enum STATES {
         PLAY, SCROL, PAUSE;
     }
@@ -37,10 +44,20 @@ public class GameplayState extends BasicGameState {
         player = new Player(0, 300);
         camera = new Camera(Start.getWIDTH(), Start.getHEIGHT());
         world = new WorldMap();
+        bkg = new Rectangle(0, 100 , 400, 300);
+        resume = new Button((int) bkg.getX() + 70, (int) bkg.getY() + 100, "resume.png");
+        options = new Button((int) bkg.getX() + 70, (int) bkg.getY() + 200, "options.png");
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
+
+        if (gc.getInput().isKeyPressed(Res.pause)) {
+            if (toUpd == STATES.PAUSE)
+                toUpd = STATES.PLAY;
+            else
+                toUpd = STATES.PAUSE;
+        }
 
         switch (toUpd) {
             case PLAY:
@@ -50,8 +67,16 @@ public class GameplayState extends BasicGameState {
                 scroll.update(gc, sbg, delta);
                 break;
             case PAUSE:
+                updateMenu(gc, sbg, delta);
                 break;
         }
+    }
+
+    private void updateMenu(GameContainer gc, StateBasedGame sbg, int delta) {
+        if (resume.clikOn(gc))
+            toUpd = STATES.PLAY;
+        if (options.clikOn(gc))
+            sbg.enterState(Start.OPTIONSTATE);
     }
 
     private void updateGame(GameContainer gc, StateBasedGame sbg, int delta) {
@@ -76,30 +101,34 @@ public class GameplayState extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         g.setBackground(Color.cyan);
         camera.translate(g, player);
-        
+
         for (int i = 0; i <= 11; i++) {
             g.setColor(new Color(100, 200, 255, 0.2f + i * 0.06f));
             g.fillRect(-200, -300 + (i * 100), gc.getWidth() + 100, 100);
         }
-        
+
         world.render(gc, sbg, g);
         player.render(gc, sbg, g);
         g.setColor(Color.red);
         g.drawString("Vieti : ", 0, 650);
-        
+
         for (int i = 0; i < Player.getLifes(); i++) {
             g.fillOval(73 + (i * 30), 650, 20, 20);
         }
-        
+
         g.setColor(Color.black);
         g.drawString(String.format("Distanta : %d", distanta), 0, 680);
-        g.drawString(String.format("Cunostinte dbandite : %d", iteme), 0, 700);
-        
+        g.drawString(String.format("Cunostinte dobandite : %d", iteme), 0, 700);
+
         switch (toUpd) {
             case SCROL:
                 scroll.render(gc, sbg, g);
                 break;
             case PAUSE:
+                g.setColor(new Color(0, 0, 0, 0.7f));
+                g.fill(bkg);
+                resume.render(gc, sbg, g);
+                options.render(gc, sbg, g);
                 break;
             default:
                 break;
@@ -142,11 +171,11 @@ public class GameplayState extends BasicGameState {
     public void setMort(boolean mort) {
         this.mort = mort;
     }
-    
+
     public static STATES getToUpd() {
         return toUpd;
     }
-    
+
     public static void setToUpd(STATES toUpd) {
         GameplayState.toUpd = toUpd;
     }
