@@ -11,7 +11,6 @@ import game.World.WorldMap;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
@@ -70,7 +69,7 @@ public class GameplayState extends BasicGameState {
             else
                 toUpd = STATES.PAUSE;
         }
-
+        
         switch (toUpd) {
             case PLAY:
                 updateGame(gc, sbg, delta);
@@ -94,8 +93,6 @@ public class GameplayState extends BasicGameState {
             toUpd = STATES.PLAY;
         if (meniu.clikOn(gc))
             sbg.enterState(Start.MENUSTATE);
-        if (gc.getInput().isKeyPressed(Input.KEY_F5))
-            System.out.println(bkg.getX() + " " + bkg.getY());
     }
 
     private void updateGame(GameContainer gc, StateBasedGame sbg, int delta) {
