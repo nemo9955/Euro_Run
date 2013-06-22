@@ -8,12 +8,10 @@ import org.newdawn.slick.geom.Vector2f;
 
 public class Camera {
 
-    private int      transx, transy;
+    private int      transx = 0, transy = 0;
     private Vector2f cen;
 
     public Camera(int mapWidth, int mapHeight) {
-        transx = 0;
-        transy = 1000;
     }
 
     public void translate(Graphics g, Player player) {

@@ -1,5 +1,7 @@
 package game.Extra;
 
+import game.GamePlay.GameplayState;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -28,12 +30,12 @@ public class Button {
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
         g.setColor(Color.red);
-        img.draw(zon.getX()-(((zon.getWidth()*rap)-zon.getWidth())/2), zon.getY(), rap);
+        img.draw(zon.getX() - (((zon.getWidth() * rap) - zon.getWidth()) / 2), zon.getY(), rap);
     }
 
     public boolean clikOn(GameContainer gc) {
 
-        if (zon.contains(gc.getInput().getMouseX(), gc.getInput().getMouseY())) {
+        if (zon.contains(gc.getInput().getMouseX() - GameplayState.getCamera().getX(), gc.getInput().getMouseY() - GameplayState.getCamera().getY())) {
             rap = 1.1f;
 
             if (gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
@@ -46,6 +48,15 @@ public class Button {
         }
 
         return false;
+    }
+
+    public void setLocation(int x, int y) {
+        zon.setLocation(x, y);
+    }
+
+    public void setCenterLocation(int x, int y) {
+        zon.setCenterX(x);
+        zon.setCenterY(y);
     }
 
 }

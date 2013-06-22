@@ -11,6 +11,7 @@ import game.World.WorldMap;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
@@ -31,7 +32,6 @@ public class GameplayState extends BasicGameState {
 
     private Rectangle       bkg;
     private Button          resume;
-    private Button          options;
 
     public enum STATES {
         PLAY, SCROL, PAUSE;
@@ -44,9 +44,8 @@ public class GameplayState extends BasicGameState {
         player = new Player(0, 300);
         camera = new Camera(Start.getWIDTH(), Start.getHEIGHT());
         world = new WorldMap();
-        bkg = new Rectangle(0, 100 , 400, 300);
+        bkg = new Rectangle(0, 0, 400, 300);
         resume = new Button((int) bkg.getX() + 70, (int) bkg.getY() + 100, "resume.png");
-        options = new Button((int) bkg.getX() + 70, (int) bkg.getY() + 200, "options.png");
     }
 
     @Override
@@ -73,10 +72,14 @@ public class GameplayState extends BasicGameState {
     }
 
     private void updateMenu(GameContainer gc, StateBasedGame sbg, int delta) {
+
+        bkg.setLocation(-camera.getX() + gc.getWidth() / 2 - bkg.getWidth() / 2, -camera.getY() + gc.getHeight() / 2 - bkg.getHeight() / 2);
+        resume.setCenterLocation((int) bkg.getCenterX(), (int) bkg.getCenterY());
+
         if (resume.clikOn(gc))
             toUpd = STATES.PLAY;
-        if (options.clikOn(gc))
-            sbg.enterState(Start.OPTIONSTATE);
+        if (gc.getInput().isKeyPressed(Input.KEY_F5))
+            System.out.println(bkg.getX() + " " + bkg.getY());
     }
 
     private void updateGame(GameContainer gc, StateBasedGame sbg, int delta) {
@@ -128,7 +131,6 @@ public class GameplayState extends BasicGameState {
                 g.setColor(new Color(0, 0, 0, 0.7f));
                 g.fill(bkg);
                 resume.render(gc, sbg, g);
-                options.render(gc, sbg, g);
                 break;
             default:
                 break;

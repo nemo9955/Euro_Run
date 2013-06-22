@@ -5,7 +5,7 @@ import org.newdawn.slick.Input;
 
 public class Res {
     
-    public static int jump = Input.KEY_W;
+    public static int jump = Input.KEY_SPACE;
     
     public static int slide =Input.KEY_S;
     
