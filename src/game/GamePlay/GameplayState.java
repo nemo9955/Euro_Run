@@ -32,6 +32,7 @@ public class GameplayState extends BasicGameState {
 
     private Rectangle       bkg;
     private Button          resume;
+    private Button          meniu;
 
     public enum STATES {
         PLAY, SCROL, PAUSE;
@@ -44,8 +45,20 @@ public class GameplayState extends BasicGameState {
         player = new Player(0, 300);
         camera = new Camera(Start.getWIDTH(), Start.getHEIGHT());
         world = new WorldMap();
-        bkg = new Rectangle(0, 0, 400, 300);
-        resume = new Button((int) bkg.getX() + 70, (int) bkg.getY() + 100, "resume.png");
+        bkg = new Rectangle(0, 0, 600, 400);
+        resume = new Button(0, 0, "resume.png");
+        meniu = new Button(0, 0, "mainMenu.png");
+    }
+
+    public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        player = new Player(0, 300);
+        camera = new Camera(Start.getWIDTH(), Start.getHEIGHT());
+        world = new WorldMap();
+        tick = 0;
+        distanta = 0;
+        iteme = 0;
+        mort = false;
+        toUpd=STATES.PLAY;
     }
 
     @Override
@@ -74,10 +87,13 @@ public class GameplayState extends BasicGameState {
     private void updateMenu(GameContainer gc, StateBasedGame sbg, int delta) {
 
         bkg.setLocation(-camera.getX() + gc.getWidth() / 2 - bkg.getWidth() / 2, -camera.getY() + gc.getHeight() / 2 - bkg.getHeight() / 2);
-        resume.setCenterLocation((int) bkg.getCenterX(), (int) bkg.getCenterY());
+        resume.setCenterLocation((int) bkg.getCenterX(), (int) bkg.getCenterY() - 50);
+        meniu.setCenterLocation((int) bkg.getCenterX(), (int) bkg.getCenterY() + 50);
 
         if (resume.clikOn(gc))
             toUpd = STATES.PLAY;
+        if (meniu.clikOn(gc))
+            sbg.enterState(Start.MENUSTATE);
         if (gc.getInput().isKeyPressed(Input.KEY_F5))
             System.out.println(bkg.getX() + " " + bkg.getY());
     }
@@ -131,6 +147,7 @@ public class GameplayState extends BasicGameState {
                 g.setColor(new Color(0, 0, 0, 0.7f));
                 g.fill(bkg);
                 resume.render(gc, sbg, g);
+                meniu.render(gc, sbg, g);
                 break;
             default:
                 break;

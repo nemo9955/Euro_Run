@@ -28,6 +28,9 @@ public class WorldMap {
     private Random               zar      = new Random();
 
     public WorldMap() {
+        blocks.clear();
+        bg.clear();
+        item.clear();
         poz = endGen;
         pozBG = endGen;
         while (startGen - poz >= size) {

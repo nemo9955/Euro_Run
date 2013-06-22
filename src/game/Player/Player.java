@@ -32,7 +32,7 @@ public class Player extends Physics {
     private boolean     canjump    = true;
     private float       accel      = 1f;
     private byte        jumpNo     = 0;
-    private byte        jumpMax    = 2;
+    private final byte  jumpMax    = 2;
     private static byte lifes      = 3;
     private short       imunitate  = 0;
     private float       marY;
@@ -40,6 +40,7 @@ public class Player extends Physics {
     public Player(float x, float y) {
         this.x = x;
         this.y = y;
+        lifes = 3;
         Imagini();
         setPoly(x, y, img[0][0].getWidth(), img[0][0].getHeight());
     }

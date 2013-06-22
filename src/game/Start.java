@@ -24,7 +24,7 @@ public class Start extends StateBasedGame {
 
     public static final byte    MENUSTATE     = 0;
     public static final byte    GAMEPLAYSTATE = 1;
-    public static final byte    OPTIONSTATE = 2;
+    public static final byte    OPTIONSTATE   = 2;
 
     /*
      * public Start(String titlu) {
