@@ -21,7 +21,7 @@ public class Player extends Physics {
      * 0 - run 1 - to_jump 2 - roll 3 - slide 4 - to_slide
      */
     private Image       scut;
-    private short       rezist     = 0;
+    private short       rezist     = 32000;
     private byte        actiune    = 0, frame = 0;
     private byte        interval   = 0;
     private final byte  intervalTo = 80;
@@ -184,16 +184,17 @@ public class Player extends Physics {
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
-        g.setColor(Color.red);
-        g.setLineWidth(1);
-        g.draw(poly);
+        // g.setColor(Color.red);
+        // g.setLineWidth(1);
+        // g.draw(poly);
         // System.out.println(activ+" "+frame);
         img[actiune][frame].setAlpha(1f);
         if (imunitate > 0)
             img[actiune][frame].setAlpha(0.1f + (float) Math.abs(Math.sin(Math.toRadians(imunitate))));
         img[actiune][frame].draw(x, y);
         if (rezist > 0)
-            scut.drawCentered(poly.getCenterX(), poly.getCenterY());
+            scut.draw(poly.getCenterX() - (poly.getWidth() * 1.6f / 2), poly.getCenterY() - (poly.getHeight() * 1.4f / 2), poly.getWidth() * 1.6f, poly.getHeight() * 1.4f);
+
     }
 
     private void Animatie(int delta) {
@@ -221,6 +222,7 @@ public class Player extends Physics {
         catch (SlickException e) {
             e.printStackTrace();
         }
+        scut.setAlpha(0.8f);
         for (int i = 0; i < links.length; i++) {
             boolean finish = false;
             frames[i] = 0;
