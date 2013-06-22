@@ -1,5 +1,6 @@
 package game.Extra;
 
+import game.Start;
 import game.GamePlay.GameplayState;
 import game.GamePlay.GameplayState.STATES;
 
@@ -37,8 +38,8 @@ public class Scroll {
             e.printStackTrace();
         }
 
-        x = (short) ((450 - img.getWidth() / 2) - GameplayState.getCamera().getX());
-        y = (short) ((300 - img.getHeight() / 2) - GameplayState.getCamera().getY());
+        x = (short) ((Start.getWIDTH()/2 - img.getWidth() / 2) - GameplayState.getCamera().getX());
+        y = (short) ((Start.getHEIGHT()/2 - img.getHeight() / 2) - GameplayState.getCamera().getY());
         zon = new Rectangle(x, y, img.getWidth(), img.getHeight());
         // zon = new Rectangle(-50, 300, 50, 50);
 
@@ -121,7 +122,6 @@ public class Scroll {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
 
         img.draw(x, y);
-        g.draw(zon);
         g.drawString(message, x + 55, y + 40);
 
     }

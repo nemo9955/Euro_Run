@@ -21,7 +21,7 @@ public class Player extends Physics {
      * 0 - run 1 - to_jump 2 - roll 3 - slide 4 - to_slide
      */
     private Image       scut;
-    private short       rezist     = 32000;
+    private short       rezist     = 0;
     private byte        actiune    = 0, frame = 0;
     private byte        interval   = 0;
     private final byte  intervalTo = 80;

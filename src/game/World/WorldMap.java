@@ -38,7 +38,7 @@ public class WorldMap {
             poz += size;
         }
         while (pozBG < startGen) {
-            bg.add(new Background(pozBG, 700));
+            bg.add(new Background(pozBG, 560));
         }
     }
 
@@ -68,7 +68,7 @@ public class WorldMap {
 
         // fundal & podea - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         while (pozBG < startGen) {
-            bg.add(new Background(pozBG, 700));
+            bg.add(new Background(pozBG, 560));
         }
         while (startGen - poz >= size) {
             blocks.add(new BlockSolid(poz, 550));

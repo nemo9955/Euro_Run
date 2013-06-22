@@ -10,13 +10,15 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Background extends Imagine {
 
+    private static final byte bgNo = 3;
+
     public Background(int x, int y) {
         super(x, y, "res/landscape");
     }
 
     protected void makeImagine(String link) {
         try {
-            img = new Image(String.format("%s/%d.png", link, 1 + zar.nextInt(2)));
+            img = new Image(String.format("%s/%d.png", link, 1 + zar.nextInt(bgNo)));
             img.setAlpha(0.3f);
             WorldMap.modPozBG(img.getWidth());
         }
