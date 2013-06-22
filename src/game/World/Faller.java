@@ -26,7 +26,6 @@ public class Faller extends Block {
     }
 
     protected void Zon() {
-        // zon = new Rectangle(x, y, WorldMap.getSize(), WorldMap.getSize());
-        zon = new Ellipse(x, y, 50, 50);
+        zon = new Ellipse(x, y, 60, 40);
     }
 }

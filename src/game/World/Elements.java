@@ -8,36 +8,32 @@ import org.newdawn.slick.geom.Shape;
 
 public class Elements {
 
-    public static void MakeWall(int x, int y) {
+    public static void MakeWall(int x) {
 
-        short alti = 500;
-        short gap = 80;
+        short start;
+        short end;
         Random zar = new Random();
 
-        switch (zar.nextInt(3)) {
+        switch (zar.nextInt(5)) {
             case 0:
-                gap = 60;
-                alti = 495;
+                start = (short) (210 + zar.nextInt(50));
+                end = 560;
                 break;
             case 1:
-                gap = (short) (120 + zar.nextInt(50));
-                alti = 140;
+                start = -700;
+                end = (short) (490 - (zar.nextInt(3))*15);
                 break;
-            case 2:
-                gap = (short) (130 + zar.nextInt(50));
-                alti = 80;
+            default:
+                start = (short) (270 + zar.nextInt(40));
+                end = 560;
                 break;
         }
 
         Shape zon;
-        Shape zon1;
 
-        zon = new Rectangle(x, -400,20, alti + 400);
-
-        zon1 = new Rectangle(x, zon.getY() + zon.getHeight() + gap, 20 , 560 - (zon.getY() + zon.getHeight() + gap));
+        zon = new Rectangle(x, start, 20, end-start);
 
         WorldMap.getBlocks().add(new Block(zon));
-        WorldMap.getBlocks().add(new Block(zon1));
 
     }
 }

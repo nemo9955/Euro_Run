@@ -45,7 +45,7 @@ public class WorldMap {
     public void update(GameContainer gc, StateBasedGame sbg) {
         poz -= move;
         pozBG -= move;
-        
+
         if (terval - move > 0) {
             terval -= move;
         }
@@ -77,31 +77,31 @@ public class WorldMap {
 
 
         // adders - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        if (zar.nextInt(1000) < 20) {
+        if (zar.nextInt(10000) < 20) {
             item.add(new Item(poz + zar.nextInt(50), 50 + zar.nextInt(50)));
         }
 
         if (terval == 0) {
 
-            int gen = zar.nextInt(1000);
+            int gen = zar.nextInt(1600);
 
-            if (gen > 900) {
-                terval += 200 + (zar.nextInt(10) * 10);
+            if (gen < 300) {
+                terval += 200 + (zar.nextInt(7) * 15);
             }
-            else if (gen > 700) {
+            else if (gen < 800) {
                 blocks.add(new BlockSolid(startGen, 530 - zar.nextInt(150)));
-                terval += 300 + zar.nextInt(100);
+                terval += 350 + zar.nextInt(100);
             }
-            else if (gen > 600) {
-                blocks.add(new Faller(startGen, -zar.nextInt(30) * 10));
-                terval += 20 + zar.nextInt(50);
+            else if (gen < 1200) {
+                blocks.add(new Faller(startGen, 50 - zar.nextInt(30) * 10));
+                terval += 400 + zar.nextInt(50);
             }
-            else if (gen > 400) {
-                Elements.MakeWall(startGen, 500);
+            else if (gen < 1500) {
+                Elements.MakeWall(startGen);
                 terval += 500 + zar.nextInt(100);
             }
             else {
-
+                terval += 50 + (zar.nextInt(10) * 25);
             }
 
         }
