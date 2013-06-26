@@ -40,6 +40,7 @@ public class WorldMap {
         while (pozBG < startGen) {
             bg.add(new Background(pozBG, 560));
         }
+        item.add(new Item(300, 500));
     }
 
     public void update(GameContainer gc, StateBasedGame sbg) {
@@ -77,7 +78,7 @@ public class WorldMap {
 
 
         // adders - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        if (zar.nextInt(10000) < 20) {
+        if (zar.nextInt(10000) < 50) {
             item.add(new Item(poz + zar.nextInt(50), 50 + zar.nextInt(50)));
         }
 

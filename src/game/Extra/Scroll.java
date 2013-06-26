@@ -5,10 +5,6 @@ import game.GamePlay.GameplayState;
 import game.GamePlay.GameplayState.STATES;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
 
@@ -38,31 +34,20 @@ public class Scroll {
             e.printStackTrace();
         }
 
-        x = (short) ((Start.getWIDTH()/2 - img.getWidth() / 2) - GameplayState.getCamera().getX());
-        y = (short) ((Start.getHEIGHT()/2 - img.getHeight() / 2) - GameplayState.getCamera().getY());
+        x = (short) ((Start.getWIDTH() / 2 - img.getWidth() / 2) - GameplayState.getCamera().getX());
+        y = (short) ((Start.getHEIGHT() / 2 - img.getHeight() / 2) - GameplayState.getCamera().getY());
         zon = new Rectangle(x, y, img.getWidth(), img.getHeight());
         // zon = new Rectangle(-50, 300, 50, 50);
 
-        // gatFact();
+        gatFact();
         genText();
     }
 
-    @SuppressWarnings("unused")
     private void gatFact() {
+
         byte rand = (byte) (1 + zar.nextInt(noFacts));
-        // byte rand = 14;
 
-        FileInputStream fstream = null;
-
-        try {
-            fstream = new FileInputStream("res/item/intrebari.txt");
-        }
-        catch (FileNotFoundException e1) {
-            e1.printStackTrace();
-        }
-
-        DataInputStream in = new DataInputStream(fstream);
-        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("intrebari.txt")));
 
         for (byte i = 0; i < rand; i++) {
             try {
@@ -73,12 +58,6 @@ public class Scroll {
             }
         }
 
-        try {
-            in.close();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void genText() {

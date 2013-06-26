@@ -32,12 +32,13 @@ public class TextArea {
         txt.setMaxLength(1);
         val = def;
         font2 = new TrueTypeFont(new java.awt.Font(java.awt.Font.MONOSPACED, java.awt.Font.BOLD, 20), false);
+        
     }
 
     public void update(GameContainer gc) {
-        // Integer.parseInt(txt.getText());
+        
         if (gc.getInput().isKeyPressed(Input.KEY_F5)) {
-            System.out.println(Integer.parseInt(txt.getText()));
+            System.out.println(txt.getText());
         }
     }
 
@@ -53,5 +54,5 @@ public class TextArea {
     public int getVal() {
         return val;
     }
-
+    
 }

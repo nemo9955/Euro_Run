@@ -34,10 +34,19 @@ public class OptionState extends BasicGameState {
         if (back.clikOn(gc))
             sbg.enterState(Start.MENUSTATE);
         jump.update(gc);
-        // roll.update(gc);
-        // slide.update(gc);
-        // pause.update(gc);
+        roll.update(gc);
+        slide.update(gc);
+        pause.update(gc);
     }
+
+
+    public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        Res.jump = jump.getVal();
+        Res.roll = roll.getVal();
+        Res.slide = slide.getVal();
+        Res.pause = pause.getVal();
+    }
+
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
