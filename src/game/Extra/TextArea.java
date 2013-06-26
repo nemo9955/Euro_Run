@@ -6,9 +6,11 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.gui.AbstractComponent;
+import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.TextField;
 
-public class TextArea {
+public class TextArea  {
 
     private int       x;
     private int       y;
@@ -24,7 +26,14 @@ public class TextArea {
         this.y = y;
         this.mesaj = mesaj;
         Font font = new TrueTypeFont(new java.awt.Font(java.awt.Font.DIALOG, java.awt.Font.BOLD, 15), false);
-        txt = new TextField(gc, font, x + 2, y, 100, 24);
+        
+        txt = new TextField(gc, font, x + 2, y, 100, 24 , new ComponentListener() {
+
+            public void componentActivated(AbstractComponent source) {
+                System.out.println("ceva " + txt.getText());
+            }
+        });
+        
         txt.setTextColor(Color.gray);
         txt.setBackgroundColor(Color.blue);
         txt.setAcceptingInput(true);
@@ -32,14 +41,10 @@ public class TextArea {
         txt.setMaxLength(1);
         val = def;
         font2 = new TrueTypeFont(new java.awt.Font(java.awt.Font.MONOSPACED, java.awt.Font.BOLD, 20), false);
-        
     }
 
     public void update(GameContainer gc) {
         
-        if (gc.getInput().isKeyPressed(Input.KEY_F5)) {
-            System.out.println(txt.getText());
-        }
     }
 
     public void render(GameContainer gc, Graphics g) {

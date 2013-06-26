@@ -18,13 +18,18 @@ public class WorldMap {
     private static List<Block>   blocks   = new LinkedList<Block>();
     private static List<Imagine> bg       = new ArrayList<Imagine>();
     private static List<Item>    item     = new ArrayList<Item>();
-    private final static int     startGen = 1024;
-    private final static int     endGen   = -256;
-    private final static int     size     = 64;
-    private static int           terval   = 0;
-    private static int           move     = 21;
-    private static int           poz      = 0;
-    private static int           pozBG    = 0;
+
+    private final static short   startGen = 1024;
+    private final static short   endGen   = -256;
+
+    private final static short   size     = 64;
+    private static short         interval = 0;
+    private static short         distItem = 1000;
+    private static short         move     = 21;
+
+    private static short         poz      = 0;
+    private static short         pozBG    = 0;
+
     private Random               zar      = new Random();
 
     public WorldMap() {
@@ -33,10 +38,12 @@ public class WorldMap {
         item.clear();
         poz = endGen;
         pozBG = endGen;
+
         while (startGen - poz >= size) {
             blocks.add(new BlockSolid(poz, 550));
             poz += size;
         }
+
         while (pozBG < startGen) {
             bg.add(new Background(pozBG, 560));
         }
@@ -47,67 +54,85 @@ public class WorldMap {
         poz -= move;
         pozBG -= move;
 
-        if (terval - move > 0) {
-            terval -= move;
+        if (interval - move > 0) {
+            interval -= move;
         }
         else {
-            terval = 0;
+            interval = 0;
         }
 
+        subUpdate(gc, sbg);
+        adderReg();
+        adderRandom();
 
-        // sub-updates - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    }
+
+    private void subUpdate(GameContainer gc, StateBasedGame sbg) {
         for (int i = 0; i < blocks.size(); i++) {
             blocks.get(i).update(gc, sbg);
         }
+
         for (int i = 0; i < bg.size(); i++) {
             bg.get(i).update(gc, sbg);
         }
+
         for (int i = 0; i < item.size(); i++) {
             item.get(i).update(gc, sbg);
         }
+    }
 
+    private void adderReg() {
 
-        // fundal & podea - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         while (pozBG < startGen) {
             bg.add(new Background(pozBG, 560));
         }
+
         while (startGen - poz >= size) {
             blocks.add(new BlockSolid(poz, 550));
             poz += size;
         }
+    }
 
+    private void adderRandom() {
+        
+        if (distItem - move <= 0) {
+            
+            if (zar.nextInt(100) < 70) {
+                item.add(new Item(poz + zar.nextInt(50), 50 + zar.nextInt(50)));
+            }
 
-        // adders - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        if (zar.nextInt(10000) < 50) {
-            item.add(new Item(poz + zar.nextInt(50), 50 + zar.nextInt(50)));
+            distItem = (short) (1000 + (zar.nextInt(5) * 200));
+        }
+        else {
+            distItem -= move;
         }
 
-        if (terval == 0) {
+        if (interval == 0) {
 
             int gen = zar.nextInt(1600);
 
             if (gen < 300) {
-                terval += 200 + (zar.nextInt(7) * 15);
+                interval += 200 + (zar.nextInt(7) * 15);
             }
             else if (gen < 800) {
                 blocks.add(new BlockSolid(startGen, 530 - zar.nextInt(150)));
-                terval += 350 + zar.nextInt(100);
+                interval += 350 + zar.nextInt(100);
             }
             else if (gen < 1200) {
                 blocks.add(new Faller(startGen, 50 - zar.nextInt(30) * 10));
-                terval += 400 + zar.nextInt(50);
+                interval += 400 + zar.nextInt(50);
             }
             else if (gen < 1500) {
                 Elements.MakeWall(startGen);
-                terval += 500 + zar.nextInt(100);
+                interval += 500 + zar.nextInt(100);
             }
             else {
-                terval += 50 + (zar.nextInt(10) * 25);
+                interval += 50 + (zar.nextInt(10) * 25);
             }
 
         }
-
     }
+
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
         for (int i = 0; i < bg.size(); i++)
@@ -143,7 +168,7 @@ public class WorldMap {
     }
 
     public static void setMove(int move) {
-        WorldMap.move = move;
+        WorldMap.move = (short) move;
     }
 
     public static int getSize() {
