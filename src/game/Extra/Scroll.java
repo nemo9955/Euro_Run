@@ -23,7 +23,7 @@ public class Scroll {
     private Rectangle  zon;
     private Random     zar     = new Random();
     private final byte noFacts = 13;
-    private String     message = "avbftw 3gv8 c732gc7 6t 2c5t 4524 5y 54yc2 5y45vcy25y 26uy 2547uy 2gv2356 f7u26 g7";
+    private String     message = "Asta e mesajul default , mai mult ca sigur fisierul cu intrebari nu e in pachetul \"Extra\" ........ chiar asa e de greu sa dai copy / paste ? ";
 
     public Scroll() {
 
@@ -47,16 +47,26 @@ public class Scroll {
 
         byte rand = (byte) (1 + zar.nextInt(noFacts));
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("intrebari.txt")));
+        BufferedReader br = null;
 
-        for (byte i = 0; i < rand; i++) {
-            try {
-                message = br.readLine();
-            }
-            catch (Exception e) {
-                e.printStackTrace();
+        try {
+
+            br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("intrebari.txt")));
+
+            for (byte i = 0; i < rand; i++) {
+
+                try {
+                    message = br.readLine();
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
+        catch (Exception e) {
+            System.out.println("fisierul intrebari.txt nu e in pachetul Extra");
+        }
+        br = null;
 
     }
 
