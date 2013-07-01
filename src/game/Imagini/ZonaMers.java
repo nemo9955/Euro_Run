@@ -8,20 +8,20 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class Background extends Imagine {
 
-    private static final byte bgNo = 3;
+public class ZonaMers extends Imagine {
 
-    public Background(int x, int y) {
+    private static final byte imgNo = 2;
+
+    public ZonaMers(int x, int y) {
         super(x, y, "res/landscape");
-        modY(-img.getHeight());
     }
 
     protected void makeImagine(String link) {
+        
         try {
-            img = new Image(String.format("%s/%d.png", link, 1 + zar.nextInt(bgNo)));
-            img.setAlpha(0.3f);
-            WorldMap.modPozBG(img.getWidth());
+            img = new Image(String.format("%s/mers_%d.png", link, 1 + zar.nextInt(imgNo)));
+            WorldMap.modPozSol((short) img.getWidth());
         }
         catch (SlickException e) {
             e.printStackTrace();

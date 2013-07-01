@@ -17,7 +17,6 @@ public class BlockMers extends Block {
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
-        g.draw(zon);
     }
 
     protected void Solid() {

@@ -21,7 +21,7 @@ public class Imagine {
         super();
         makeImagine(link);
         this.x = x;
-        this.y = y - img.getHeight();
+        this.y = y;
         color = new Color(zar.nextInt(225), zar.nextInt(225), zar.nextInt(225));
     }
 

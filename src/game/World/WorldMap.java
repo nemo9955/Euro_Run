@@ -2,6 +2,7 @@ package game.World;
 
 import game.Imagini.Background;
 import game.Imagini.Imagine;
+import game.Imagini.ZonaMers;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -27,8 +28,9 @@ public class WorldMap {
     private static short         distItem = 1000;
     private static short         move     = 21;
 
-    private static short         poz      = 0;
-    private static short         pozBG    = 0;
+    private static short         poz;
+    private static short         pozBG;
+    private static short         pozSol;
 
     private Random               zar      = new Random();
 
@@ -38,17 +40,22 @@ public class WorldMap {
         item.clear();
         poz = endGen;
         pozBG = endGen;
+        pozSol = endGen;
+        
+        blocks.add(new BlockMers());
 
+        while (pozSol < startGen) {
+            imagini.add(new ZonaMers(pozSol, 0));
+        }
         while (pozBG < startGen) {
             imagini.add(new Background(pozBG, 0));
         }
-        item.add(new Item(300, -50));
-        blocks.add(new BlockMers());
     }
 
     public void update(GameContainer gc, StateBasedGame sbg) {
         poz -= move;
         pozBG -= move;
+        pozSol -= move;
 
         if (interval - move > 0) {
             interval -= move;
@@ -82,6 +89,9 @@ public class WorldMap {
         while (pozBG < startGen) {
             imagini.add(new Background(pozBG, 0));
         }
+        while (pozSol < startGen) {
+            imagini.add(new ZonaMers(pozSol, 0));
+        }
 
     }
 
@@ -89,11 +99,11 @@ public class WorldMap {
 
         if (distItem - move <= 0) {
 
-            if (zar.nextInt(100) < 70) {
-                item.add(new Item(startGen , -500 + zar.nextInt(100)));
+            if (zar.nextInt(100) < 80) {
+                item.add(new Item(startGen, -500 + zar.nextInt(100)));
             }
 
-            distItem = (short) (100 + (zar.nextInt(5) * 200));
+            distItem = (short) (1000 + (zar.nextInt(5) * 200));
         }
         else {
             distItem -= move;
@@ -165,6 +175,14 @@ public class WorldMap {
 
     public static int getSize() {
         return size;
+    }
+    
+    public static short getPozSol() {
+        return pozSol;
+    }
+    
+    public static void modPozSol(short pozSol) {
+        WorldMap.pozSol += pozSol;
     }
 
     public static int getPozBG() {

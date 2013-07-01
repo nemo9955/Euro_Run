@@ -20,7 +20,6 @@ public class Item extends Physics {
         this.y = y;
         makeImage();
         poly = new Rectangle(x, y, img.getWidth(), img.getHeight());
-        System.out.println("creat " + x + " " + y);
     }
 
     public void update(GameContainer gc, StateBasedGame sbg) {
