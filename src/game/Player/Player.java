@@ -108,10 +108,14 @@ public class Player extends Physics {
         if (gc.getInput().isKeyPressed(Input.KEY_F1)) {
             System.out.println(x + " " + y);
         }
-        if (y > 700 || y < -600) {
+        if (y > 50|| y < -1000) {
             System.out.println("teleport");
             setY(300);
         }
+
+        if (y + poly.getHeight() > 0) 
+            setY(-poly.getHeight());
+        
     }
 
     private void schAct(byte act) {

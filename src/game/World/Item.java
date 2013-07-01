@@ -20,22 +20,22 @@ public class Item extends Physics {
         this.y = y;
         makeImage();
         poly = new Rectangle(x, y, img.getWidth(), img.getHeight());
+        System.out.println("creat " + x + " " + y);
     }
 
     public void update(GameContainer gc, StateBasedGame sbg) {
-        modY(6);
-        
+        modY(4);
+
         if (colid()) {
-            modY(-6);
+            modY(-4);
         }
-        
+
         modX(-WorldMap.getMove());
         if (poly.getX() <= WorldMap.getEndgen()) {
             WorldMap.getItem().remove(this);
         }
-        
+
         if (poly.intersects(GameplayState.getPlayer().getPoly())) {
-            // System.out.println("colid");
             GameplayState.setToUpd(STATES.SCROL);
             GameplayState.makeScroll();
             GameplayState.modIteme(1);

@@ -13,6 +13,7 @@ public class Physics {
     protected Rectangle poly;
 
     protected boolean colid() {
+        
         for (int i = 0; i < WorldMap.getBlocks().size(); i++) {
             if (poly.intersects(GameplayState.getWorldMap().getBlock(i))) {
                 return true;

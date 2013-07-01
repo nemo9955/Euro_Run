@@ -16,7 +16,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class WorldMap {
 
     private static List<Block>   blocks   = new LinkedList<Block>();
-    private static List<Imagine> bg       = new ArrayList<Imagine>();
+    private static List<Imagine> imagini  = new ArrayList<Imagine>();
     private static List<Item>    item     = new ArrayList<Item>();
 
     private final static short   startGen = 1024;
@@ -34,20 +34,16 @@ public class WorldMap {
 
     public WorldMap() {
         blocks.clear();
-        bg.clear();
+        imagini.clear();
         item.clear();
         poz = endGen;
         pozBG = endGen;
 
-        while (startGen - poz >= size) {
-            blocks.add(new BlockSolid(poz, 550));
-            poz += size;
-        }
-
         while (pozBG < startGen) {
-            bg.add(new Background(pozBG, 560));
+            imagini.add(new Background(pozBG, 0));
         }
-        item.add(new Item(300, 500));
+        item.add(new Item(300, -50));
+        blocks.add(new BlockMers());
     }
 
     public void update(GameContainer gc, StateBasedGame sbg) {
@@ -72,8 +68,8 @@ public class WorldMap {
             blocks.get(i).update(gc, sbg);
         }
 
-        for (int i = 0; i < bg.size(); i++) {
-            bg.get(i).update(gc, sbg);
+        for (int i = 0; i < imagini.size(); i++) {
+            imagini.get(i).update(gc, sbg);
         }
 
         for (int i = 0; i < item.size(); i++) {
@@ -84,24 +80,20 @@ public class WorldMap {
     private void adderReg() {
 
         while (pozBG < startGen) {
-            bg.add(new Background(pozBG, 560));
+            imagini.add(new Background(pozBG, 0));
         }
 
-        while (startGen - poz >= size) {
-            blocks.add(new BlockSolid(poz, 550));
-            poz += size;
-        }
     }
 
     private void adderRandom() {
-        
+
         if (distItem - move <= 0) {
-            
+
             if (zar.nextInt(100) < 70) {
-                item.add(new Item(poz + zar.nextInt(50), 50 + zar.nextInt(50)));
+                item.add(new Item(startGen , -500 + zar.nextInt(100)));
             }
 
-            distItem = (short) (1000 + (zar.nextInt(5) * 200));
+            distItem = (short) (100 + (zar.nextInt(5) * 200));
         }
         else {
             distItem -= move;
@@ -115,11 +107,11 @@ public class WorldMap {
                 interval += 200 + (zar.nextInt(7) * 15);
             }
             else if (gen < 800) {
-                blocks.add(new BlockSolid(startGen, 530 - zar.nextInt(150)));
+                blocks.add(new BlockSolid(startGen, -20 - zar.nextInt(150)));
                 interval += 350 + zar.nextInt(100);
             }
             else if (gen < 1200) {
-                blocks.add(new Faller(startGen, 50 - zar.nextInt(30) * 10));
+                blocks.add(new Faller(startGen, -500 - zar.nextInt(30) * 10));
                 interval += 400 + zar.nextInt(50);
             }
             else if (gen < 1500) {
@@ -135,8 +127,8 @@ public class WorldMap {
 
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
-        for (int i = 0; i < bg.size(); i++)
-            bg.get(i).render(gc, sbg, g);
+        for (int i = 0; i < imagini.size(); i++)
+            imagini.get(i).render(gc, sbg, g);
         for (int i = 0; i < blocks.size(); i++)
             blocks.get(i).render(gc, sbg, g);
         for (int i = 0; i < item.size(); i++)
@@ -184,7 +176,7 @@ public class WorldMap {
     }
 
     public static List<Imagine> getBg() {
-        return bg;
+        return imagini;
     }
 
     public static List<Item> getItem() {

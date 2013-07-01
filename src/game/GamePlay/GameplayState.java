@@ -41,7 +41,7 @@ public class GameplayState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        player = new Player(0, 300);
+        player = new Player(0, -100);
         camera = new Camera(Start.getWIDTH(), Start.getHEIGHT());
         world = new WorldMap();
         bkg = new Rectangle(0, 0, 600, 400);
@@ -50,7 +50,7 @@ public class GameplayState extends BasicGameState {
     }
 
     public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        player = new Player(0, 300);
+        player = new Player(0, -100);
         camera = new Camera(Start.getWIDTH(), Start.getHEIGHT());
         world = new WorldMap();
         tick = 0;
@@ -120,21 +120,21 @@ public class GameplayState extends BasicGameState {
 
         for (int i = 0; i <= 11; i++) {
             g.setColor(new Color(100, 200, 255, 0.2f + i * 0.06f));
-            g.fillRect(-200, -300 + (i * 100), gc.getWidth() + 100, 100);
+            g.fillRect(-200, -850 + (i * 100), gc.getWidth() + 100, 100);
         }
 
         world.render(gc, sbg, g);
         player.render(gc, sbg, g);
         g.setColor(Color.red);
-        g.drawString("Vieti : ", 0, 650);
+        g.drawString("Vieti : ", 0, 100);
 
         for (int i = 0; i < Player.getLifes(); i++) {
-            g.fillOval(73 + (i * 30), 650, 20, 20);
+            g.fillOval(73 + (i * 30), 100, 20, 20);
         }
 
         g.setColor(Color.black);
-        g.drawString(String.format("Distanta : %d", distanta), 0, 680);
-        g.drawString(String.format("Cunostinte dobandite : %d", iteme), 0, 700);
+        g.drawString(String.format("Distanta : %d", distanta), 0, 130);
+        g.drawString(String.format("Cunostinte dobandite : %d", iteme), 0, 150);
 
         switch (toUpd) {
             case SCROL:

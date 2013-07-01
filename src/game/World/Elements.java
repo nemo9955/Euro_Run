@@ -16,16 +16,16 @@ public class Elements {
 
         switch (zar.nextInt(5)) {
             case 0:
-                start = (short) (210 + zar.nextInt(50));
-                end = 560;
+                start = (short) (-210 + zar.nextInt(50));
+                end = 10;
                 break;
             case 1:
-                start = -700;
-                end = (short) (490 - (zar.nextInt(3))*15);
+                start = -1500;
+                end = (short) (-60 - (zar.nextInt(3))*15);
                 break;
             default:
-                start = (short) (270 + zar.nextInt(40));
-                end = 560;
+                start = (short) (-280 + zar.nextInt(40));
+                end = 10;
                 break;
         }
 
