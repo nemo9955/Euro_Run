@@ -5,6 +5,7 @@ import game.Start;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -14,6 +15,7 @@ public class OptionState extends BasicGameState {
 
     private final byte ID;
     private Button     back;
+    private Image img ;
 
     private TextArea   buton[] = new TextArea[4];
 
@@ -31,6 +33,7 @@ public class OptionState extends BasicGameState {
         buton[1] = new TextArea(gc, 200, 150, "Roll :", Res.roll);
         buton[2] = new TextArea(gc, 200, 200, "Slide :", Res.slide);
         buton[3] = new TextArea(gc, 200, 250, "Puse :", Res.pause);
+        img=new Image("res/meniu/Optiuni.png");
     }
 
     @Override
@@ -52,6 +55,7 @@ public class OptionState extends BasicGameState {
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+        img.draw();
         g.setBackground(Color.black);
         back.render(gc, sbg, g);
         for (TextArea ton : buton)

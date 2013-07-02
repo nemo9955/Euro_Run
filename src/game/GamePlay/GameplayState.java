@@ -57,7 +57,7 @@ public class GameplayState extends BasicGameState {
         distanta = 0;
         iteme = 0;
         mort = false;
-        toUpd=STATES.PLAY;
+        toUpd = STATES.PLAY;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class GameplayState extends BasicGameState {
             else
                 toUpd = STATES.PAUSE;
         }
-        
+
         switch (toUpd) {
             case PLAY:
                 updateGame(gc, sbg, delta);
@@ -123,8 +123,12 @@ public class GameplayState extends BasicGameState {
             g.fillRect(-200, -850 + (i * 100), gc.getWidth() + 100, 100);
         }
 
+        g.setColor(Color.gray);
+        g.fillRect(-200, 10, gc.getWidth() + 100, 500);
+
         world.render(gc, sbg, g);
         player.render(gc, sbg, g);
+
         g.setColor(Color.red);
         g.drawString("Vieti : ", 0, 100);
 
