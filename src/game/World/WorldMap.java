@@ -28,6 +28,9 @@ public class WorldMap {
     private static short         distItem = 1000;
     private static short         move     = 21;
 
+    private static final short   atSpeed  = 7381;
+    private static short         speed;
+
     private static short         poz;
     private static short         pozBG;
     private static short         pozSol;
@@ -41,7 +44,8 @@ public class WorldMap {
         poz = endGen;
         pozBG = endGen;
         pozSol = endGen;
-        
+        speed = atSpeed;
+
         blocks.add(new BlockMers());
 
         while (pozSol < startGen) {
@@ -57,16 +61,22 @@ public class WorldMap {
         pozBG -= move;
         pozSol -= move;
 
-        if (interval - move > 0) {
+
+        if (interval - move > 0)
             interval -= move;
-        }
-        else {
+        else
             interval = 0;
-        }
 
         subUpdate(gc, sbg);
         adderReg();
         adderRandom();
+
+        if (speed - move > 0)
+            speed -= move;
+        else {
+            speed = atSpeed;
+            move++;
+        }
 
     }
 
@@ -117,7 +127,7 @@ public class WorldMap {
                 interval += 200 + (zar.nextInt(7) * 15);
             }
             else if (gen < 800) {
-                blocks.add(new BlockSolid(startGen, -20 - zar.nextInt(150)));
+                blocks.add(new BlockSolid(startGen, -64 - (zar.nextInt(14) * 10)));
                 interval += 350 + zar.nextInt(100);
             }
             else if (gen < 1200) {
@@ -176,11 +186,11 @@ public class WorldMap {
     public static int getSize() {
         return size;
     }
-    
+
     public static short getPozSol() {
         return pozSol;
     }
-    
+
     public static void modPozSol(short pozSol) {
         WorldMap.pozSol += pozSol;
     }

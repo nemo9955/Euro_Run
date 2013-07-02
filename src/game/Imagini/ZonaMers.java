@@ -18,12 +18,15 @@ public class ZonaMers extends Imagine {
     }
 
     protected void makeImagine(String link) {
-        
+
+        int rand = zar.nextInt(imgNo);
+
         try {
-            img = new Image(String.format("%s/mers_%d.png", link, 1 + zar.nextInt(imgNo)));
+            img = new Image(String.format("%s/mers_%d.png", link, 1 + rand));
             WorldMap.modPozSol((short) img.getWidth());
         }
         catch (SlickException e) {
+            System.out.println(rand);
             e.printStackTrace();
         }
     }

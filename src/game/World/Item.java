@@ -38,7 +38,7 @@ public class Item extends Physics {
             GameplayState.setToUpd(STATES.SCROL);
             GameplayState.makeScroll();
             GameplayState.modIteme(1);
-            GameplayState.getPlayer().modRezist((short) 1500);
+            GameplayState.getPlayer().modRezist((short) 2000);
             WorldMap.getItem().remove(this);
         }
     }
