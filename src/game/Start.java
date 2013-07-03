@@ -1,5 +1,6 @@
 package game;
 
+import game.Extra.DeathState;
 import game.Extra.MenuState;
 import game.Extra.OptionState;
 import game.GamePlay.GameplayState;
@@ -25,12 +26,7 @@ public class Start extends StateBasedGame {
     public static final byte    MENUSTATE     = 0;
     public static final byte    GAMEPLAYSTATE = 1;
     public static final byte    OPTIONSTATE   = 2;
-
-    /*
-     * public Start(String titlu) {
-     * super(titlu);
-     * }
-     */
+    public static final byte    DEATHSTATE    = 3;
 
     public Start() throws SlickException {
         super(titlu);
@@ -41,6 +37,7 @@ public class Start extends StateBasedGame {
         // aici o sa le adaugam in joc
         addState(new MenuState());
         addState(new OptionState());
+        addState(new DeathState());
         addState(new GameplayState());
     }
 

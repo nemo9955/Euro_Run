@@ -6,13 +6,12 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.KeyListener;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 
-public class OptionState extends BasicGameState implements KeyListener {
+public class OptionState extends BasicGameState {
 
     private final byte ID;
     private Button     back;
@@ -62,12 +61,12 @@ public class OptionState extends BasicGameState implements KeyListener {
     }
 
     public void keyPressed(int key, char c) {
-        
+
         for (TextArea ton : buton)
-            if(ton.hasFocus()){
+            if (ton.hasFocus()) {
                 ton.setVal(key);
             }
-        
+
     }
 
     public OptionState() {

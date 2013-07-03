@@ -26,7 +26,7 @@ public class WorldMap {
     private final static short   size     = 64;
     private static short         interval = 0;
     private static short         distItem = 1000;
-    private static short         move     = 21;
+    private static short         move     = 18;
 
     private static short         atTime   = 10000;
     private static short         speed;
@@ -77,7 +77,6 @@ public class WorldMap {
             atTime += 2000;
             speed = atTime;
             move++;
-            System.out.println(move);
         }
 
     }

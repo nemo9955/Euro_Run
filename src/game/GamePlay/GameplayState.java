@@ -49,7 +49,7 @@ public class GameplayState extends BasicGameState {
         meniu = new Button(0, 0, "mainMenu.png");
     }
 
-    public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {
+    public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {
         player = new Player(0, -100);
         camera = new Camera(Start.getWIDTH(), Start.getHEIGHT());
         world = new WorldMap();
@@ -109,7 +109,7 @@ public class GameplayState extends BasicGameState {
 
         if (Player.getLifes() <= 0 && !mort) {
             mort = true;
-            System.out.println("esti mort , distanta parcursa este de :" + distanta);
+            sbg.enterState(Start.DEATHSTATE);
         }
     }
 
@@ -123,7 +123,7 @@ public class GameplayState extends BasicGameState {
             g.fillRect(-200, -850 + (i * 100), gc.getWidth() + 100, 100);
         }
 
-        g.setColor(Color.gray);
+        g.setColor(new Color(128,49,3));
         g.fillRect(-200, 10, gc.getWidth() + 100, 500);
 
         world.render(gc, sbg, g);

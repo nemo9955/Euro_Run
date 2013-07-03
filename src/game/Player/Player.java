@@ -33,14 +33,14 @@ public class Player extends Physics {
     private float       accel      = 1f;
     private byte        jumpNo     = 0;
     private final byte  jumpMax    = 2;
-    private static byte lifes      = 3;
+    private static byte lifes;
     private short       imunitate  = 0;
     private float       marY;
 
     public Player(float x, float y) {
         this.x = x;
         this.y = y;
-        lifes = 3;
+        lifes = 1;
         Imagini();
         setPoly(x, y, img[0][0].getWidth(), img[0][0].getHeight());
     }
@@ -108,14 +108,14 @@ public class Player extends Physics {
         if (gc.getInput().isKeyPressed(Input.KEY_F1)) {
             System.out.println(x + " " + y);
         }
-        if (y > 50|| y < -1000) {
+        if (y > 50 || y < -1000) {
             System.out.println("teleport");
             setY(300);
         }
 
-        if (y + poly.getHeight() > 0) 
+        if (y + poly.getHeight() > 0)
             setY(-poly.getHeight());
-        
+
     }
 
     private void schAct(byte act) {
@@ -285,10 +285,9 @@ public class Player extends Physics {
 
     public static void addLifes(int i) {
         if (lifes > 0)
-            if (lifes + i >= 0 && lifes + i <= 5) {
+            if (lifes + i >= 0 && lifes + i <= 5)
                 lifes += i;
-                System.out.println(lifes);
-            }
+
     }
 
     public short getRezist() {

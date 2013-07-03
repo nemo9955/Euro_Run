@@ -26,7 +26,7 @@ public class TextArea {
         Font font = new TrueTypeFont(new java.awt.Font(java.awt.Font.DIALOG, java.awt.Font.BOLD, 15), false);
         font2 = new TrueTypeFont(new java.awt.Font(java.awt.Font.MONOSPACED, java.awt.Font.BOLD, 20), false);
         val = def;
-        
+
         txt = new TextField(gc, font, x + 2, y, 100, 24);
         txt.setTextColor(Color.transparent);
         txt.setBackgroundColor(Color.cyan);
@@ -39,6 +39,12 @@ public class TextArea {
         g.setFont(font2);
         g.setColor(Color.white);
         g.drawString(mesaj, x - (mesaj.length() * 12), y - 5);
+
+        if (txt.hasFocus())
+            txt.setBorderColor(Color.lightGray);
+        else
+            txt.setBorderColor(Color.transparent);
+
         txt.render(gc, g);
         g.setColor(Color.black);
         g.drawString(Input.getKeyName(val), x + 6, y - 2);
@@ -47,9 +53,10 @@ public class TextArea {
     public int getVal() {
         return val;
     }
-    
+
     public void setVal(int key) {
-       val = key ;
+        val = key;
+        txt.setFocus(false);
     }
 
     public boolean hasFocus() {
