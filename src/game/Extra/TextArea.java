@@ -6,11 +6,9 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.gui.AbstractComponent;
-import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.TextField;
 
-public class TextArea  {
+public class TextArea {
 
     private int       x;
     private int       y;
@@ -26,25 +24,15 @@ public class TextArea  {
         this.y = y;
         this.mesaj = mesaj;
         Font font = new TrueTypeFont(new java.awt.Font(java.awt.Font.DIALOG, java.awt.Font.BOLD, 15), false);
-        
-        txt = new TextField(gc, font, x + 2, y, 100, 24 , new ComponentListener() {
-
-            public void componentActivated(AbstractComponent source) {
-                System.out.println("ceva " + txt.getText());
-            }
-        });
-        
-        txt.setTextColor(Color.gray);
-        txt.setBackgroundColor(Color.blue);
-        txt.setAcceptingInput(true);
-        txt.setBorderColor(Color.blue);
-        txt.setMaxLength(1);
-        val = def;
         font2 = new TrueTypeFont(new java.awt.Font(java.awt.Font.MONOSPACED, java.awt.Font.BOLD, 20), false);
-    }
-
-    public void update(GameContainer gc) {
+        val = def;
         
+        txt = new TextField(gc, font, x + 2, y, 100, 24);
+        txt.setTextColor(Color.transparent);
+        txt.setBackgroundColor(Color.cyan);
+        txt.setAcceptingInput(true);
+        txt.setBorderColor(Color.transparent);
+        txt.setMaxLength(0);
     }
 
     public void render(GameContainer gc, Graphics g) {
@@ -52,7 +40,7 @@ public class TextArea  {
         g.setColor(Color.white);
         g.drawString(mesaj, x - (mesaj.length() * 12), y - 5);
         txt.render(gc, g);
-        g.setColor(Color.green);
+        g.setColor(Color.black);
         g.drawString(Input.getKeyName(val), x + 6, y - 2);
     }
 
@@ -60,4 +48,12 @@ public class TextArea  {
         return val;
     }
     
+    public void setVal(int key) {
+       val = key ;
+    }
+
+    public boolean hasFocus() {
+        return txt.hasFocus();
+    }
+
 }

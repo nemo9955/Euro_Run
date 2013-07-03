@@ -28,7 +28,7 @@ public class WorldMap {
     private static short         distItem = 1000;
     private static short         move     = 21;
 
-    private static final short   atSpeed  = 7381;
+    private static short         atTime   = 10000;
     private static short         speed;
 
     private static short         poz;
@@ -44,7 +44,7 @@ public class WorldMap {
         poz = endGen;
         pozBG = endGen;
         pozSol = endGen;
-        speed = atSpeed;
+        speed = atTime;
 
         blocks.add(new BlockMers());
 
@@ -56,7 +56,7 @@ public class WorldMap {
         }
     }
 
-    public void update(GameContainer gc, StateBasedGame sbg) {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta) {
         poz -= move;
         pozBG -= move;
         pozSol -= move;
@@ -71,11 +71,13 @@ public class WorldMap {
         adderReg();
         adderRandom();
 
-        if (speed - move > 0)
-            speed -= move;
+        if (speed - delta > 0)
+            speed -= delta;
         else {
-            speed = atSpeed;
+            atTime += 2000;
+            speed = atTime;
             move++;
+            System.out.println(move);
         }
 
     }
