@@ -91,8 +91,10 @@ public class GameplayState extends BasicGameState {
 
         if (resume.clikOn(gc))
             toUpd = STATES.PLAY;
-        if (meniu.clikOn(gc))
+        if (meniu.clikOn(gc)){
+          //  toUpd = STATES.PLAY ;
             sbg.enterState(Start.MENUSTATE);
+        }
     }
 
     private void updateGame(GameContainer gc, StateBasedGame sbg, int delta) {

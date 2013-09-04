@@ -40,7 +40,7 @@ public class Player extends Physics {
     public Player(float x, float y) {
         this.x = x;
         this.y = y;
-        lifes = 1;
+        lifes = 3;
         Imagini();
         setPoly(x, y, img[0][0].getWidth(), img[0][0].getHeight());
     }
