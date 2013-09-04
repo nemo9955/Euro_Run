@@ -42,13 +42,12 @@ public class Start extends StateBasedGame {
     }
 
     public static void main(String[] args) throws SlickException {
-        // AppGameContainer app = new AppGameContainer(new Start(titlu));
         AppGameContainer app = new AppGameContainer(new Start());
         app.setDisplayMode(WIDTH, HEIGHT, false);
         app.setResizable(false);
         app.setShowFPS(true);
         app.setVSync(true);
-        app.setTargetFrameRate(60);
+        //app.setTargetFrameRate(60);
         app.start();
     }
 

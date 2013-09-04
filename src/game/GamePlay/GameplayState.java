@@ -48,6 +48,11 @@ public class GameplayState extends BasicGameState {
         resume = new Button(0, 0, "resume.png");
         meniu = new Button(0, 0, "mainMenu.png");
     }
+    
+    @Override
+    public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        camera.reset();
+    }
 
     public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {
         player = new Player(0, -100);

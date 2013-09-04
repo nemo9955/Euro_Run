@@ -15,10 +15,10 @@ public class Camera {
     }
 
     public void translate(Graphics g, Player player) {
-        cen = new Vector2f(player.getPoly().getX(), player.getPoly().getMaxY());
-        transx = (int) -cen.x + Start.getWIDTH() / 6;
-        transy = (int) ((int) -cen.y + Start.getHEIGHT() / 1.5f );
-        g.translate(transx, transy);
+        cen = new Vector2f( player.getPoly().getX(), player.getPoly().getMaxY() );
+        transx = (int) -cen.x +Start.getWIDTH() /6;
+        transy = (int) ( (int) -cen.y +Start.getHEIGHT() /1.5f );
+        g.translate( transx, transy );
     }
 
     public int getX() {
@@ -27,5 +27,10 @@ public class Camera {
 
     public int getY() {
         return transy;
+    }
+
+    public void reset() {
+        transx = 0;
+        transy = 0;
     }
 }
