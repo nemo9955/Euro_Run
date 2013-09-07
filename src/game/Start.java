@@ -20,9 +20,6 @@ public class Start extends StateBasedGame {
     private static int          WIDTH         = 800;
     private static int          HEIGHT        = 600;
 
-
-    // aici o sa initializam stagiile ;
-
     public static final byte    MENUSTATE     = 0;
     public static final byte    GAMEPLAYSTATE = 1;
     public static final byte    OPTIONSTATE   = 2;
@@ -34,7 +31,6 @@ public class Start extends StateBasedGame {
 
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
-        // aici o sa le adaugam in joc
         addState(new MenuState());
         addState(new OptionState());
         addState(new DeathState());
@@ -44,10 +40,8 @@ public class Start extends StateBasedGame {
     public static void main(String[] args) throws SlickException {
         AppGameContainer app = new AppGameContainer(new Start());
         app.setDisplayMode(WIDTH, HEIGHT, false);
-       // app.;
         app.setShowFPS(true);
         app.setVSync(true);
-        //app.setTargetFrameRate(60);
         app.start();
     }
 

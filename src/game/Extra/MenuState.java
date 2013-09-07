@@ -27,6 +27,8 @@ public class MenuState extends BasicGameState {
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
+        
+        
         if (start.clikOn(gc))
             sbg.enterState(Start.GAMEPLAYSTATE);
         if (options.clikOn(gc))
@@ -39,6 +41,7 @@ public class MenuState extends BasicGameState {
         img.draw();
         start.render(gc, sbg, g);
         options.render(gc, sbg, g);
+        
     }
 
     public MenuState() {

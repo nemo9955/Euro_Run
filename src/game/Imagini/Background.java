@@ -19,7 +19,7 @@ public class Background extends Imagine {
 
     protected void makeImagine(String link) {
         try {
-            img = new Image(String.format("%s/%d.png", link, 1 + zar.nextInt(bgNo)));
+            img = new Image(String.format("%s/%d_land.png", link, 1 + zar.nextInt(bgNo)));
             img.setAlpha(0.3f);
             WorldMap.modPozBG(img.getWidth());
         }

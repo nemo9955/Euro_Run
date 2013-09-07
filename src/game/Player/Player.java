@@ -36,50 +36,52 @@ public class Player extends Physics {
     private static byte lifes;
     private short       imunitate  = 0;
     private float       marY;
+    private boolean teleportation = true ;
 
+    
     public Player(float x, float y) {
         this.x = x;
         this.y = y;
-        lifes = 3;
+        lifes = 1;
         Imagini();
-        setPoly(x, y, img[0][0].getWidth(), img[0][0].getHeight());
+        setPoly( x, y, img[0][0].getWidth(), img[0][0].getHeight() );
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
         marY = poly.getHeight();
-        if (rezist - delta > 0)
+        if ( rezist -delta >0 )
             rezist -= delta;
         else
             rezist = 0;
-        if (gc.getInput().isKeyDown(Res.jump)) {
-            if (jumpNo < jumpMax && canjump && !colid() && isActiv <= 1) {
-                if (gc.getInput().isKeyPressed(Res.jump)) {
-                    jumpNo++;
-                    if (jumpNo == 1) {
+        if ( gc.getInput().isKeyDown( Res.jump ) ) {
+            if ( jumpNo <jumpMax &&canjump &&!colid() &&isActiv <=1 ) {
+                if ( gc.getInput().isKeyPressed( Res.jump ) ) {
+                    jumpNo ++;
+                    if ( jumpNo ==1 ) {
                         accel = -1.5f;
                     }
-                    if (jumpNo > 1) {
+                    if ( jumpNo >1 ) {
                         accel = -1.2f;
                     }
                 }
-                if (jumpNo > 0) {
-                    accel -= 0.002f * delta;
+                if ( jumpNo >0 ) {
+                    accel -= 0.002f *delta;
                 }
             }
         }
 
-        jump_gravity(delta);
+        jump_gravity( delta );
 
         // Move_st_dr(gc, delta);
 
-        if (gc.getInput().isKeyDown(Res.roll) && isActiv <= 2) {
+        if ( gc.getInput().isKeyDown( Res.roll ) &&isActiv <=2 ) {
             next = 2;
             hasNext = false;
             isActiv = 2;
         }
 
-        if (gc.getInput().isKeyDown(Res.slide) && (isActiv == 0 || isActiv == 3)) {
-            if (gc.getInput().isKeyPressed(Res.slide)) {
+        if ( gc.getInput().isKeyDown( Res.slide ) && ( isActiv ==0 ||isActiv ==3 ) ) {
+            if ( gc.getInput().isKeyPressed( Res.slide ) ) {
                 buff = 4;
                 next = 3;
                 hasNext = true;
@@ -87,103 +89,105 @@ public class Player extends Physics {
             isActiv = 3;
         }
 
-        Animatie(delta);
+        Animatie( delta );
 
-        if (isActiv != 0) {
-            if (hasNext) {
-                schAct(buff);
+        if ( isActiv !=0 ) {
+            if ( hasNext ) {
+                schAct( buff );
             }
             else {
-                schAct(next);
+                schAct( next );
             }
         }
         // System.out.printf("%d %d %d %d \n", actiune, buff, next, frame);
         // System.out.println(isActiv);
-        if (!gc.getInput().isKeyDown(Res.slide) && !gc.getInput().isKeyDown(Res.roll) && accel >= 0) {
+        if ( !gc.getInput().isKeyDown( Res.slide ) &&!gc.getInput().isKeyDown( Res.roll ) &&accel >=0 ) {
             isActiv = 0;
-            schAct((byte) 0);
+            schAct( (byte) 0 );
         }
-        poly.setSize(img[actiune][frame].getWidth(), img[actiune][frame].getHeight());
-        modY(marY - poly.getHeight());
-        if (gc.getInput().isKeyPressed(Input.KEY_F1)) {
-            System.out.println(x + " " + y);
-        }
-        if (y > 50 || y < -1000) {
-            System.out.println("teleport");
-            setY(300);
-        }
+        poly.setSize( img[actiune][frame].getWidth(), img[actiune][frame].getHeight() );
+        modY( marY -poly.getHeight() );
 
-        if (y + poly.getHeight() > 0)
-            setY(-poly.getHeight());
+        if ( gc.getInput().isKeyPressed( Input.KEY_F1 ) ) {
+            System.out.println( x +" " +y );
+        }
+        if ( teleportation   ==true )
+            if ( y >50 ||y <-1000 ) {
+                System.out.println( "teleport" );
+                setY( 300 );
+            }
+
+        if ( y +poly.getHeight() >0 )
+            setY( -poly.getHeight() );
 
     }
 
     private void schAct(byte act) {
-        if (act != actiune)
+        if ( act !=actiune )
             frame = 0;
         actiune = act;
     }
 
     @SuppressWarnings("unused")
     private void Move_st_dr(GameContainer gc, int delta) {
-        if (gc.getInput().isKeyDown(Input.KEY_D)) {
-            modX(speed * delta);
-            if (colid()) {
-                modX(-speed * delta);
+        if ( gc.getInput().isKeyDown( Input.KEY_D ) ) {
+            modX( speed *delta );
+            if ( colid() ) {
+                modX( -speed *delta );
             }
         }
-        if (gc.getInput().isKeyDown(Input.KEY_A)) {
-            modX(-speed * delta);
-            if (colid()) {
-                modX(speed * delta);
+        if ( gc.getInput().isKeyDown( Input.KEY_A ) ) {
+            modX( -speed *delta );
+            if ( colid() ) {
+                modX( speed *delta );
             }
         }
     }
 
     private void jump_gravity(int delta) {
-        if (jumpNo >= 1) {
-            if (accel < 0) {
+        if ( jumpNo >=1 ) {
+            if ( accel <0 ) {
                 next = 1;
                 hasNext = false;
                 isActiv = 1;
             }
         }
-        modY(accel * delta);
-        if (colid()) {
-            modY(-accel * delta);
-            if (colid() && imunitate == 0 && rezist == 0 && !canMakeStep()) {
-                addLifes(-1);
+        modY( accel *delta );
+        if ( colid() ) {
+            modY( -accel *delta );
+            if ( colid() &&imunitate ==0 &&rezist ==0 &&!canMakeStep() ) {
+                addLifes( -1 );
                 imunitate = 3000;
             }
             jumpNo = 0;
-            if (accel >= 0) {
-                adapt(1);
+            if ( accel >=0 ) {
+                adapt( 1 );
                 canjump = true;
             }
             else {
-                adapt(-1);
+                adapt( -1 );
                 canjump = false;
             }
             accel = 0;
         }
         imunitate -= delta;
-        if (imunitate < 0)
+        if ( imunitate <0 )
             imunitate = 0;
-        accel += 0.006f * delta;
-        if (accel > 1)
+        accel += 0.006f *delta;
+        if ( accel >1 )
             accel = 1;
     }
 
     private boolean canMakeStep() {
-        modY(-15);
-        if (!colid()) {
-            modY(15);
-            while (!colid()) {
-                modY(-2);
+        modY( -15 );
+        if ( !colid() ) {
+            modY( 15 );
+            while ( !colid() ) {
+                modY( -2 );
             }
             return true;
         }
-        modY(15);
+        modY( 15 );
         return false;
     }
 
@@ -192,24 +196,24 @@ public class Player extends Physics {
         // g.setLineWidth(1);
         // g.draw(poly);
         // System.out.println(activ+" "+frame);
-        img[actiune][frame].setAlpha(1f);
-        if (imunitate > 0)
-            img[actiune][frame].setAlpha(0.1f + (float) Math.abs(Math.sin(Math.toRadians(imunitate))));
-        img[actiune][frame].draw(x, y);
-        if (rezist > 0)
-            scut.draw(poly.getCenterX() - (poly.getWidth() * 1.6f / 2), poly.getCenterY() - (poly.getHeight() * 1.4f / 2), poly.getWidth() * 1.6f, poly.getHeight() * 1.4f);
+        img[actiune][frame].setAlpha( 1f );
+        if ( imunitate >0 )
+            img[actiune][frame].setAlpha( 0.1f +(float) Math.abs( Math.sin( Math.toRadians( imunitate ) ) ) );
+        img[actiune][frame].draw( x, y );
+        if ( rezist >0 )
+            scut.draw( poly.getCenterX() - ( poly.getWidth() *1.6f /2 ), poly.getCenterY() - ( poly.getHeight() *1.4f /2 ), poly.getWidth() *1.6f, poly.getHeight() *1.4f );
 
     }
 
     private void Animatie(int delta) {
         interval += delta;
-        if (interval > intervalTo) {
+        if ( interval >intervalTo ) {
             interval = 0;
-            frame++;
+            frame ++;
         }
-        if (frame >= frames[actiune]) {
+        if ( frame >=frames[actiune] ) {
             frame = 0;
-            if (hasNext) {
+            if ( hasNext ) {
                 hasNext = false;
             }
         }
@@ -220,20 +224,20 @@ public class Player extends Physics {
         img = new Image[frames.length][9];
         PackedSpriteSheet sheet = null;
         try {
-            sheet = new PackedSpriteSheet("res/player/sheet_activ.def", Color.white);
-            scut = new Image("res/player/scut.png");
+            sheet = new PackedSpriteSheet( "res/player/sheet_activ.def", Color.white );
+            scut = new Image( "res/player/scut.png" );
         }
         catch (SlickException e) {
             e.printStackTrace();
         }
-        scut.setAlpha(0.8f);
-        for (int i = 0; i < links.length; i++) {
+        scut.setAlpha( 0.8f );
+        for (int i = 0 ; i <links.length ; i ++ ) {
             boolean finish = false;
             frames[i] = 0;
-            for (int k = 0; !finish; k++) {
+            for (int k = 0 ; !finish ; k ++ ) {
                 try {
-                    img[i][k] = sheet.getSprite(String.format("%s%d.bmp", links[i], k));
-                    frames[i]++;
+                    img[i][k] = sheet.getSprite( String.format( "%s%d.bmp", links[i], k ) );
+                    frames[i] ++;
                 }
                 catch (Exception e) {
                     finish = true;
@@ -245,7 +249,7 @@ public class Player extends Physics {
     }
 
     private void setPoly(float x, float y, float w, float h) {
-        poly = new Rectangle(x, y, w, h);
+        poly = new Rectangle( x, y, w, h );
     }
 
     // getters
@@ -255,7 +259,7 @@ public class Player extends Physics {
 
     public void setX(float x) {
         this.x = x;
-        poly.setX(x);
+        poly.setX( x );
     }
 
     public float getY() {
@@ -264,7 +268,7 @@ public class Player extends Physics {
 
     public void setY(float y) {
         this.y = y;
-        poly.setY(y);
+        poly.setY( y );
     }
 
     public Rectangle getPoly() {
@@ -284,8 +288,8 @@ public class Player extends Physics {
     }
 
     public static void addLifes(int i) {
-        if (lifes > 0)
-            if (lifes + i >= 0 && lifes + i <= 5)
+        if ( lifes >1 )
+            if ( lifes +i >=0 &&lifes +i <=5 )
                 lifes += i;
 
     }
@@ -300,5 +304,9 @@ public class Player extends Physics {
 
     public void modRezist(short rezist) {
         this.rezist += rezist;
+    }
+
+    public void setTeleportation(boolean teleportation) {
+        this.teleportation = teleportation;
     }
 }

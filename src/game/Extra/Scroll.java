@@ -28,15 +28,15 @@ public class Scroll {
     public Scroll() {
 
         try {
-            img = new Image("res/item/scroll.png");
+            img = new Image( "res/item/scroll.png" );
         }
         catch (SlickException e) {
             e.printStackTrace();
         }
 
-        x = (short) ((Start.getWIDTH() / 2 - img.getWidth() / 2) - GameplayState.getCamera().getX());
-        y = (short) ((Start.getHEIGHT() / 2 - img.getHeight() / 2) - GameplayState.getCamera().getY());
-        zon = new Rectangle(x, y, img.getWidth(), img.getHeight());
+        x = (short) ( ( Start.getWIDTH() /2 -img.getWidth() /2 ) -GameplayState.getCamera().getX() );
+        y = (short) ( ( Start.getHEIGHT() /2 -img.getHeight() /2 ) -GameplayState.getCamera().getY() );
+        zon = new Rectangle( x, y, img.getWidth(), img.getHeight() );
         // zon = new Rectangle(-50, 300, 50, 50);
 
         gatFact();
@@ -45,15 +45,16 @@ public class Scroll {
 
     private void gatFact() {
 
-        byte rand = (byte) (1 + zar.nextInt(noFacts));
+        byte rand = (byte) ( 1 +zar.nextInt( noFacts ) );
+        rand = 12;
 
         BufferedReader br = null;
 
         try {
 
-            br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("intrebari.txt")));
+            br = new BufferedReader( new InputStreamReader( getClass().getResourceAsStream( "intrebari.txt" ) ) );
 
-            for (byte i = 0; i < rand; i++) {
+            for (byte i = 0 ; i <rand ; i ++ ) {
 
                 try {
                     message = br.readLine();
@@ -64,7 +65,7 @@ public class Scroll {
             }
         }
         catch (Exception e) {
-            System.out.println("fisierul intrebari.txt nu e in pachetul Extra");
+            System.out.println( "fisierul intrebari.txt nu e in pachetul Extra" );
         }
         br = null;
 
@@ -72,46 +73,57 @@ public class Scroll {
 
     private void genText() {
         int i = 0;
-        int range = 55;
-        StringBuilder sb = new StringBuilder(message);
+        int range = 45;
+        StringBuilder sb = new StringBuilder( message );
         i = 0;
 
-        while (i + range < sb.length()) {
-            if (sb.indexOf("*") != -1) {
-                i = sb.indexOf("*");
-                sb.replace(i, i + 1, "\n");
+        while ( i +range <sb.length() ) {
+            if ( doSpace( range, sb, i ) ) {
+                if ( ( i = sb.lastIndexOf( " ", i +range ) ) ==-1 )
+                    break;
+                sb.replace( i, i +1, "\n" );
             }
-            if (i + range >= sb.length()) {
+            else {
+                i = sb.indexOf( "*" );
+                sb.replace( i, i +1, "\n" );
+            }
+            if ( i +range >=sb.length() )
                 break;
-            }
-            i = sb.lastIndexOf(" ", i + range);
-            if (i == -1) {
-                break;
-            }
-            sb.replace(i, i + 1, "\n");
         }
 
-        while (sb.indexOf("*") != -1) {
-            i = sb.indexOf("*");
-            sb.replace(i, i + 1, "\n");
+        while ( sb.indexOf( "*" ) !=-1 ) {
+            i = sb.indexOf( "*" );
+            sb.replace( i, i +1, "\n" );
         }
 
         message = sb.toString();
     }
 
+    private boolean doSpace(int range, StringBuilder sb, int at) {
+        if ( sb.lastIndexOf( "*", at +range ) !=-1 )
+            return false;
+        else
+            return true;
+    }
+
+
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
 
-        if ((gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON) && zon.contains(gc.getInput().getMouseX() - GameplayState.getCamera().getX(), gc.getInput().getMouseY() - GameplayState.getCamera().getY())) || gc.getInput().isKeyPressed(Res.jump)) {
-            GameplayState.setToUpd(STATES.PLAY);
+        if ( ( gc.getInput().isMousePressed( Input.MOUSE_LEFT_BUTTON ) &&zon.contains( gc.getInput().getMouseX() -GameplayState.getCamera().getX(), gc.getInput().getMouseY() -GameplayState.getCamera().getY() ) ) ||gc.getInput().isKeyPressed( Res.jump ) ) {
+            GameplayState.setToUpd( STATES.PLAY );
             message = null;
         }
 
+        if ( gc.getInput().isKeyPressed( Input.KEY_R ) ) {
+            gatFact();
+            genText();
+        }
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
 
-        img.draw(x, y);
-        g.drawString(message, x + 55, y + 40);
+        img.draw( x, y );
+        g.drawString( message, x +80, y +125 );
 
     }
 

@@ -11,6 +11,6 @@ public class Res {
     
     public static int roll =Input.KEY_D;
     
-    public static int pause =Input.KEY_P;
+    public static int pause =Input.KEY_ESCAPE;
     
 }
