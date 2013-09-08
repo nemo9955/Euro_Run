@@ -32,7 +32,7 @@ public class OptionState extends BasicGameState {
         buton[0] = new TextArea(gc, 200, 100, "Saritura :", Res.jump);
         buton[1] = new TextArea(gc, 200, 150, "Roll :", Res.roll);
         buton[2] = new TextArea(gc, 200, 200, "Slide :", Res.slide);
-        buton[3] = new TextArea(gc, 200, 250, "Puse :", Res.pause);
+        buton[3] = new TextArea(gc, 200, 250, "Pause :", Res.pause);
         img = new Image("res/meniu/Optiuni.png");
     }
 

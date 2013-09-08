@@ -40,8 +40,8 @@ public class WorldMap {
     private Random               zar              = new Random();
 
 
-    // _______________________________________________0____1____2____3____4____5____6____
-    private static final short   intervaleHarta[] = { 600, 400, 500, 500, 500, 500, 500 };
+    // _______________________________________________0_____1_____2_____3_____4_____5_____6_____
+    private static final short   intervaleHarta[] = { 1200, 2000, 1400, 3000, 1900, 2400, 4000 };
     private static short         rentHarta;
     private static short         toNextHarta;
     private static boolean       finalHarta;

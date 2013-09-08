@@ -22,7 +22,7 @@ public class Scroll {
     private short      x, y;
     private Rectangle  zon;
     private Random     zar     = new Random();
-    private final byte noFacts = 13;
+    private final byte noFacts = 9;
     private String     message = "Asta e mesajul default , mai mult ca sigur fisierul cu intrebari nu e in pachetul \"Extra\" ........ chiar asa e de greu sa dai copy / paste ? ";
 
     public Scroll() {
