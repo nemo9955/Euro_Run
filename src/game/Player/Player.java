@@ -42,7 +42,7 @@ public class Player extends Physics {
     public Player(float x, float y) {
         this.x = x;
         this.y = y;
-        lifes = 1;
+        lifes = 3;
         Imagini();
         setPoly( x, y, img[0][0].getWidth(), img[0][0].getHeight() );
     }
@@ -288,10 +288,9 @@ public class Player extends Physics {
     }
 
     public static void addLifes(int i) {
-        if ( lifes >1 )
+        if ( lifes >0 )
             if ( lifes +i >=0 &&lifes +i <=5 )
                 lifes += i;
-
     }
 
     public short getRezist() {

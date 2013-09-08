@@ -24,34 +24,34 @@ public class Block {
         this.y = y;
         Solid();
         Zon();
-        color = new Color(zar.nextInt(225), zar.nextInt(225), zar.nextInt(225));
+        color = new Color( zar.nextInt( 225 ), zar.nextInt( 225 ), zar.nextInt( 225 ) );
     }
-    
+
     public Block(Shape zon) {
-        this.zon=zon;
-        x=zon.getX();
-        y=zon.getY();
+        this.zon = zon;
+        x = zon.getX();
+        y = zon.getY();
         Solid();
-        color = new Color(zar.nextInt(225), zar.nextInt(225), zar.nextInt(225));
+        color = new Color( zar.nextInt( 225 ), zar.nextInt( 225 ), zar.nextInt( 225 ) );
     }
 
     public void update(GameContainer gc, StateBasedGame sbg) {
-        modX(-WorldMap.getMove());
-        if (zon.getX() <= WorldMap.getEndgen()) {
-            WorldMap.getBlocks().remove(this);
+        modX( -WorldMap.getMove() );
+        if ( zon.getX() <=WorldMap.getEndgen() ) {
+            WorldMap.getBlocks().remove( this );
         }
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
-        g.setColor(color);
-        g.setLineWidth(3);
-        g.fill(zon);
+        g.setColor( color );
+        g.setLineWidth( 3 );
+        g.fill( zon );
     }
 
     protected boolean colid() {
-        for (int i = 0; i < WorldMap.getBlocks().size(); i++) {
-            if (this.getZon() != GameplayState.getWorldMap().getBlock(i))
-                if (zon.intersects(GameplayState.getWorldMap().getBlock(i))) {
+        for (int i = 0 ; i <WorldMap.getBlocks().size() ; i ++ ) {
+            if ( this.getZon() !=GameplayState.getWorldMap().getBlock( i ) )
+                if ( zon.intersects( GameplayState.getWorldMap().getBlock( i ) ) ) {
                     return true;
                 }
         }
@@ -69,12 +69,12 @@ public class Block {
 
     public void modX(float x) {
         this.x += x;
-        zon.setX(this.x);
+        zon.setX( this.x );
     }
 
     public void modY(float y) {
         this.y += y;
-        zon.setY(this.y);
+        zon.setY( this.y );
     }
 
     public float getX() {
@@ -95,12 +95,12 @@ public class Block {
 
     public void setX(float x) {
         this.x = x;
-        zon.setX(this.x);
+        zon.setX( this.x );
     }
 
     public void setY(float y) {
         this.y = y;
-        zon.setY(this.y);
+        zon.setY( this.y );
     }
 
     public void setSolid(boolean solid) {

@@ -41,22 +41,22 @@ public class GameplayState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        player = new Player(0, -100);
-        camera = new Camera(Start.getWIDTH(), Start.getHEIGHT());
+        player = new Player( 0, -100 );
+        camera = new Camera( Start.getWIDTH(), Start.getHEIGHT() );
         world = new WorldMap();
-        bkg = new Rectangle(0, 0, 600, 400);
-        resume = new Button(0, 0, "resume.png");
-        meniu = new Button(0, 0, "mainMenu.png");
+        bkg = new Rectangle( 0, 0, 600, 400 );
+        resume = new Button( 0, 0, "resume.png" );
+        meniu = new Button( 0, 0, "mainMenu.png" );
     }
-    
+
     @Override
     public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {
         camera.reset();
     }
 
     public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        player = new Player(0, -100);
-        camera = new Camera(Start.getWIDTH(), Start.getHEIGHT());
+        player = new Player( 0, -100 );
+        camera = new Camera( Start.getWIDTH(), Start.getHEIGHT() );
         world = new WorldMap();
         tick = 0;
         distanta = 0;
@@ -68,8 +68,8 @@ public class GameplayState extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 
-        if (gc.getInput().isKeyPressed(Res.pause)) {
-            if (toUpd == STATES.PAUSE)
+        if ( gc.getInput().isKeyPressed( Res.pause ) ) {
+            if ( toUpd ==STATES.PAUSE )
                 toUpd = STATES.PLAY;
             else
                 toUpd = STATES.PAUSE;
@@ -77,85 +77,77 @@ public class GameplayState extends BasicGameState {
 
         switch (toUpd) {
             case PLAY:
-                updateGame(gc, sbg, delta);
+                updateGame( gc, sbg, delta );
                 break;
             case SCROL:
-                scroll.update(gc, sbg, delta);
+                scroll.update( gc, sbg, delta );
                 break;
             case PAUSE:
-                updateMenu(gc, sbg, delta);
+                updateMenu( gc, sbg, delta );
                 break;
         }
     }
 
     private void updateMenu(GameContainer gc, StateBasedGame sbg, int delta) {
 
-        bkg.setLocation(-camera.getX() + gc.getWidth() / 2 - bkg.getWidth() / 2, -camera.getY() + gc.getHeight() / 2 - bkg.getHeight() / 2);
-        resume.setCenterLocation((int) bkg.getCenterX(), (int) bkg.getCenterY() - 50);
-        meniu.setCenterLocation((int) bkg.getCenterX(), (int) bkg.getCenterY() + 50);
+        bkg.setLocation( -camera.getX() +gc.getWidth() /2 -bkg.getWidth() /2, -camera.getY() +gc.getHeight() /2 -bkg.getHeight() /2 );
+        resume.setCenterLocation( (int) bkg.getCenterX(), (int) bkg.getCenterY() -50 );
+        meniu.setCenterLocation( (int) bkg.getCenterX(), (int) bkg.getCenterY() +50 );
 
-        if (resume.clikOn(gc))
+        if ( resume.clikOn( gc ) )
             toUpd = STATES.PLAY;
-        if (meniu.clikOn(gc)){
-          //  toUpd = STATES.PLAY ;
-            sbg.enterState(Start.MENUSTATE);
+        if ( meniu.clikOn( gc ) ) {
+            // toUpd = STATES.PLAY ;
+            sbg.enterState( Start.MENUSTATE );
         }
     }
 
     private void updateGame(GameContainer gc, StateBasedGame sbg, int delta) {
-        player.update(gc, sbg, delta);
+        player.update( gc, sbg, delta );
         tick += delta;
 
-        if (tick > tickMax) {
-            world.update(gc, sbg , tick);
+        if ( tick >tickMax ) {
+            world.update( gc, sbg, tick );
             tick = 0;
-            if (Player.getLifes() > 0) {
+            if ( Player.getLifes() >0 ) {
                 distanta += WorldMap.getMove();
             }
         }
 
-        if (Player.getLifes() <= 0 && !mort) {
+        if ( Player.getLifes() <=0 &&!mort ) {
             mort = true;
-            sbg.enterState(Start.DEATHSTATE);
+            sbg.enterState( Start.DEATHSTATE );
         }
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        g.setBackground(Color.cyan);
-        camera.translate(g, player);
+        g.setBackground( Color.cyan );
+        camera.translate( g, player );
 
-        for (int i = 0; i <= 11; i++) {
-            g.setColor(new Color(100, 200, 255, 0.2f + i * 0.06f));
-            g.fillRect(-200, -850 + (i * 100), gc.getWidth() + 100, 100);
+        world.render( gc, sbg, g );
+        player.render( gc, sbg, g );
+
+        g.setColor( Color.red );
+        g.drawString( "Vieti : ", 0, 100 );
+
+        for (int i = 0 ; i <Player.getLifes() ; i ++ ) {
+            g.fillOval( 73 + ( i *30 ), 100, 20, 20 );
         }
 
-        g.setColor(new Color(128,49,3));
-        g.fillRect(-200, 10, gc.getWidth() + 100, 500);
-
-        world.render(gc, sbg, g);
-        player.render(gc, sbg, g);
-
-        g.setColor(Color.red);
-        g.drawString("Vieti : ", 0, 100);
-
-        for (int i = 0; i < Player.getLifes(); i++) {
-            g.fillOval(73 + (i * 30), 100, 20, 20);
-        }
-
-        g.setColor(Color.black);
-        g.drawString(String.format("Distanta : %d", distanta), 0, 130);
-        g.drawString(String.format("Cunostinte dobandite : %d", iteme), 0, 150);
+        g.setColor( Color.black );
+        g.drawString( String.format( "Distanta : %d", distanta ), 0, 130 );
+        g.drawString( String.format( "Cunostinte dobandite : %d", iteme ), 0, 150 );
 
         switch (toUpd) {
             case SCROL:
-                scroll.render(gc, sbg, g);
+                scroll.render( gc, sbg, g );
                 break;
             case PAUSE:
-                g.setColor(new Color(0, 0, 0, 0.7f));
-                g.fill(bkg);
-                resume.render(gc, sbg, g);
-                meniu.render(gc, sbg, g);
+                g.setColor( new Color( 0, 0, 0, 0.7f ) );
+                g.fill( bkg );
+                resume.render( gc, sbg, g );
+                meniu.render( gc, sbg, g );
                 break;
             default:
                 break;
@@ -221,8 +213,8 @@ public class GameplayState extends BasicGameState {
 
     public static void modIteme(int iteme) {
         GameplayState.iteme += iteme;
-        if (GameplayState.iteme % 10 == 0) {
-            Player.addLifes(1);
+        if ( GameplayState.iteme %10 ==0 ) {
+            Player.addLifes( 1 );
         }
     }
 }

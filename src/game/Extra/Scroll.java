@@ -46,7 +46,7 @@ public class Scroll {
     private void gatFact() {
 
         byte rand = (byte) ( 1 +zar.nextInt( noFacts ) );
-        rand = 12;
+        //rand = 12;
 
         BufferedReader br = null;
 
@@ -78,7 +78,7 @@ public class Scroll {
         i = 0;
 
         while ( i +range <sb.length() ) {
-            if ( doSpace( range, sb, i ) ) {
+            if ( sb.lastIndexOf( "*", i +range ) ==-1 ) {
                 if ( ( i = sb.lastIndexOf( " ", i +range ) ) ==-1 )
                     break;
                 sb.replace( i, i +1, "\n" );
@@ -99,14 +99,6 @@ public class Scroll {
         message = sb.toString();
     }
 
-    private boolean doSpace(int range, StringBuilder sb, int at) {
-        if ( sb.lastIndexOf( "*", at +range ) !=-1 )
-            return false;
-        else
-            return true;
-    }
-
-
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
 
         if ( ( gc.getInput().isMousePressed( Input.MOUSE_LEFT_BUTTON ) &&zon.contains( gc.getInput().getMouseX() -GameplayState.getCamera().getX(), gc.getInput().getMouseY() -GameplayState.getCamera().getY() ) ) ||gc.getInput().isKeyPressed( Res.jump ) ) {
@@ -114,7 +106,7 @@ public class Scroll {
             message = null;
         }
 
-        if ( gc.getInput().isKeyPressed( Input.KEY_R ) ) {
+        if ( gc.getInput().isKeyPressed( Input.KEY_F8 ) ) {
             gatFact();
             genText();
         }

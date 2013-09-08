@@ -19,10 +19,10 @@ public class Imagine {
 
     public Imagine(int x, int y, String link) {
         super();
-        makeImagine(link);
+        makeImagine( link );
         this.x = x;
         this.y = y;
-        color = new Color(zar.nextInt(225), zar.nextInt(225), zar.nextInt(225));
+        color = new Color( zar.nextInt( 225 ), zar.nextInt( 225 ), zar.nextInt( 225 ) );
     }
 
     protected void makeImagine(String link) {
@@ -30,16 +30,16 @@ public class Imagine {
     }
 
     public void update(GameContainer gc, StateBasedGame sbg) {
-        modX(-WorldMap.getMove());
-        if (x <= WorldMap.getEndgen()) {
-            WorldMap.getBlocks().remove(this);
+        modX( -WorldMap.getMove() );
+        if ( x <=WorldMap.getEndgen() ) {
+            WorldMap.getBlocks().remove( this );
         }
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
-        g.setColor(color);
-        g.setLineWidth(5);
-        img.draw(x, y);
+        g.setColor( color );
+        g.setLineWidth( 5 );
+        img.draw( x, y );
     }
 
     protected void modX(int x) {
@@ -48,5 +48,9 @@ public class Imagine {
 
     protected void modY(int y) {
         this.y += y;
+    }
+
+    public void renderAfter(GameContainer gc, StateBasedGame sbg, Graphics g) {
+        
     }
 }

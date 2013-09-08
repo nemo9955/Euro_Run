@@ -26,6 +26,6 @@ public class Faller extends Block {
     }
 
     protected void Zon() {
-        zon = new Ellipse(x, y, 60, 40);
+        zon = new Ellipse(x, y, 40+zar.nextInt(30), 40+zar.nextInt(20));
     }
 }

@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -25,7 +26,6 @@ public class WorldMap {
     private final static short   startGen         = 1024;
     private final static short   endGen           = -256;
 
-    private final static short   size             = 64;
     private static short         interval         = 0;
     private static short         distItem         = 1000;
     private static short         move             = 18;
@@ -71,8 +71,8 @@ public class WorldMap {
         while ( pozBG <startGen ) {
             imagini.add( new Background( pozBG, 0 ) );
         }
-        
-        item.add( new Item( 100, -50 ) );
+
+        // item.add( new Item( 100, -50 ) );
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
@@ -141,15 +141,14 @@ public class WorldMap {
 
         if ( distItem -move <=0 ) {
 
-            if ( zar.nextInt( 100 ) <80 ) {
+            if ( zar.nextInt( 100 ) <80 )
                 item.add( new Item( startGen, -500 +zar.nextInt( 100 ) ) );
-            }
 
             distItem = (short) ( 1000 + ( zar.nextInt( 5 ) *200 ) );
         }
-        else {
+        else
             distItem -= move;
-        }
+
 
         if ( interval ==0 ) {
 
@@ -159,7 +158,7 @@ public class WorldMap {
                 interval += 200 + ( zar.nextInt( 7 ) *15 );
             }
             else if ( gen <800 ) {
-                blocks.add( new BlockSolid( startGen, -64 - ( zar.nextInt( 14 ) *10 ) ) );
+                blocks.add( new BlockSolid( startGen, -30 - ( zar.nextInt( 15 ) *10 ) ) );
                 interval += 350 +zar.nextInt( 100 );
             }
             else if ( gen <1200 ) {
@@ -180,15 +179,28 @@ public class WorldMap {
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
 
+        for (int i = 0 ; i <=11 ; i ++ ) {
+            g.setColor( new Color( 100, 200, 255, 0.2f +i *0.06f ) );
+            g.fillRect( -200, -850 + ( i *100 ), gc.getWidth() +100, 100 );
+        }
+
+
         for (int i = 0 ; i <imagini.size() ; i ++ )
             imagini.get( i ).render( gc, sbg, g );
 
         if ( rentHarta !=0 ) {
-            harta[rentHarta-1].draw( 0, -harta[rentHarta-1].getHeight() );
+            harta[rentHarta -1].draw( 0, -harta[rentHarta -1].getHeight() );
         }
 
         for (int i = 0 ; i <blocks.size() ; i ++ )
             blocks.get( i ).render( gc, sbg, g );
+
+        g.setColor( new Color( 128, 49, 3 ) );
+        g.fillRect( -200, 10, gc.getWidth() +100, 500 );
+
+        for (int i = 0 ; i <imagini.size() ; i ++ )
+            imagini.get( i ).renderAfter( gc, sbg, g );
+
         for (int i = 0 ; i <item.size() ; i ++ )
             item.get( i ).render( gc, sbg, g );
     }
@@ -231,10 +243,6 @@ public class WorldMap {
 
     public static void setMove(int move) {
         WorldMap.move = (short) move;
-    }
-
-    public static int getSize() {
-        return size;
     }
 
     public static short getPozSol() {
