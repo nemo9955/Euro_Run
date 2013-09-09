@@ -1,4 +1,4 @@
-package game.GamePlay;
+package game.States;
 
 import game.Start;
 import game.Extra.Button;
@@ -22,12 +22,15 @@ public class GameplayState extends BasicGameState {
     private static Camera   camera;
     private static Player   player;
     private static WorldMap world;
-    private byte            tick     = 0;
-    private final byte      tickMax  = 58;
-    private static long     distanta = 0;
-    private static int      iteme    = 0;
-    private boolean         mort     = false;
-    private static Scroll   scroll   = null;
+    private byte            tick        = 0;
+    private final byte      tickMax     = 58;
+    private boolean         mort;
+    private static Scroll   scroll      = null;
+
+    public static long      distanta;
+    public static int       iteme;
+    public static short     tariVizit   = 10;
+    public static short     tariCunosti = 5;
 
     private Rectangle       bkg;
     private Button          resume;
@@ -175,14 +178,6 @@ public class GameplayState extends BasicGameState {
         return player;
     }
 
-    public static long getDistanta() {
-        return distanta;
-    }
-
-    public void setDistanta(long score) {
-        GameplayState.distanta = score;
-    }
-
     public boolean isMort() {
         return mort;
     }
@@ -205,10 +200,6 @@ public class GameplayState extends BasicGameState {
 
     public static void makeScroll() {
         GameplayState.scroll = new Scroll();
-    }
-
-    public static int getIteme() {
-        return iteme;
     }
 
     public static void modIteme(int iteme) {

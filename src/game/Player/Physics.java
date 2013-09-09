@@ -1,9 +1,10 @@
 package game.Player;
 
-import game.GamePlay.GameplayState;
+import game.States.GameplayState;
 import game.World.WorldMap;
 
 import org.newdawn.slick.geom.Rectangle;
+
 
 public class Physics {
 

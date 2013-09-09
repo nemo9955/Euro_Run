@@ -1,6 +1,7 @@
 package game.World;
 
-import game.GamePlay.GameplayState;
+
+import game.States.GameplayState;
 
 import java.util.Random;
 
@@ -10,6 +11,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
+
 
 public class Block {
 

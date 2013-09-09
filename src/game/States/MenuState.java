@@ -1,6 +1,7 @@
-package game.Extra;
+package game.States;
 
 import game.Start;
+import game.Extra.Button;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -16,32 +17,37 @@ public class MenuState extends BasicGameState {
     private final byte ID;
     private Button     start;
     private Button     options;
-    private Image img ;
+    private Button     instr;
+    private Image      img;
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        start = new Button(100, 100, "start.png");
-        options = new Button(100, 200, "options.png");
-        img = new Image ("res/meniu/Meniu.png");
+        start = new Button( 100, 100, "start.png" );
+        options = new Button( 100, 200, "options.png" );
+        instr = new Button( 100, 300, "instructiuni.png" );
+        img = new Image( "res/meniu/Meniu.png" );
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        
-        
-        if (start.clikOn(gc))
-            sbg.enterState(Start.GAMEPLAYSTATE);
-        if (options.clikOn(gc))
-            sbg.enterState(Start.OPTIONSTATE);
+
+
+        if ( start.clikOn( gc ) )
+            sbg.enterState( Start.GAMEPLAYSTATE );
+        if ( options.clikOn( gc ) )
+            sbg.enterState( Start.OPTIONSTATE );
+        if ( instr.clikOn( gc ) )
+            sbg.enterState( Start.INSTRUCTIUNISTATE );
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        g.setBackground(Color.black);
+        g.setBackground( Color.black );
         img.draw();
-        start.render(gc, sbg, g);
-        options.render(gc, sbg, g);
-        
+        start.render( gc, sbg, g );
+        options.render( gc, sbg, g );
+        instr.render( gc, sbg, g );
+
     }
 
     public MenuState() {

@@ -1,8 +1,8 @@
 package game.Extra;
 
 import game.Start;
-import game.GamePlay.GameplayState;
-import game.GamePlay.GameplayState.STATES;
+import game.States.GameplayState;
+import game.States.GameplayState.STATES;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -15,6 +15,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
+
 
 public class Scroll {
 

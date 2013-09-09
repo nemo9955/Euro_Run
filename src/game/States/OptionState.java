@@ -1,6 +1,9 @@
-package game.Extra;
+package game.States;
 
 import game.Start;
+import game.Extra.Button;
+import game.Extra.Res;
+import game.Extra.TextArea;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -28,18 +31,18 @@ public class OptionState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        back = new Button(100, 500, "back.png");
-        buton[0] = new TextArea(gc, 200, 100, "Saritura :", Res.jump);
-        buton[1] = new TextArea(gc, 200, 150, "Roll :", Res.roll);
-        buton[2] = new TextArea(gc, 200, 200, "Slide :", Res.slide);
-        buton[3] = new TextArea(gc, 200, 250, "Pause :", Res.pause);
-        img = new Image("res/meniu/Optiuni.png");
+        back = new Button( 100, 500, "back.png" );
+        buton[0] = new TextArea( gc, 200, 100, "Saritura :", Res.jump );
+        buton[1] = new TextArea( gc, 200, 150, "Rostogolire :", Res.roll );
+        buton[2] = new TextArea( gc, 200, 200, "Alunecare :", Res.slide );
+        buton[3] = new TextArea( gc, 200, 250, "Pauza :", Res.pause );
+        img = new Image( "res/meniu/Optiuni.png" );
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        if (back.clikOn(gc))
-            sbg.enterState(Start.MENUSTATE);
+        if ( back.clikOn( gc ) )
+            sbg.enterState( Start.MENUSTATE );
     }
 
 
@@ -54,17 +57,17 @@ public class OptionState extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         img.draw();
-        g.setBackground(Color.black);
-        back.render(gc, sbg, g);
-        for (TextArea ton : buton)
-            ton.render(gc, g);
+        g.setBackground( Color.black );
+        back.render( gc, sbg, g );
+        for (TextArea ton : buton )
+            ton.render( gc, g );
     }
 
     public void keyPressed(int key, char c) {
 
-        for (TextArea ton : buton)
-            if (ton.hasFocus()) {
-                ton.setVal(key);
+        for (TextArea ton : buton )
+            if ( ton.hasFocus() ) {
+                ton.setVal( key );
             }
 
     }
