@@ -17,8 +17,11 @@ public class Player extends Physics {
     private Image       img[][];
     private final byte  frames[]      = { 8, 6, 9, 5, 6 };
     /*
-     * indicele fiecaruia e 0 1 2 3 4 5 6 7 8 9
-     * 0 - run 1 - to_jump 2 - roll 3 - slide 4 - to_slide
+     * 0 - run
+     * 1 - to_jump
+     * 2 - roll
+     * 3 - slide
+     * 4 - to_slide
      */
     private Image       scut;
     private short       imunitate;
@@ -131,8 +134,8 @@ public class Player extends Physics {
             }
         }
 
-
-        if ( !gc.getInput().isKeyDown( Res.slide ) &&isRolling ==0 &&accel >=0 ) {
+        // TODO
+        if ( ( !gc.getInput().isKeyDown( Res.slide ) &&isActiv ==3 ) || ( isRolling ==0 &&isActiv ==2 ) || ( accel >=0 &&isActiv ==1 ) ) {
             isActiv = 0;
             schAct( (byte) 0 );
         }
