@@ -1,6 +1,7 @@
 package game.World;
 
 import game.Imagini.Background;
+import game.Imagini.Harta;
 import game.Imagini.Imagine;
 import game.Imagini.ZonaMers;
 
@@ -12,40 +13,32 @@ import java.util.Random;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class WorldMap {
 
-    private static List<Block>   blocks           = new LinkedList<Block>();
-    private static List<Imagine> imagini          = new ArrayList<Imagine>();
-    private static List<Item>    item             = new ArrayList<Item>();
+    private static List<Block>   blocks   = new LinkedList<Block>();
+    private static List<Imagine> imagini  = new ArrayList<Imagine>();
+    private static List<Item>    item     = new ArrayList<Item>();
 
-    private final static short   startGen         = 1024;
-    private final static short   endGen           = -256;
+    private final static short   startGen = 1024;
+    private final static short   endGen   = -256;
 
-    private static short         interval         = 0;
-    private static short         distItem         = 1000;
-    private static short         move             = 18;
+    private static short         interval = 0;
+    private static short         distItem = 1000;
+    private static short         move     = 18;
 
-    private static short         atTime           = 10000;
+    private static short         atTime   = 10000;
     private static short         speed;
 
     private static short         poz;
     private static short         pozBG;
     private static short         pozSol;
 
-    private Random               zar              = new Random();
+    private Random               zar      = new Random();
 
-
-    // _______________________________________________0_____1_____2_____3_____4_____5_____6_____7______8____
-    private static final short   intervaleHarta[] = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 , 1000 };
-    private static short         rentHarta;
-    private static short         toNextHarta;
-    private static boolean       finalHarta;
-    private static Image         harta[]          = new Image[8];
+    private Harta                harta;
 
 
     public WorldMap() {
@@ -58,10 +51,7 @@ public class WorldMap {
         pozSol = endGen;
         speed = atTime;
 
-        rentHarta = 0;
-        toNextHarta = intervaleHarta[0];
-        finalHarta = false;
-        loadHarta();
+        harta = new Harta();
 
         blocks.add( new BlockMers() );
 
@@ -79,17 +69,6 @@ public class WorldMap {
         poz -= move;
         pozBG -= move;
         pozSol -= move;
-
-        if ( !finalHarta ) {
-            if ( toNextHarta -move >0 )
-                toNextHarta -= move;
-            else {
-                rentHarta ++;
-                toNextHarta = intervaleHarta[rentHarta];
-                if ( rentHarta ==intervaleHarta.length -1 )
-                    finalHarta = true;
-            }
-        }
 
         if ( interval -move >0 )
             interval -= move;
@@ -113,6 +92,9 @@ public class WorldMap {
     }
 
     private void subUpdate(GameContainer gc, StateBasedGame sbg) {
+
+        harta.update( gc, sbg, move );
+
         for (int i = 0 ; i <blocks.size() ; i ++ ) {
             blocks.get( i ).update( gc, sbg );
         }
@@ -188,9 +170,8 @@ public class WorldMap {
         for (int i = 0 ; i <imagini.size() ; i ++ )
             imagini.get( i ).render( gc, sbg, g );
 
-        if ( rentHarta !=0 ) {
-            harta[rentHarta -1].draw( 0, -harta[rentHarta -1].getHeight() );
-        }
+        // TODO deseneaza harta
+        harta.render( gc, sbg, g );
 
         for (int i = 0 ; i <blocks.size() ; i ++ )
             blocks.get( i ).render( gc, sbg, g );
@@ -205,17 +186,6 @@ public class WorldMap {
             item.get( i ).render( gc, sbg, g );
     }
 
-    private void loadHarta() {
-        try {
-            for (int i = 0 ; i <harta.length ; i ++ ) {
-                harta[i] = new Image( String.format( "res/landscape/%d_zon.png", i +1 ) );
-                harta[i].setAlpha( 0.9f );
-            }
-        }
-        catch (SlickException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static List<Block> getBlocks() {
         return blocks;
@@ -271,9 +241,5 @@ public class WorldMap {
 
     public static int getPoz() {
         return poz;
-    }
-
-    public static short getRentHarta() {
-        return rentHarta;
     }
 }

@@ -47,7 +47,7 @@ public class Scroll {
     private void gatFact() {
 
         byte rand = (byte) ( 1 +zar.nextInt( noFacts ) );
-        //rand = 12;
+        // rand = 12;
 
         BufferedReader br = null;
 

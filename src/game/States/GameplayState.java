@@ -123,6 +123,9 @@ public class GameplayState extends BasicGameState {
         }
     }
 
+    
+    private final int draw = 30 ;
+    
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         g.setBackground( Color.cyan );
@@ -132,15 +135,15 @@ public class GameplayState extends BasicGameState {
         player.render( gc, sbg, g );
 
         g.setColor( Color.red );
-        g.drawString( "Vieti : ", 0, 100 );
+        g.drawString( "Vieti : ", 0, draw );
 
         for (int i = 0 ; i <Player.getLifes() ; i ++ ) {
-            g.fillOval( 73 + ( i *30 ), 100, 20, 20 );
+            g.fillOval( 73 + ( i *30 ), draw, 20, 20 );
         }
 
         g.setColor( Color.black );
-        g.drawString( String.format( "Distanta : %d", distanta ), 0, 130 );
-        g.drawString( String.format( "Cunostinte dobandite : %d", iteme ), 0, 150 );
+        g.drawString( String.format( "Distanta : %d", distanta ), 0, draw+30 );
+        g.drawString( String.format( "Cunostinte dobandite : %d", iteme ), 0, draw+50 );
 
         switch (toUpd) {
             case SCROL:

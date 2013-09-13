@@ -17,7 +17,7 @@ public class Camera {
     public void translate(Graphics g, Player player) {
         cen = new Vector2f( player.getPoly().getX(), player.getPoly().getMaxY() );
         transx = (int) -cen.x +Start.getWIDTH() /6;
-        transy = (int) ( (int) -cen.y +Start.getHEIGHT() /1.5f );
+        transy = (int) ( (int) -cen.y +Start.getHEIGHT() /1.25f );
         g.translate( transx, transy );
     }
 
