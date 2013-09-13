@@ -20,12 +20,12 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Scroll {
 
-    private Image      img;
-    private short      x, y;
-    private Rectangle  zon;
-    private Random     zar     = new Random();
-    private final byte noFacts = 9;
-    private String     message = "Asta e mesajul default , mai mult ca sigur fisierul cu intrebari nu e in pachetul \"Extra\" ........ chiar asa e de greu sa dai copy / paste ? ";
+    protected Image      img;
+    protected short      x, y;
+    protected Rectangle  zon;
+    protected Random     zar     = new Random();
+    protected final byte noFacts = 9;
+    protected String     message = "Asta e mesajul default , mai mult ca sigur fisierul cu intrebari nu e in pachetul \"Extra\" ........ chiar asa e de greu sa dai copy / paste ? ";
 
     public Scroll() {
 
@@ -45,7 +45,7 @@ public class Scroll {
         genText();
     }
 
-    private void gatFact() {
+    protected void gatFact() {
 
         byte rand = (byte) ( 1 +zar.nextInt( noFacts ) );
         // rand = 12;
@@ -73,7 +73,7 @@ public class Scroll {
 
     }
 
-    private void genText() {
+    protected void genText() {
         int i = 0;
         int range = 45;
         StringBuilder sb = new StringBuilder( message );

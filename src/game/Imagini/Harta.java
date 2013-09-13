@@ -1,6 +1,10 @@
 package game.Imagini;
 
 import game.Extra.Res;
+import game.World.ItemTara;
+import game.World.WorldMap;
+
+import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -12,13 +16,13 @@ public class Harta {
 
     private final Image harta[] = new Image[28];
 
-    private byte        curent  = 0;
-    private final int   eta     = 5000 /28;
-    private int         next    = 100;
-
+    private int         curent;
+    private final int   eta     = 20000 /28;
+    private int         next    = 300;
 
     public Harta() {
         loadSiluete();
+        curent = 0;
     }
 
 
@@ -29,6 +33,7 @@ public class Harta {
             else {
                 curent ++;
                 next = eta;
+                WorldMap.getItem().add( new ItemTara( WorldMap.getStartgen(), -500 +new Random().nextInt( 100 ), curent -1 ) );
             }
 
         }
@@ -36,7 +41,7 @@ public class Harta {
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
         for (int i = 0 ; i <curent ; i ++ )
-            harta[i].draw( -133, -790 );
+            harta[i].draw( -170, -790 );
     }
 
 

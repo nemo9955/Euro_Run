@@ -126,7 +126,7 @@ public class WorldMap {
             if ( zar.nextInt( 100 ) <80 )
                 item.add( new Item( startGen, -500 +zar.nextInt( 100 ) ) );
 
-            distItem = (short) ( 1000 + ( zar.nextInt( 5 ) *200 ) );
+            distItem = (short) ( 1500 + ( zar.nextInt( 5 ) *200 ) );
         }
         else
             distItem -= move;
@@ -170,7 +170,6 @@ public class WorldMap {
         for (int i = 0 ; i <imagini.size() ; i ++ )
             imagini.get( i ).render( gc, sbg, g );
 
-        // TODO deseneaza harta
         harta.render( gc, sbg, g );
 
         for (int i = 0 ; i <blocks.size() ; i ++ )

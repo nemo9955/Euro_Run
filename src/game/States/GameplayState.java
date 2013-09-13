@@ -5,6 +5,7 @@ import game.Extra.Button;
 import game.Extra.Camera;
 import game.Extra.Res;
 import game.Extra.Scroll;
+import game.Extra.ScrollTara;
 import game.Player.Player;
 import game.World.WorldMap;
 
@@ -22,15 +23,14 @@ public class GameplayState extends BasicGameState {
     private static Camera   camera;
     private static Player   player;
     private static WorldMap world;
-    private byte            tick        = 0;
-    private final byte      tickMax     = 58;
+    private byte            tick    = 0;
+    private final byte      tickMax = 58;
     private boolean         mort;
-    private static Scroll   scroll      = null;
+    private static Scroll   scroll  = null;
 
     public static long      distanta;
     public static int       iteme;
-    public static short     tariVizit   = 10;
-    public static short     tariCunosti = 5;
+    public static short     tariCunosti;
 
     private Rectangle       bkg;
     private Button          resume;
@@ -66,6 +66,7 @@ public class GameplayState extends BasicGameState {
         iteme = 0;
         mort = false;
         toUpd = STATES.PLAY;
+        tariCunosti = 0;
     }
 
     @Override
@@ -123,9 +124,9 @@ public class GameplayState extends BasicGameState {
         }
     }
 
-    
-    private final int draw = 30 ;
-    
+
+    private final int draw = 30;
+
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         g.setBackground( Color.cyan );
@@ -142,8 +143,8 @@ public class GameplayState extends BasicGameState {
         }
 
         g.setColor( Color.black );
-        g.drawString( String.format( "Distanta : %d", distanta ), 0, draw+30 );
-        g.drawString( String.format( "Cunostinte dobandite : %d", iteme ), 0, draw+50 );
+        g.drawString( String.format( "Distanta : %d", distanta ), 0, draw +30 );
+        g.drawString( String.format( "Cunostinte dobandite : %d", iteme ), 0, draw +50 );
 
         switch (toUpd) {
             case SCROL:
@@ -201,14 +202,25 @@ public class GameplayState extends BasicGameState {
         return scroll;
     }
 
-    public static void makeScroll() {
+    public static void makeFactScroll() {
         GameplayState.scroll = new Scroll();
+    }
+
+    public static void makeTaraScroll(int tara) {
+        GameplayState.scroll = new ScrollTara( tara );
     }
 
     public static void modIteme(int iteme) {
         GameplayState.iteme += iteme;
-        if ( GameplayState.iteme %10 ==0 ) {
+        if ( GameplayState.iteme %10 ==0 )
             Player.addLifes( 1 );
-        }
+
+    }
+
+    public static void modTariCunoscute(byte i) {
+        tariCunosti ++;
+        if ( tariCunosti %5 ==0 )
+            Player.addLifes( 1 );
+
     }
 }
