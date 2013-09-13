@@ -21,7 +21,9 @@ public class Player extends Physics {
      * 0 - run 1 - to_jump 2 - roll 3 - slide 4 - to_slide
      */
     private Image       scut;
+    private short       imunitate;
     private short       rezist;
+
     private byte        actiune, frame;
     private byte        interval;
     private final byte  intervalTo    = 80;
@@ -29,12 +31,13 @@ public class Player extends Physics {
     private byte        buff;
     private byte        next;
     private byte        isActiv;
+
     private boolean     canjump;
     private float       accel;
     private byte        jumpNo;
     private final byte  jumpMax       = 2;
+
     private static byte lifes;
-    private short       imunitate;
     private float       marY;
     private boolean     teleportation = true;
 
@@ -287,10 +290,6 @@ public class Player extends Physics {
 
     public Rectangle getPoly() {
         return poly;
-    }
-
-    public void setPoly(Rectangle poly) {
-        this.poly = poly;
     }
 
     public static short getLifes() {

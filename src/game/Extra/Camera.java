@@ -9,7 +9,7 @@ import org.newdawn.slick.geom.Vector2f;
 public class Camera {
 
     private int      transx = 0, transy = 0;
-    private Vector2f cen;
+    private Vector2f cen    = new Vector2f();
     private int      h, w;
 
     public Camera() {

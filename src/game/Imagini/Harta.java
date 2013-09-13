@@ -61,5 +61,8 @@ public class Harta {
         }
     }
 
+    public int getTariVizitate() {
+        return curent;
+    }
 
 }

@@ -13,6 +13,8 @@ public class ScrollTara extends Scroll {
     public ScrollTara(int tara) {
         super();
         this.tara = tara;
+        gatFact();
+        genText();
     }
 
 

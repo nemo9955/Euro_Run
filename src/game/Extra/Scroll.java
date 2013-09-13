@@ -40,9 +40,10 @@ public class Scroll {
         y = (short) ( ( Start.getHEIGHT() /2 -img.getHeight() /2 ) -GameplayState.getCamera().getY() );
         zon = new Rectangle( x, y, img.getWidth(), img.getHeight() );
         // zon = new Rectangle(-50, 300, 50, 50);
-
-        gatFact();
-        genText();
+        if ( this instanceof Scroll ) {
+            gatFact();
+            genText();
+        }
     }
 
     protected void gatFact() {

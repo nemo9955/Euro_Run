@@ -38,7 +38,7 @@ public class WorldMap {
 
     private Random               zar      = new Random();
 
-    private Harta                harta;
+    public static Harta          harta;
 
 
     public WorldMap() {
@@ -63,7 +63,7 @@ public class WorldMap {
         pozSol = endGen;
 
         harta.reset();
-        
+
         blocks.add( new BlockMers() );
 
         while ( pozSol <startGen ) {

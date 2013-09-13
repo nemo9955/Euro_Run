@@ -2,6 +2,7 @@ package game.States;
 
 import game.Start;
 import game.Extra.Button;
+import game.World.WorldMap;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -35,8 +36,10 @@ public class DeathState extends BasicGameState {
         img.draw();
         mMeniu.render( gc, sbg, g );
         g.drawString( String.format( "Distanta parcursa: %d metri", GameplayState.distanta ), 50, 50 );
-        g.drawString( String.format( "Cunostinte dobandite: %d", GameplayState.iteme ), 50, 75 );
-        g.drawString( String.format( "Scorul total: %d", (int) ( ( GameplayState.iteme *783 ) + ( GameplayState.distanta *0.9f ) ) ), 50, 100 );
+        g.drawString( String.format( "Tari vizitate: %d", WorldMap.harta.getTariVizitate() ), 50, 85 );
+        g.drawString( String.format( "Culturi invatate: %d", GameplayState.tariCunosti ), 50, 110 );
+        g.drawString( String.format( "Cunostinte dobandite: %d", GameplayState.iteme ), 50, 135 );
+        g.drawString( String.format( "Scorul total: %d", (int) ( ( GameplayState.iteme *783 ) + ( GameplayState.distanta *0.9f ) + ( WorldMap.harta.getTariVizitate() *94 ) + ( GameplayState.tariCunosti *489 ) ) ), 50, 200 );
     }
 
     public DeathState() {

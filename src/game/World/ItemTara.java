@@ -5,6 +5,7 @@ import game.States.GameplayState;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 
 
 public class ItemTara extends Item {
@@ -14,6 +15,8 @@ public class ItemTara extends Item {
     public ItemTara(int x, int y, int tara) {
         super( x, y );
         this.tara = tara;
+        makeImage();
+        poly = new Rectangle( x, y, img.getWidth(), img.getHeight() );
     }
 
     protected void makeSpecifScroll() {

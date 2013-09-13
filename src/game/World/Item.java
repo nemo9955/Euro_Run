@@ -19,8 +19,9 @@ public class Item extends Physics {
     public Item(int x, int y) {
         this.x = x;
         this.y = y;
+        if(this instanceof Item){
         makeImage();
-        poly = new Rectangle( x, y, img.getWidth(), img.getHeight() );
+        poly = new Rectangle( x, y, img.getWidth(), img.getHeight() );}
     }
 
     protected void update(GameContainer gc, StateBasedGame sbg) {
