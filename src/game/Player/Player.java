@@ -15,35 +15,49 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Player extends Physics {
 
     private Image       img[][];
-    private final byte  frames[]   = { 8, 6, 9, 5, 6 };
+    private final byte  frames[]      = { 8, 6, 9, 5, 6 };
     /*
      * indicele fiecaruia e 0 1 2 3 4 5 6 7 8 9
      * 0 - run 1 - to_jump 2 - roll 3 - slide 4 - to_slide
      */
     private Image       scut;
-    private short       rezist     = 0;
-    private byte        actiune    = 0, frame = 0;
-    private byte        interval   = 0;
-    private final byte  intervalTo = 80;
-    private boolean     hasNext    = false;
+    private short       rezist;
+    private byte        actiune, frame;
+    private byte        interval;
+    private final byte  intervalTo    = 80;
+    private boolean     hasNext;
     private byte        buff;
     private byte        next;
-    private byte        isActiv    = 0;
-    private boolean     canjump    = true;
-    private float       accel      = 1f;
-    private byte        jumpNo     = 0;
-    private final byte  jumpMax    = 2;
+    private byte        isActiv;
+    private boolean     canjump;
+    private float       accel;
+    private byte        jumpNo;
+    private final byte  jumpMax       = 2;
     private static byte lifes;
-    private short       imunitate  = 0;
+    private short       imunitate;
     private float       marY;
-    private boolean teleportation = true ;
+    private boolean     teleportation = true;
 
-    
+
     public Player(float x, float y) {
+        Imagini();
+        reset( x, y );
+    }
+
+    public void reset(float x, float y) {
         this.x = x;
         this.y = y;
+        rezist = 0;
+        actiune = 0;
+        frame = 0;
+        interval = 0;
         lifes = 3;
-        Imagini();
+        hasNext = false;
+        isActiv = 0;
+        canjump = true;
+        accel = 1f;
+        jumpNo = 0;
+        imunitate = 0;
         setPoly( x, y, img[0][0].getWidth(), img[0][0].getHeight() );
     }
 
@@ -111,7 +125,7 @@ public class Player extends Physics {
         if ( gc.getInput().isKeyPressed( Input.KEY_F1 ) ) {
             System.out.println( x +" " +y );
         }
-        if ( teleportation   ==true )
+        if ( teleportation ==true )
             if ( y >50 ||y <-1000 ) {
                 System.out.println( "teleport" );
                 setY( 300 );

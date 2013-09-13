@@ -10,14 +10,18 @@ public class Camera {
 
     private int      transx = 0, transy = 0;
     private Vector2f cen;
+    private int      h, w;
 
-    public Camera(int mapWidth, int mapHeight) {
+    public Camera() {
+        h = Start.getHEIGHT();
+        w = Start.getWIDTH();
     }
 
     public void translate(Graphics g, Player player) {
-        cen = new Vector2f( player.getPoly().getX(), player.getPoly().getMaxY() );
-        transx = (int) -cen.x +Start.getWIDTH() /6;
-        transy = (int) ( (int) -cen.y +Start.getHEIGHT() /1.25f );
+        cen.x = player.getPoly().getX();
+        cen.y = player.getPoly().getMaxY();
+        transx = (int) ( -cen.x +w /6 );
+        transy = (int) ( -cen.y +h /1.25f );
         g.translate( transx, transy );
     }
 

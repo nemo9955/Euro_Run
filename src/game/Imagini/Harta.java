@@ -16,13 +16,18 @@ public class Harta {
 
     private final Image harta[] = new Image[28];
 
+    private final int   eta     = 8000 /28;
+    private int         next;
     private int         curent;
-    private final int   eta     = 20000 /28;
-    private int         next    = 300;
 
     public Harta() {
         loadSiluete();
+    }
+
+
+    public void reset() {
         curent = 0;
+        next = 300;
     }
 
 

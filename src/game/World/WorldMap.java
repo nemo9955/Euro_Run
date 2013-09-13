@@ -25,11 +25,11 @@ public class WorldMap {
     private final static short   startGen = 1024;
     private final static short   endGen   = -256;
 
-    private static short         interval = 0;
-    private static short         distItem = 1000;
-    private static short         move     = 18;
+    private static short         interval;
+    private static short         distItem;
+    private static short         move;
 
-    private static short         atTime   = 10000;
+    private static short         atTime;
     private static short         speed;
 
     private static short         poz;
@@ -42,17 +42,28 @@ public class WorldMap {
 
 
     public WorldMap() {
+        harta = new Harta();
+        reset();
+    }
+
+    public void reset() {
+
         blocks.clear();
         imagini.clear();
         item.clear();
 
+        interval = 0;
+        distItem = 1000;
+        move = 18;
+        atTime = 10000;
+        speed = atTime;
+
         poz = endGen;
         pozBG = endGen;
         pozSol = endGen;
-        speed = atTime;
 
-        harta = new Harta();
-
+        harta.reset();
+        
         blocks.add( new BlockMers() );
 
         while ( pozSol <startGen ) {
@@ -62,7 +73,6 @@ public class WorldMap {
             imagini.add( new Background( pozBG, 0 ) );
         }
 
-        // item.add( new Item( 100, -50 ) );
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
