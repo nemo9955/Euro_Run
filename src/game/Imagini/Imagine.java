@@ -31,8 +31,8 @@ public class Imagine {
 
     public void update(GameContainer gc, StateBasedGame sbg) {
         modX( -WorldMap.getMove() );
-        if ( x <=WorldMap.getEndgen() ) {
-            WorldMap.getBlocks().remove( this );
+        if ( x <=WorldMap.endGen ) {
+            WorldMap.getImagini().remove( this );
         }
     }
 
@@ -51,6 +51,6 @@ public class Imagine {
     }
 
     public void renderAfter(GameContainer gc, StateBasedGame sbg, Graphics g) {
-        
+
     }
 }

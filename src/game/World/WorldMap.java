@@ -18,12 +18,13 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class WorldMap {
 
-    private static List<Block>   blocks   = new LinkedList<Block>();
-    private static List<Imagine> imagini  = new ArrayList<Imagine>();
-    private static List<Item>    item     = new ArrayList<Item>();
+    private static List<Block>   blocks     = new LinkedList<Block>();
+    private static List<Imagine> imagini    = new ArrayList<Imagine>();
+    private static List<Item>    item       = new ArrayList<Item>();
 
-    private final static short   startGen = 1024;
-    private final static short   endGen   = -256;
+    public final static short    startGen   = 2000;
+    public static short          startSpawn = 1024;
+    public final static short    endGen     = -1500;
 
     private static short         interval;
     private static short         distItem;
@@ -36,7 +37,7 @@ public class WorldMap {
     private static short         pozBG;
     private static short         pozSol;
 
-    private Random               zar      = new Random();
+    private Random               zar        = new Random();
 
     public static Harta          harta;
 
@@ -134,7 +135,7 @@ public class WorldMap {
         if ( distItem -move <=0 ) {
 
             if ( zar.nextInt( 100 ) <80 )
-                item.add( new Item( startGen, -500 +zar.nextInt( 100 ) ) );
+                item.add( new Item( startSpawn, -500 +zar.nextInt( 100 ) ) );
 
             distItem = (short) ( 1500 + ( zar.nextInt( 5 ) *200 ) );
         }
@@ -173,7 +174,7 @@ public class WorldMap {
 
         for (int i = 0 ; i <=11 ; i ++ ) {
             g.setColor( new Color( 100, 200, 255, 0.2f +i *0.06f ) );
-            g.fillRect( -200, -850 + ( i *100 ), gc.getWidth() +100, 100 );
+            g.fillRect( -300, -850 + ( i *100 ), gc.getWidth() +400, 100 );
         }
 
 
@@ -186,7 +187,7 @@ public class WorldMap {
             blocks.get( i ).render( gc, sbg, g );
 
         g.setColor( new Color( 128, 49, 3 ) );
-        g.fillRect( -200, 10, gc.getWidth() +100, 500 );
+        g.fillRect( -300, 10, gc.getWidth() +400, 500 );
 
         for (int i = 0 ; i <imagini.size() ; i ++ )
             imagini.get( i ).renderAfter( gc, sbg, g );
@@ -206,14 +207,6 @@ public class WorldMap {
 
     public boolean is_solid(int i) {
         return blocks.get( i ).isSolid();
-    }
-
-    public static int getStartgen() {
-        return startGen;
-    }
-
-    public static int getEndgen() {
-        return endGen;
     }
 
     public static int getMove() {
@@ -240,7 +233,7 @@ public class WorldMap {
         WorldMap.pozBG += pozBG;
     }
 
-    public static List<Imagine> getBg() {
+    public static List<Imagine> getImagini() {
         return imagini;
     }
 

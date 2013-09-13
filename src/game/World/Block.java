@@ -39,7 +39,7 @@ public class Block {
 
     public void update(GameContainer gc, StateBasedGame sbg) {
         modX( -WorldMap.getMove() );
-        if ( zon.getX() <=WorldMap.getEndgen() ) {
+        if ( zon.getX() <=WorldMap.endGen ) {
             WorldMap.getBlocks().remove( this );
         }
     }

@@ -32,6 +32,8 @@ public class Player extends Physics {
     private byte        next;
     private byte        isActiv;
 
+    private short       isRolling;
+
     private boolean     canjump;
     private float       accel;
     private byte        jumpNo;
@@ -55,6 +57,7 @@ public class Player extends Physics {
         frame = 0;
         interval = 0;
         lifes = 3;
+        isRolling = 0;
         hasNext = false;
         isActiv = 0;
         canjump = true;
@@ -70,6 +73,12 @@ public class Player extends Physics {
             rezist -= delta;
         else
             rezist = 0;
+
+        if ( isRolling -delta >0 )
+            isRolling -= delta;
+        else
+            isRolling = 0;
+
         if ( gc.getInput().isKeyDown( Res.jump ) ) {
             if ( jumpNo <jumpMax &&canjump &&!colid() &&isActiv <=1 ) {
                 if ( gc.getInput().isKeyPressed( Res.jump ) ) {
@@ -89,9 +98,14 @@ public class Player extends Physics {
 
         jump_gravity( delta );
 
-        // Move_st_dr(gc, delta);
+        Move_st_dr( gc, delta );
 
-        if ( gc.getInput().isKeyDown( Res.roll ) &&isActiv <=2 ) {
+
+        if ( gc.getInput().isKeyPressed( Res.roll ) &&isRolling ==0 ) {
+            isRolling = 800;
+        }
+
+        if ( isRolling !=0 &&isActiv <=2 ) {
             next = 2;
             hasNext = false;
             isActiv = 2;
@@ -116,18 +130,22 @@ public class Player extends Physics {
                 schAct( next );
             }
         }
-        // System.out.printf("%d %d %d %d \n", actiune, buff, next, frame);
-        // System.out.println(isActiv);
-        if ( !gc.getInput().isKeyDown( Res.slide ) &&!gc.getInput().isKeyDown( Res.roll ) &&accel >=0 ) {
+
+
+        if ( !gc.getInput().isKeyDown( Res.slide ) &&isRolling ==0 &&accel >=0 ) {
             isActiv = 0;
             schAct( (byte) 0 );
         }
+
+
         poly.setSize( img[actiune][frame].getWidth(), img[actiune][frame].getHeight() );
         modY( marY -poly.getHeight() );
 
         if ( gc.getInput().isKeyPressed( Input.KEY_F1 ) ) {
             System.out.println( x +" " +y );
         }
+
+
         if ( teleportation ==true )
             if ( y >50 ||y <-1000 ) {
                 System.out.println( "teleport" );
@@ -145,20 +163,16 @@ public class Player extends Physics {
         actiune = act;
     }
 
-    @SuppressWarnings("unused")
+
+    private final short limitaSD = 150;
+
     private void Move_st_dr(GameContainer gc, int delta) {
-        if ( gc.getInput().isKeyDown( Input.KEY_D ) ) {
+        if ( gc.getInput().isKeyDown( Res.dreapta ) &&x <limitaSD )
             modX( speed *delta );
-            if ( colid() ) {
-                modX( -speed *delta );
-            }
-        }
-        if ( gc.getInput().isKeyDown( Input.KEY_A ) ) {
+
+        if ( gc.getInput().isKeyDown( Res.stanga ) &&x >-limitaSD )
             modX( -speed *delta );
-            if ( colid() ) {
-                modX( speed *delta );
-            }
-        }
+
     }
 
     private void jump_gravity(int delta) {
@@ -301,7 +315,7 @@ public class Player extends Physics {
     }
 
     public static void addLifes(int i) {
-        if ( lifes >0 )
+        if ( lifes >1 )// TODO viata infinita
             if ( lifes +i >=0 &&lifes +i <=5 )
                 lifes += i;
     }

@@ -16,7 +16,7 @@ public class Harta {
 
     private final Image harta[] = new Image[28];
 
-    private final int   eta     = 8000 /28;
+    private final int   eta     = 28000 /28;
     private int         next;
     private int         curent;
 
@@ -38,7 +38,7 @@ public class Harta {
             else {
                 curent ++;
                 next = eta;
-                WorldMap.getItem().add( new ItemTara( WorldMap.getStartgen(), -500 +new Random().nextInt( 100 ), curent -1 ) );
+                WorldMap.getItem().add( new ItemTara( WorldMap.startSpawn, -500 +new Random().nextInt( 100 ), curent -1 ) );
             }
 
         }

@@ -20,7 +20,7 @@ public class Faller extends Block {
         if (!colid())
             modY(fall);
         modX(-WorldMap.getMove());
-        if (zon.getX() <= WorldMap.getEndgen()) {
+        if (zon.getX() <= WorldMap.endGen) {
             WorldMap.getBlocks().remove(this);
         }
     }

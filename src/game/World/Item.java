@@ -19,9 +19,10 @@ public class Item extends Physics {
     public Item(int x, int y) {
         this.x = x;
         this.y = y;
-        if(this instanceof Item){
-        makeImage();
-        poly = new Rectangle( x, y, img.getWidth(), img.getHeight() );}
+        if ( ! ( this instanceof ItemTara ) ) {
+            makeImage();
+            poly = new Rectangle( x, y, img.getWidth(), img.getHeight() );
+        }
     }
 
     protected void update(GameContainer gc, StateBasedGame sbg) {
@@ -32,7 +33,7 @@ public class Item extends Physics {
         }
 
         modX( -WorldMap.getMove() );
-        if ( poly.getX() <=WorldMap.getEndgen() ) {
+        if ( poly.getX() <=WorldMap.endGen ) {
             WorldMap.getItem().remove( this );
         }
 

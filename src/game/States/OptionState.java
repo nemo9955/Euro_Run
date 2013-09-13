@@ -16,26 +16,33 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class OptionState extends BasicGameState {
 
-    private final byte ID;
-    private Button     back;
-    private Image      img;
+    private final byte  ID;
+    private Button      back;
+    private Image       img;
 
-    private TextArea   buton[] = new TextArea[4];
+    private final short start   = 30;
+    private final short raport  = 30;
+
+    private TextArea    buton[] = new TextArea[6];
 
     /*
-     * jump 0
-     * roll 1
-     * slide 2
-     * pause 3
+     * stanga 0
+     * dreapta 1
+     * jump 2
+     * roll 3
+     * slide 4
+     * pause 5
      */
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         back = new Button( 100, 500, "back.png" );
-        buton[0] = new TextArea( gc, 200, 100, "Saritura :", Res.jump );
-        buton[1] = new TextArea( gc, 200, 150, "Rostogolire :", Res.roll );
-        buton[2] = new TextArea( gc, 200, 200, "Alunecare :", Res.slide );
-        buton[3] = new TextArea( gc, 200, 250, "Pauza :", Res.pause );
+        buton[0] = new TextArea( gc, 200, start +raport *1, "Stanga :", Res.stanga );
+        buton[1] = new TextArea( gc, 200, start +raport *2, "Dreapta :", Res.dreapta );
+        buton[2] = new TextArea( gc, 200, start +raport *3, "Saritura :", Res.jump );
+        buton[3] = new TextArea( gc, 200, start +raport *4, "Rostogolire :", Res.roll );
+        buton[4] = new TextArea( gc, 200, start +raport *5, "Alunecare :", Res.slide );
+        buton[5] = new TextArea( gc, 200, start +raport *6, "Pauza :", Res.pause );
         img = new Image( "res/meniu/Optiuni.png" );
     }
 
@@ -47,10 +54,12 @@ public class OptionState extends BasicGameState {
 
 
     public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        Res.jump = buton[0].getVal();
-        Res.roll = buton[1].getVal();
-        Res.slide = buton[2].getVal();
-        Res.pause = buton[3].getVal();
+        Res.stanga = buton[0].getVal();
+        Res.dreapta = buton[1].getVal();
+        Res.jump = buton[2].getVal();
+        Res.roll = buton[3].getVal();
+        Res.slide = buton[4].getVal();
+        Res.pause = buton[5].getVal();
     }
 
 
