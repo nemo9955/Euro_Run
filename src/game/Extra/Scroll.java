@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Random;
 
+import org.newdawn.slick.util.ResourceLoader;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -53,7 +54,7 @@ public class Scroll {
 
         try {
 
-            br = new BufferedReader( new InputStreamReader( getClass().getResourceAsStream( "intrebari.txt" ) ) );
+            br = new BufferedReader( new InputStreamReader( ResourceLoader.getResourceAsStream( "res/item/facts.txt" ) ) );
 
             for (byte i = 0 ; i <rand ; i ++ ) {
 

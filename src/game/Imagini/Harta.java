@@ -36,7 +36,7 @@ public class Harta {
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
         for (int i = 0 ; i <curent ; i ++ )
-            harta[i].draw( -133, -786 );
+            harta[i].draw( -133, -790 );
     }
 
 
