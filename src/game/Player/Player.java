@@ -83,7 +83,7 @@ public class Player extends Physics {
             isRolling = 0;
 
         if ( gc.getInput().isKeyDown( Res.jump ) ) {
-            if ( jumpNo <jumpMax &&canjump &&!colid() &&isActiv <=1 ) {
+            if ( jumpNo <jumpMax &&canjump &&litleColid() &&isActiv <=1 ) {
                 if ( gc.getInput().isKeyPressed( Res.jump ) ) {
                     jumpNo ++;
                     if ( jumpNo ==1 ) {
@@ -103,7 +103,7 @@ public class Player extends Physics {
 
         Move_st_dr( gc, delta );
 
-
+        
         if ( gc.getInput().isKeyPressed( Res.roll ) &&isRolling ==0 ) {
             isRolling = 800;
         }
@@ -134,7 +134,6 @@ public class Player extends Physics {
             }
         }
 
-        // TODO
         if ( ( !gc.getInput().isKeyDown( Res.slide ) &&isActiv ==3 ) || ( isRolling ==0 &&isActiv ==2 ) || ( accel >=0 &&isActiv ==1 ) ) {
             isActiv = 0;
             schAct( (byte) 0 );
@@ -213,27 +212,40 @@ public class Player extends Physics {
     }
 
     private boolean canMakeStep() {
-        modY( -15 );
+        modY( -35 );
         if ( !colid() ) {
-            modY( 15 );
+            modY( 35 );
             while ( !colid() ) {
-                modY( -2 );
+                modY( -5 );
             }
             return true;
         }
-        modY( 15 );
+        modY( 35 );
         return false;
     }
 
+    private boolean litleColid() {
+
+        modY( -20 );
+        if ( !colid() ) {
+            modY( 20 );
+            return true;
+        }
+        else {
+            modY( 20 );
+            return false;
+        }
+
+    }
+
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
-        // g.setColor(Color.red);
-        // g.setLineWidth(1);
-        // g.draw(poly);
-        // System.out.println(activ+" "+frame);
         img[actiune][frame].setAlpha( 1f );
+
         if ( imunitate >0 )
             img[actiune][frame].setAlpha( 0.1f +(float) Math.abs( Math.sin( Math.toRadians( imunitate ) ) ) );
+
         img[actiune][frame].draw( x, y );
+
         if ( rezist >0 )
             scut.draw( poly.getCenterX() - ( poly.getWidth() *1.6f /2 ), poly.getCenterY() - ( poly.getHeight() *1.4f /2 ), poly.getWidth() *1.6f, poly.getHeight() *1.4f );
 
@@ -275,8 +287,6 @@ public class Player extends Physics {
                 }
                 catch (Exception e) {
                     finish = true;
-                    // System.out.println(String.format("%s%d", links[i],
-                    // frames[i]));
                 }
             }
         }
@@ -286,7 +296,6 @@ public class Player extends Physics {
         poly = new Rectangle( x, y, w, h );
     }
 
-    // getters
     public float getX() {
         return x;
     }
@@ -318,7 +327,7 @@ public class Player extends Physics {
     }
 
     public static void addLifes(int i) {
-        if ( lifes >1 )// TODO viata infinita
+        if ( lifes >0 )
             if ( lifes +i >=0 &&lifes +i <=5 )
                 lifes += i;
     }

@@ -24,7 +24,7 @@ public class WorldMap {
 
     public final static short    startGen   = 2000;
     public static short          startSpawn = 1024;
-    public final static short    endGen     = -1500;
+    public final static short    endGen     = -2000;
 
     private static short         interval;
     private static short         distItem;
@@ -90,7 +90,7 @@ public class WorldMap {
         adderReg();
         adderRandom();
 
-        if ( move <42 )
+        if ( move <35 )
             if ( speed -delta >0 )
                 speed -= delta;
             else {
@@ -145,22 +145,21 @@ public class WorldMap {
 
         if ( interval ==0 ) {
 
-            int gen = zar.nextInt( 1600 );
+            int gen = zar.nextInt( 2100 );
 
             if ( gen <300 ) {
                 interval += 200 + ( zar.nextInt( 7 ) *15 );
             }
             else if ( gen <800 ) {
-                blocks.add( new BlockSolid( startGen, -30 - ( zar.nextInt( 15 ) *10 ) ) );
+                blocks.add( new BlockSolid( startSpawn, -30 - ( zar.nextInt( 15 ) *10 ) ) );
                 interval += 350 +zar.nextInt( 100 );
             }
             else if ( gen <1200 ) {
-                blocks.add( new Faller( startGen, -500 -zar.nextInt( 30 ) *10 ) );
+                blocks.add( new Faller( startSpawn, -500 -zar.nextInt( 30 ) *10 ) );
                 interval += 400 +zar.nextInt( 50 );
             }
-            else if ( gen <1500 ) {
-                Elements.MakeWall( startGen );
-                interval += 500 +zar.nextInt( 100 );
+            else if ( gen <2000 ) {
+                interval += 200 +zar.nextInt( 100 ) +Elements.MakeWall( startSpawn );
             }
             else {
                 interval += 50 + ( zar.nextInt( 10 ) *25 );
