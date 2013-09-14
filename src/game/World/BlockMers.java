@@ -9,8 +9,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class BlockMers extends Block {
 
-    public BlockMers() {
-        super(-200, 0);
+    public BlockMers(int x, int y) {
+        super( x, y );
     }
 
     public void update(GameContainer gc, StateBasedGame sbg) {
@@ -24,6 +24,6 @@ public class BlockMers extends Block {
     }
 
     protected void Zon() {
-        zon = new Rectangle(x, y, Start.getWIDTH() + 220, 5);
+        zon = new Rectangle( x, y, Start.getWIDTH() +220, 5 );
     }
 }

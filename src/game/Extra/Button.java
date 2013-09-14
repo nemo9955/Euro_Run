@@ -17,6 +17,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Button {
 
     private Rectangle zon;
+    
     private float     rap = 1;
     private Image     img;
 
@@ -59,6 +60,10 @@ public class Button {
     public void setCenterLocation(int x, int y) {
         zon.setCenterX(x);
         zon.setCenterY(y);
+    }
+
+    public Rectangle getZon() {
+        return zon;
     }
 
 }

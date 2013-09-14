@@ -2,6 +2,10 @@ package game.States;
 
 import game.Start;
 import game.Extra.Button;
+import game.Player.DummyPlayer;
+import game.Player.Player;
+import game.World.Block;
+import game.World.BlockMers;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -15,19 +19,21 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class MenuState extends BasicGameState {
 
-    private final byte ID;
-    private Button     start;
-    private Button     options;
-    private Button     instr;
-    private Image      img;
+    private final byte  ID;
+    private Button      start;
+    private Button      options;
+    private Button      instr;
+    private Image       img;
+    private Animation   anim;
 
-    private Animation  anim;
+    private Player      man;
+    public static Block mers;
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        start = new Button( 100, 100, "start.png" );
-        options = new Button( 100, 200, "options.png" );
-        instr = new Button( 100, 300, "instructiuni.png" );
+        start = new Button( 580, 420, "start.png" );
+        options = new Button( 200, 50, "options.png" );
+        instr = new Button( 50, 330, "instructiuni.png" );
         img = new Image( "res/meniu/Meniu.png" );
 
         Image logo[] = new Image[42];
@@ -39,6 +45,9 @@ public class MenuState extends BasicGameState {
         anim.setPingPong( true );
         anim.setDuration( 0, 2000 );
         anim.setDuration( 41, 2000 );
+
+        man = new DummyPlayer( 400, 400 );
+        mers = new BlockMers( -10, 550 );
     }
 
     @Override
@@ -49,19 +58,22 @@ public class MenuState extends BasicGameState {
     @Override
     public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {
         anim.stop();
+        man.reset( 400, 400 );
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 
         anim.update( delta );
+        man.update( gc, sbg, delta );
 
-        if ( start.clikOn( gc ) )
+        if ( start.clikOn( gc ) ||start.getZon().intersects( man.getPoly() ) )
             sbg.enterState( Start.GAMEPLAYSTATE );
-        if ( options.clikOn( gc ) )
+        if ( options.clikOn( gc ) ||options.getZon().intersects( man.getPoly() ) )
             sbg.enterState( Start.OPTIONSTATE );
-        if ( instr.clikOn( gc ) )
+        if ( instr.clikOn( gc ) ||instr.getZon().intersects( man.getPoly() ) )
             sbg.enterState( Start.INSTRUCTIUNISTATE );
+
     }
 
     @Override
@@ -75,6 +87,7 @@ public class MenuState extends BasicGameState {
         options.render( gc, sbg, g );
         instr.render( gc, sbg, g );
 
+        man.render( gc, sbg, g );
     }
 
     public MenuState() {

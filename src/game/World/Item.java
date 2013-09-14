@@ -54,6 +54,16 @@ public class Item extends Physics {
         GameplayState.modIteme( 1 );
     }
 
+    protected boolean colid() {
+
+        for (int i = 0 ; i <WorldMap.getBlocks().size() ; i ++ ) {
+            if ( GameplayState.getWorldMap().is_solid( i ) &&poly.intersects( GameplayState.getWorldMap().getBlock( i ) ) ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected void makeImage() {
         try {
             img = new Image( "res/item/item.png" );

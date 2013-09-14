@@ -15,7 +15,7 @@ public class Elements {
         int rand;
 
         rand = zar.nextInt( 650 );
-    //    rand = 300;
+        // rand = 300;
 
         if ( rand <200 )
             return genWallLow();
@@ -32,8 +32,9 @@ public class Elements {
 
     private static short genTunel() {
         short width = (short) ( 30 + ( zar.nextInt( 9 ) *35 ) );
-
-        WorldMap.getBlocks().add( new Block( new Rectangle( WorldMap.startSpawn, -1500, width, 1440 - ( zar.nextInt( 3 ) *15 ) ) ) );
+        Block temp = new Block( new Rectangle( WorldMap.startSpawn, -1500, width, 1440 - ( zar.nextInt( 3 ) *15 ) ) );
+        temp.setSolid( false );
+        WorldMap.getBlocks().add( temp );
         return (short) ( width +zar.nextInt( 100 ) );
     }
 

@@ -6,10 +6,11 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Faller extends Block {
 
-    private final byte fall = (byte) (7 + zar.nextInt(8));
+    private final byte fall = (byte) ( 7 +zar.nextInt( 8 ) );
 
     public Faller(int x, int y) {
-        super(x, y);
+        super( x, y );
+        setSolid( false );
     }
 
     protected void Solid() {
@@ -17,15 +18,15 @@ public class Faller extends Block {
     }
 
     public void update(GameContainer gc, StateBasedGame sbg) {
-        if (!colid())
-            modY(fall);
-        modX(-WorldMap.getMove());
-        if (zon.getX() <= WorldMap.endGen) {
-            WorldMap.getBlocks().remove(this);
+        if ( !colid() )
+            modY( fall );
+        modX( -WorldMap.getMove() );
+        if ( zon.getX() <=WorldMap.endGen ) {
+            WorldMap.getBlocks().remove( this );
         }
     }
 
     protected void Zon() {
-        zon = new Ellipse(x, y, 40+zar.nextInt(30), 40+zar.nextInt(20));
+        zon = new Ellipse( x, y, 40 +zar.nextInt( 30 ), 40 +zar.nextInt( 20 ) );
     }
 }

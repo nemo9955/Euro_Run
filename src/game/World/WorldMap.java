@@ -65,7 +65,7 @@ public class WorldMap {
 
         harta.reset();
 
-        blocks.add( new BlockMers() );
+        blocks.add( new BlockMers(-200 , 0) );
 
         while ( pozSol <startGen ) {
             imagini.add( new ZonaMers( pozSol, 0 ) );

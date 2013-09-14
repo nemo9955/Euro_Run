@@ -14,8 +14,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Player extends Physics {
 
-    private Image       img[][];
-    private final byte  frames[]      = { 8, 6, 9, 5, 6 };
+    protected Image       img[][];
+    protected final byte  frames[]      = { 8, 6, 9, 5, 6 };
     /*
      * 0 - run
      * 1 - to_jump
@@ -23,28 +23,28 @@ public class Player extends Physics {
      * 3 - slide
      * 4 - to_slide
      */
-    private Image       scut;
-    private short       imunitate;
-    private short       rezist;
+    protected Image       scut;
+    protected short       imunitate;
+    protected short       rezist;
 
-    private byte        actiune, frame;
-    private byte        interval;
-    private final byte  intervalTo    = 80;
-    private boolean     hasNext;
-    private byte        buff;
-    private byte        next;
-    private byte        isActiv;
+    protected byte        actiune, frame;
+    protected byte        interval;
+    protected final byte  intervalTo    = 80;
+    protected boolean     hasNext;
+    protected byte        buff;
+    protected byte        next;
+    protected byte        isActiv;
 
-    private short       isRolling;
+    protected short       isRolling;
 
-    private boolean     canjump;
-    private float       accel;
-    private byte        jumpNo;
-    private final byte  jumpMax       = 2;
+    protected boolean     canjump;
+    protected float       accel;
+    protected byte        jumpNo;
+    protected final byte  jumpMax       = 2;
 
-    private static byte lifes;
-    private float       marY;
-    private boolean     teleportation = true;
+    protected static byte lifes;
+    protected float       marY;
+    protected boolean     teleportation = true;
 
 
     public Player(float x, float y) {
@@ -103,7 +103,7 @@ public class Player extends Physics {
 
         Move_st_dr( gc, delta );
 
-        
+
         if ( gc.getInput().isKeyPressed( Res.roll ) &&isRolling ==0 ) {
             isRolling = 800;
         }
@@ -148,27 +148,34 @@ public class Player extends Physics {
         }
 
 
-        if ( teleportation ==true )
+        if ( teleportation ==true ) {
             if ( y >50 ||y <-1000 ) {
                 System.out.println( "teleport" );
                 setY( 300 );
+
+
             }
-
-        if ( y +poly.getHeight() >0 )
-            setY( -poly.getHeight() );
-
+            if ( y +poly.getHeight() >0 )
+                setY( -poly.getHeight() );
+        }
+        else {
+            if ( y >600 ||y <-100 ) {
+                System.out.println( "teleport" );
+                setY( 300 );
+            }
+        }
     }
 
-    private void schAct(byte act) {
+    protected void schAct(byte act) {
         if ( act !=actiune )
             frame = 0;
         actiune = act;
     }
 
 
-    private final short limitaSD = 150;
+    protected final short limitaSD = 150;
 
-    private void Move_st_dr(GameContainer gc, int delta) {
+    protected void Move_st_dr(GameContainer gc, int delta) {
         if ( gc.getInput().isKeyDown( Res.dreapta ) &&x <limitaSD )
             modX( speed *delta );
 
@@ -177,7 +184,7 @@ public class Player extends Physics {
 
     }
 
-    private void jump_gravity(int delta) {
+    protected void jump_gravity(int delta) {
         if ( jumpNo >=1 ) {
             if ( accel <0 ) {
                 next = 1;
@@ -211,7 +218,7 @@ public class Player extends Physics {
             accel = 1;
     }
 
-    private boolean canMakeStep() {
+    protected boolean canMakeStep() {
         modY( -35 );
         if ( !colid() ) {
             modY( 35 );
@@ -224,7 +231,7 @@ public class Player extends Physics {
         return false;
     }
 
-    private boolean litleColid() {
+    protected boolean litleColid() {
 
         modY( -20 );
         if ( !colid() ) {
@@ -251,7 +258,7 @@ public class Player extends Physics {
 
     }
 
-    private void Animatie(int delta) {
+    protected void Animatie(int delta) {
         interval += delta;
         if ( interval >intervalTo ) {
             interval = 0;
@@ -265,7 +272,7 @@ public class Player extends Physics {
         }
     }
 
-    private void Imagini() {
+    protected void Imagini() {
         String links[] = { "run", "to_jump", "roll", "slide", "to_slide" };
         img = new Image[frames.length][9];
         PackedSpriteSheet sheet = null;
@@ -292,7 +299,7 @@ public class Player extends Physics {
         }
     }
 
-    private void setPoly(float x, float y, float w, float h) {
+    protected void setPoly(float x, float y, float w, float h) {
         poly = new Rectangle( x, y, w, h );
     }
 
