@@ -137,7 +137,7 @@ public class WorldMap {
             if ( zar.nextInt( 100 ) <80 )
                 item.add( new Item( startSpawn, -500 +zar.nextInt( 100 ) ) );
 
-            distItem = (short) ( 1500 + ( zar.nextInt( 5 ) *200 ) );
+            distItem = (short) ( 986 + ( zar.nextInt( 5 ) *200 ) );
         }
         else
             distItem -= move;

@@ -20,8 +20,8 @@ public class OptionState extends BasicGameState {
     private Button      back;
     private Image       img;
 
-    private final short start   = 30;
-    private final short raport  = 30;
+    private final short start   = 80;
+    private final short raport  = 50;
 
     private TextArea    buton[] = new TextArea[6];
 

@@ -16,7 +16,7 @@ public class Harta {
 
     private final Image harta[]  = new Image[28];
 
-    private final int   eta      = 52478 /28;
+    private final int   eta      = 96165 /28;
     private int         next;
     private int         from;
     private final int   fromTimp = 1000;

@@ -31,8 +31,8 @@ public class MenuState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        start = new Button( 580, 420, "start.png" );
-        options = new Button( 200, 50, "options.png" );
+        start = new Button( 350, 150, "start.png" );
+        options = new Button( 610, 330, "options.png" );
         instr = new Button( 50, 330, "instructiuni.png" );
         img = new Image( "res/meniu/Meniu.png" );
 
@@ -74,6 +74,7 @@ public class MenuState extends BasicGameState {
         if ( instr.clikOn( gc ) ||instr.getZon().intersects( man.getPoly() ) )
             sbg.enterState( Start.INSTRUCTIUNISTATE );
 
+       // options.setCenterLocation( 650, 355 );
     }
 
     @Override
@@ -81,7 +82,7 @@ public class MenuState extends BasicGameState {
         g.setBackground( Color.black );
         img.draw();
 
-        anim.draw( 630, 10, 150, 150 );
+        anim.draw( 644, 8, 150, 150 );
 
         start.render( gc, sbg, g );
         options.render( gc, sbg, g );
