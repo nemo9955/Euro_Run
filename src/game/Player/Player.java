@@ -9,13 +9,14 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.PackedSpriteSheet;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Player extends Physics {
 
-    protected Image       img[][];
-    protected final byte  frames[]      = { 8, 6, 9, 5, 6 };
+    protected Image        img[][];
+    protected final byte   frames[]      = { 8, 6, 9, 5, 6 };
     /*
      * 0 - run
      * 1 - to_jump
@@ -23,28 +24,31 @@ public class Player extends Physics {
      * 3 - slide
      * 4 - to_slide
      */
-    protected Image       scut;
-    protected short       imunitate;
-    protected short       rezist;
+    protected Image        scut;
+    protected short        imunitate;
+    protected short        rezist;
 
-    protected byte        actiune, frame;
-    protected byte        interval;
-    protected final byte  intervalTo    = 80;
-    protected boolean     hasNext;
-    protected byte        buff;
-    protected byte        next;
-    protected byte        isActiv;
+    protected byte         actiune, frame;
+    protected byte         interval;
+    protected final byte   intervalTo    = 80;
+    protected boolean      hasNext;
+    protected byte         buff;
+    protected byte         next;
+    protected byte         isActiv;
 
-    protected short       isRolling;
+    protected short        isRolling;
 
-    protected boolean     canjump;
-    protected float       accel;
-    protected byte        jumpNo;
-    protected final byte  jumpMax       = 2;
+    protected boolean      canjump;
+    protected float        accel;
+    protected byte         jumpNo;
+    protected final byte   jumpMax       = 2;
 
-    protected static byte lifes;
-    protected float       marY;
-    protected boolean     teleportation = true;
+    protected static byte  lifes;
+    protected float        marY;
+    protected boolean      teleportation = true;
+
+    protected static Sound lifeUp;
+    protected static Sound lifeDown;
 
 
     public Player(float x, float y) {
@@ -164,6 +168,10 @@ public class Player extends Physics {
                 setY( 300 );
             }
         }
+        if ( gc.getInput().isKeyPressed( Input.KEY_F9 ) )
+            addLifes( -1 );
+        if ( gc.getInput().isKeyPressed( Input.KEY_F10 ) )
+            addLifes( 1 );
     }
 
     protected void schAct(byte act) {
@@ -277,6 +285,10 @@ public class Player extends Physics {
         img = new Image[frames.length][9];
         PackedSpriteSheet sheet = null;
         try {
+
+            lifeUp = new Sound( "res/sunet/harpa.wav" );
+            lifeDown = new Sound( "res/sunet/lovitura.wav" );
+
             sheet = new PackedSpriteSheet( "res/player/sheet_activ.def", Color.white );
             scut = new Image( "res/player/scut.png" );
         }
@@ -335,8 +347,13 @@ public class Player extends Physics {
 
     public static void addLifes(int i) {
         if ( lifes >0 )
-            if ( lifes +i >=0 &&lifes +i <=5 )
+            if ( lifes +i >=0 &&lifes +i <=5 ) {
+                if ( i >0 )
+                    lifeUp.play();
+                else
+                    lifeDown.play();
                 lifes += i;
+            }
     }
 
     public short getRezist() {

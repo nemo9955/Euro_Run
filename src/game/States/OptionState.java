@@ -3,6 +3,7 @@ package game.States;
 import game.Start;
 import game.Extra.Button;
 import game.Extra.Res;
+import game.Extra.Slider;
 import game.Extra.TextArea;
 
 import org.newdawn.slick.Color;
@@ -34,6 +35,9 @@ public class OptionState extends BasicGameState {
      * pause 5
      */
 
+    private Slider      sunet;
+    private Slider      muzica;
+
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         back = new Button( 100, 500, "back.png" );
@@ -44,12 +48,23 @@ public class OptionState extends BasicGameState {
         buton[4] = new TextArea( gc, 200, start +raport *5, "Alunecare :", Res.slide );
         buton[5] = new TextArea( gc, 200, start +raport *6, "Pauza :", Res.pause );
         img = new Image( "res/meniu/Optiuni.png" );
+        
+        for (TextArea ton : buton )
+            ton.getTxt().setBackgroundColor( new Color(60,200,250,0.5f) );
+
+        sunet = new Slider( 400, 200, 250 );
+        muzica = new Slider( 400, 300, 250 );
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         if ( back.clikOn( gc ) )
             sbg.enterState( Start.MENUSTATE );
+        sunet.update( gc );
+        muzica.update( gc );
+        
+        gc.setSoundVolume( sunet.getRap() );
+        gc.setMusicVolume( muzica.getRap() );
     }
 
 
@@ -66,10 +81,17 @@ public class OptionState extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         img.draw();
-        g.setBackground( Color.black );
+        
+        
         back.render( gc, sbg, g );
         for (TextArea ton : buton )
             ton.render( gc, g );
+        
+        g.drawString( "Volum Sunete", 460, 170 );
+        g.drawString( "Volum Muzica", 460, 270 );
+        
+        sunet.render( g );
+        muzica.render( g );
     }
 
     public void keyPressed(int key, char c) {

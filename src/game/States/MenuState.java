@@ -12,6 +12,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -29,6 +30,8 @@ public class MenuState extends BasicGameState {
     private Player      man;
     public static Block mers;
 
+    public static Music imn;
+
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         start = new Button( 350, 150, "start.png" );
@@ -37,6 +40,8 @@ public class MenuState extends BasicGameState {
         img = new Image( "res/meniu/Meniu.png" );
 
         Image logo[] = new Image[42];
+
+        imn = new Music( "res/sunet/imn.wav" );
 
         for (int i = 0 ; i <42 ; i ++ )
             logo[i] = new Image( String.format( "res/logo/Logo0%s", ( i <=9 ? "0" +i : i ) ) );
@@ -48,6 +53,8 @@ public class MenuState extends BasicGameState {
 
         man = new DummyPlayer( 400, 400 );
         mers = new BlockMers( -10, 550 );
+        
+        imn.loop();
     }
 
     @Override
@@ -74,7 +81,7 @@ public class MenuState extends BasicGameState {
         if ( instr.clikOn( gc ) ||instr.getZon().intersects( man.getPoly() ) )
             sbg.enterState( Start.INSTRUCTIUNISTATE );
 
-       // options.setCenterLocation( 650, 355 );
+        // options.setCenterLocation( 650, 355 );
     }
 
     @Override

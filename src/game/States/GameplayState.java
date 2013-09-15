@@ -12,6 +12,7 @@ import game.World.WorldMap;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
@@ -36,6 +37,8 @@ public class GameplayState extends BasicGameState {
     private Button          resume;
     private Button          meniu;
 
+    private Music           dal;
+
     public enum STATES {
         PLAY, SCROL, PAUSE;
     }
@@ -50,14 +53,20 @@ public class GameplayState extends BasicGameState {
         bkg = new Rectangle( 0, 0, 600, 400 );
         resume = new Button( 0, 0, "resume.png" );
         meniu = new Button( 0, 0, "mainMenu.png" );
+        dal = new Music( "res/sunet/run.wav" );
     }
 
     @Override
     public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {
         camera.reset();
+        dal.stop();
     }
 
     public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        
+        MenuState.imn.stop();
+        
+        dal.loop( );
         player.reset( 0, -100 );
         world.reset();
         tick = 0;

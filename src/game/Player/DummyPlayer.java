@@ -22,6 +22,7 @@ public class DummyPlayer extends Player {
         interval = 0;
         isRolling = 0;
         hasNext = false;
+        lifes = 3;
         isActiv = 0;
         canjump = true;
         accel = 1f;

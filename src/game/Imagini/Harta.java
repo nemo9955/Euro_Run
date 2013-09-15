@@ -9,6 +9,7 @@ import java.util.Random;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.StateBasedGame;
 
 
@@ -21,6 +22,8 @@ public class Harta {
     private int         from;
     private final int   fromTimp = 1000;
     private int         curent;
+
+    private Sound       pass;
 
     public Harta() {
         loadSiluete();
@@ -44,6 +47,7 @@ public class Harta {
                 next = eta;
                 curent ++;
                 WorldMap.getItem().add( new ItemTara( WorldMap.startSpawn, -500 +new Random().nextInt( 100 ), curent -1 ) );
+                pass.play( new Random().nextFloat() +0.7f, gc.getSoundVolume() );
             }
 
         }
@@ -68,6 +72,7 @@ public class Harta {
         for (int i = 0 ; i <28 ; i ++ ) {
             try {
                 harta[i] = new Image( String.format( "res/tari/siluete/%s_tara.png", Res.TARI[i] ) );
+                pass = new Sound( "res/sunet/electric_sweep.wav" );
             }
             catch (Exception e) {
                 System.out.println( "Problema la incarcarea siluetei tarii : " +Res.TARI[i] );
