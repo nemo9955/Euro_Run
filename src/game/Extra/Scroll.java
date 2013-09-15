@@ -8,14 +8,15 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Random;
 
-import org.newdawn.slick.util.ResourceLoader;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.ResourceLoader;
 
 
 public class Scroll {
@@ -27,10 +28,13 @@ public class Scroll {
     protected final byte noFacts = 9;
     protected String     message = "Asta e mesajul default , mai mult ca sigur fisierul cu intrebari nu e in pachetul \"Extra\" ........ chiar asa e de greu sa dai copy / paste ? ";
 
+    protected Sound      sunet;
+
     public Scroll() {
 
         try {
             img = new Image( "res/item/scroll.png" );
+            sunet = new Sound( "res/sunet/ding1.wav" );
         }
         catch (SlickException e) {
             e.printStackTrace();
@@ -98,7 +102,7 @@ public class Scroll {
             i = sb.indexOf( "*" );
             sb.replace( i, i +1, "\n" );
         }
-
+        sunet.play();
         message = sb.toString();
     }
 

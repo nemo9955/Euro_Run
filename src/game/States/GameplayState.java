@@ -60,6 +60,7 @@ public class GameplayState extends BasicGameState {
     public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {
         camera.reset();
         dal.stop();
+        MenuState.imn.loop();
     }
 
     public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {
