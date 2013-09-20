@@ -14,6 +14,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -26,6 +27,7 @@ public class MenuState extends BasicGameState {
     private Button      instr;
     private Image       img;
     private Animation   anim;
+    private Rectangle   zonAnim;
 
     private Player      man;
     public static Block mers;
@@ -34,7 +36,7 @@ public class MenuState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        start = new Button( 350, 150, "start.png" );
+        start = new Button( 280, 120, "start.png" );
         options = new Button( 610, 330, "options.png" );
         instr = new Button( 50, 330, "instructiuni.png" );
         img = new Image( "res/meniu/Meniu.png" );
@@ -50,10 +52,11 @@ public class MenuState extends BasicGameState {
         anim.setPingPong( true );
         anim.setDuration( 0, 2000 );
         anim.setDuration( 41, 2000 );
+        zonAnim = new Rectangle( 644, 8, 150, 150 );
 
         man = new DummyPlayer( 400, 400 );
         mers = new BlockMers( -10, 550 );
-        
+
         imn.loop();
     }
 
@@ -80,8 +83,10 @@ public class MenuState extends BasicGameState {
             sbg.enterState( Start.OPTIONSTATE );
         if ( instr.clikOn( gc ) ||instr.getZon().intersects( man.getPoly() ) )
             sbg.enterState( Start.INSTRUCTIUNISTATE );
+        if ( man.getPoly().intersects( zonAnim ) )
+            sbg.enterState( Start.CREDITSTATE );
 
-        // options.setCenterLocation( 650, 355 );
+        // start.setLocation( 280, 120 );
     }
 
     @Override

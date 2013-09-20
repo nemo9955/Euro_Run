@@ -32,13 +32,6 @@ public class DeathState extends BasicGameState {
 
     }
 
-
-    @Override
-    public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        MenuState.imn.loop();
-
-    }
-
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         img.draw();

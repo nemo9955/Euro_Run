@@ -57,9 +57,17 @@ public class Item extends Physics {
     protected boolean colid() {
 
         for (int i = 0 ; i <WorldMap.getBlocks().size() ; i ++ ) {
-            if ( GameplayState.getWorldMap().is_solid( i ) &&poly.intersects( GameplayState.getWorldMap().getBlock( i ) ) ) {
-                return true;
+            if ( GameplayState.getWorldMap().is_solid( i ) ) {
+                if ( poly.intersects( GameplayState.getWorldMap().getBlock( i ) ) )
+                    return true;
             }
+            else if ( poly.intersects( GameplayState.getWorldMap().getBlock( i ) ) ) {
+                while ( poly.intersects( GameplayState.getWorldMap().getBlock( i ) ) )
+                    modX( 5 );
+                modX( 200 );
+                return false;
+            }
+
         }
         return false;
     }

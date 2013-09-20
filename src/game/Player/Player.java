@@ -2,12 +2,10 @@ package game.Player;
 
 import game.Extra.Res;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.PackedSpriteSheet;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Rectangle;
@@ -16,10 +14,10 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Player extends Physics {
 
     protected Image        img[][];
-    protected final byte   frames[]      = { 8, 6, 9, 5, 6 };
+    protected final byte   frames[]      = { 10, 3,6, 1, 6 };
     /*
      * 0 - run
-     * 1 - to_jump
+     * 1 - jump
      * 2 - roll
      * 3 - slide
      * 4 - to_slide
@@ -30,7 +28,7 @@ public class Player extends Physics {
 
     protected byte         actiune, frame;
     protected byte         interval;
-    protected final byte   intervalTo    = 80;
+    protected final byte   intervalTo    = 60;
     protected boolean      hasNext;
     protected byte         buff;
     protected byte         next;
@@ -227,15 +225,15 @@ public class Player extends Physics {
     }
 
     protected boolean canMakeStep() {
-        modY( -35 );
+        modY( -50 );
         if ( !colid() ) {
-            modY( 35 );
+            modY( 50 );
             while ( !colid() ) {
-                modY( -5 );
+                modY( -10 );
             }
             return true;
         }
-        modY( 35 );
+        modY( 50 );
         return false;
     }
 
@@ -280,16 +278,45 @@ public class Player extends Physics {
         }
     }
 
+    /*
+     * protected void Imagini() {
+     * String links[] = { "run", "to_jump", "roll", "slide", "to_slide" };
+     * img = new Image[frames.length][9];
+     * PackedSpriteSheet sheet = null;
+     * try {
+     * lifeUp = new Sound( "res/sunet/harpa.wav" );
+     * lifeDown = new Sound( "res/sunet/lovitura.wav" );
+     * sheet = new PackedSpriteSheet( "res/player/sheet_activ.def", Color.white );
+     * scut = new Image( "res/player/scut.png" );
+     * }
+     * catch (SlickException e) {
+     * e.printStackTrace();
+     * }
+     * scut.setAlpha( 0.8f );
+     * for (int i = 0 ; i <links.length ; i ++ ) {
+     * boolean finish = false;
+     * frames[i] = 0;
+     * for (int k = 0 ; !finish ; k ++ ) {
+     * try {
+     * img[i][k] = sheet.getSprite( String.format( "%s%d.bmp", links[i], k ) );
+     * frames[i] ++;
+     * }
+     * catch (Exception e) {
+     * finish = true;
+     * }
+     * }
+     * }
+     * }
+     */
+
     protected void Imagini() {
-        String links[] = { "run", "to_jump", "roll", "slide", "to_slide" };
-        img = new Image[frames.length][9];
-        PackedSpriteSheet sheet = null;
+        String links[] = { "run", "jump", "roll", "slide", "to_slide" };
+        img = new Image[frames.length][10];
         try {
 
             lifeUp = new Sound( "res/sunet/harpa.wav" );
             lifeDown = new Sound( "res/sunet/lovitura.wav" );
 
-            sheet = new PackedSpriteSheet( "res/player/sheet_activ.def", Color.white );
             scut = new Image( "res/player/scut.png" );
         }
         catch (SlickException e) {
@@ -297,15 +324,12 @@ public class Player extends Physics {
         }
         scut.setAlpha( 0.8f );
         for (int i = 0 ; i <links.length ; i ++ ) {
-            boolean finish = false;
-            frames[i] = 0;
-            for (int k = 0 ; !finish ; k ++ ) {
+            for (int k = 0 ; k <frames[i] ; k ++ ) {
                 try {
-                    img[i][k] = sheet.getSprite( String.format( "%s%d.bmp", links[i], k ) );
-                    frames[i] ++;
+                    img[i][k] = new Image( String.format( "res/player/%s%d.png", links[i], k +1 ) );
                 }
                 catch (Exception e) {
-                    finish = true;
+                    System.out.println( "eroare la incarcarea pozei " +i +" " +k );
                 }
             }
         }

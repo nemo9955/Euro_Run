@@ -32,10 +32,10 @@ public class Elements {
 
     private static short genTunel() {
         short width = (short) ( 30 + ( zar.nextInt( 9 ) *35 ) );
-        Block temp = new Block( new Rectangle( WorldMap.startSpawn, -1500, width, 1440 - ( zar.nextInt( 3 ) *15 ) ) );
+        Block temp = new Block( new Rectangle( WorldMap.startSpawn+250, -1500, width, 1420 - ( zar.nextInt( 3 ) *15 ) ) );
         temp.setSolid( false );
         WorldMap.getBlocks().add( temp );
-        return (short) ( width +zar.nextInt( 100 ) );
+        return (short) ( width +zar.nextInt( 100 ) +400 );
     }
 
     private static short genRampa() {
@@ -44,12 +44,12 @@ public class Elements {
         ramp = new Polygon();
 
         ramp.addPoint( WorldMap.startSpawn, 5 );
-        ramp.addPoint( WorldMap.startSpawn +370, -50 );
-        ramp.addPoint( WorldMap.startSpawn +550 +zar.nextInt( 60 ), 5 );
+        ramp.addPoint( WorldMap.startSpawn +700, -100 );
+        ramp.addPoint( WorldMap.startSpawn +1000, 5 );
 
 
         WorldMap.getBlocks().add( new Block( ramp ) );
-        return 500;
+        return 900;
 
     }
 
@@ -73,7 +73,7 @@ public class Elements {
     private static short genWallLow() {
         short width;
 
-        WorldMap.getBlocks().add( new Block( new Rectangle( WorldMap.startSpawn, -210 +zar.nextInt( 50 ), width = (short) ( 30 + ( zar.nextInt( 7 ) *30 ) ), 270 ) ) );
+        WorldMap.getBlocks().add( new Block( new Rectangle( WorldMap.startSpawn, -280 +zar.nextInt( 50 ), width = (short) ( 30 + ( zar.nextInt( 7 ) *30 ) ), 270 ) ) );
         return width;
     }
 }

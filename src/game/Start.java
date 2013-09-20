@@ -1,5 +1,6 @@
 package game;
 
+import game.States.CreditState;
 import game.States.DeathState;
 import game.States.GameplayState;
 import game.States.InstructiuniState;
@@ -27,6 +28,7 @@ public class Start extends StateBasedGame {
     public static final byte    OPTIONSTATE       = 2;
     public static final byte    DEATHSTATE        = 3;
     public static final byte    INSTRUCTIUNISTATE = 4;
+    public static final byte    CREDITSTATE       = 5;
 
     public Start() throws SlickException {
         super( titlu );
@@ -39,6 +41,7 @@ public class Start extends StateBasedGame {
         addState( new DeathState() );
         addState( new GameplayState() );
         addState( new InstructiuniState() );
+        addState( new CreditState() );
     }
 
     public static void main(String[] args) throws SlickException {
@@ -46,6 +49,7 @@ public class Start extends StateBasedGame {
         app.setDisplayMode( WIDTH, HEIGHT, false );
         app.setShowFPS( false );
         app.setVSync( true );
+        app.setMusicVolume( 0.3f );
         app.start();
     }
 

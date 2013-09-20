@@ -38,6 +38,12 @@ public class Slider {
 
     }
 
+    public Slider(int x, int y, int size, int poz) {
+        this( x, y, size );
+        if ( poz <=size )
+            slide.setCenterX( poly.getMinX() +poz );
+    }
+
     public float getRap() {
         return ( slide.getCenterX() -poly.getMinX() ) /poly.getWidth();
 

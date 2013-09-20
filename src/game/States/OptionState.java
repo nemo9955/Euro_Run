@@ -53,7 +53,7 @@ public class OptionState extends BasicGameState {
             ton.getTxt().setBackgroundColor( new Color(60,200,250,0.5f) );
 
         sunet = new Slider( 400, 200, 250 );
-        muzica = new Slider( 400, 300, 250 );
+        muzica = new Slider( 400, 300, 250 , 75 );
     }
 
     @Override

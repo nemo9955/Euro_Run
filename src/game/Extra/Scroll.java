@@ -80,7 +80,7 @@ public class Scroll {
 
     protected void genText() {
         int i = 0;
-        int range = 45;
+        int range = 52;
         StringBuilder sb = new StringBuilder( message );
         i = 0;
 
@@ -122,7 +122,7 @@ public class Scroll {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
 
         img.draw( x, y );
-        g.drawString( message, x +80, y +125 );
+        g.drawString( message, x +85, y +90 );
 
     }
 

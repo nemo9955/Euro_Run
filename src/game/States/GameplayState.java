@@ -47,7 +47,7 @@ public class GameplayState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        player = new Player( 0, -100 );
+        player = new Player( 0, -200 );
         world = new WorldMap();
         camera = new Camera();
         bkg = new Rectangle( 0, 0, 600, 400 );
@@ -64,11 +64,11 @@ public class GameplayState extends BasicGameState {
     }
 
     public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        
+
         MenuState.imn.stop();
-        
-        dal.loop( );
-        player.reset( 0, -100 );
+
+        dal.loop();
+        player.reset( 0, -200 );
         world.reset();
         tick = 0;
         distanta = 0;

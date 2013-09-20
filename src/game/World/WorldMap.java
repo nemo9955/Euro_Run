@@ -54,7 +54,7 @@ public class WorldMap {
         item.clear();
 
         interval = 0;
-        distItem = 1000;
+        distItem = 500;
         move = 18;
         atTime = 10000;
         speed = atTime;
@@ -65,7 +65,7 @@ public class WorldMap {
 
         harta.reset();
 
-        blocks.add( new BlockMers(-200 , 0) );
+        blocks.add( new BlockMers( -200, 0 ) );
 
         while ( pozSol <startGen ) {
             imagini.add( new ZonaMers( pozSol, 0 ) );
@@ -85,6 +85,7 @@ public class WorldMap {
             interval -= move;
         else
             interval = 0;
+
 
         subUpdate( gc, sbg );
         adderReg();
@@ -151,15 +152,15 @@ public class WorldMap {
                 interval += 200 + ( zar.nextInt( 7 ) *15 );
             }
             else if ( gen <800 ) {
-                blocks.add( new BlockSolid( startSpawn, -30 - ( zar.nextInt( 15 ) *10 ) ) );
-                interval += 350 +zar.nextInt( 100 );
+                blocks.add( new BlockSolid( startSpawn, -30 - ( zar.nextInt( 20 ) *10 ) ) );
+                interval += 550 +zar.nextInt( 100 );
             }
             else if ( gen <1200 ) {
                 blocks.add( new Faller( startSpawn, -500 -zar.nextInt( 30 ) *10 ) );
                 interval += 400 +zar.nextInt( 50 );
             }
             else if ( gen <2000 ) {
-                interval += 200 +zar.nextInt( 100 ) +Elements.MakeWall( startSpawn );
+                interval += 400 +zar.nextInt( 100 ) +Elements.MakeWall( startSpawn );
             }
             else {
                 interval += 50 + ( zar.nextInt( 10 ) *25 );
