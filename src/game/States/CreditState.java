@@ -28,11 +28,11 @@ public class CreditState extends BasicGameState {
         g.setColor( Color.black );
         g.drawString( "Acest joc a fost realizat pentru a promova campania Euroscola\n" +
         		"din cadrul Colegiului National Ecaterina Teodoroiu .\n\n" +
-        		"Programarea realizata de Mogoi Adrian aka nemo9955 .\n" +
-        		"Grafica jocului facuta de Voica Lucian si Mogoi Adrian.\n" +
-        		"Informatiile necesare procurate de Cocheci Cosmin .\n" +
+        		"Programarea realizata de Mogoi Adrian .\n" +
+        		"Grafica jocului facuta de Voica Lucian , Mihaela Popa si Mogoi Adrian.\n" +
+        		"Informatiile necesare procurate de Cocheci Cosmin si Ionescu Diana .\n" +
         		"Asistenta oferita de Caramete Elvis si Draica Cristian .\n" +
-        		"" +
+        		"Multumiri membrilor echipei pentru ajutor si suport .\n" +
         		"" +
         		"" +
         		"", 100, 100 );

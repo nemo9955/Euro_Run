@@ -25,7 +25,7 @@ public class Scroll {
     protected short      x, y;
     protected Rectangle  zon;
     protected Random     zar     = new Random();
-    protected final byte noFacts = 9;
+    protected final byte noFacts = 17;
     protected String     message = "Asta e mesajul default , mai mult ca sigur fisierul cu intrebari nu e in pachetul \"Extra\" ........ chiar asa e de greu sa dai copy / paste ? ";
 
     protected Sound      sunet;
